@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "737186643610",
+    "project_id": "afeme-4de7d",
+    "storage_bucket": "afeme-4de7d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:737186643610:android:1c4b71607b9197fa442923",
+        "android_client_info": {
+          "package_name": "com.ayizor.afeme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "737186643610-11h6bqrple97aopkvd4uggncbd1d2d90.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ayizor.afeme",
+            "certificate_hash": "3c7e4629f2744fb0c72ce7915a057308476cb1ed"
+          }
+        },
+        {
+          "client_id": "737186643610-87d211mvjqq5k0nvkdkc2954lialm60o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA27nXNCNVty9NjHzzFfKAdNo6FvEPhUzM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "737186643610-87d211mvjqq5k0nvkdkc2954lialm60o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

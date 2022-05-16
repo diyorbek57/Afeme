@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">Afeme</string>
+    <string name="let_s_you_in">Let\'s you in</string>
+    <string name="facebook">Facebook</string>
+    <string name="google">Google</string>
+    <string name="or">Or</string>
+    <string name="sign_in_with_password">Sign in with password</string>
+    <string name="don_t_have_an_account_sign_up"><font color='#949AA1'>Don\'t have an account?</font><font color='#2972FE'>  Sign up</font></string>
+    <string name="sign_up_for_free">Sign up for free</string>
+    <string name="invalid_email">Invalid email</string>
+    <string name="email">Email</string>
+    <string name="email_important">Email<font color='#DA1414'>*</font></string>
+    <string name="password_important">Password<font color='#DA1414'>*</font></string>
+    <string name="remember_me">Remember me</string>
+    <string name="password">Password</string>
+    <string name="sign_up">Sign up</string>
+    <string name="or_continue_with">or continue with</string>
+    <string name="already_have_an_account_sign_in"><font color='#949AA1'>Already have an account?</font><font color='#2972FE'>  Sign in</font></string>
+    <string name="forgot_the_password">Forgot the password?</string>
+    <string name="sign_in_to_your_account">Sign in to your account</string>
+
+    <string name="next">Next</string>
+    <string name="text">Text</string>
+    <string name="skip">Skip</string>
+    <string name="onboarding_first_page">The Biggest Real Estate App of the Century</string>
+    <string name="onboarding_second_page">We Focus on Providing a Comfortable Place for You</string>
+    <string name="onboarding_third_page">Find your Beloved Family\'s Dream House with us</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
 </resources>
