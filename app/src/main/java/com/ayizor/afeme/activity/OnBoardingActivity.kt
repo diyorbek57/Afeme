@@ -122,7 +122,7 @@ class OnBoardingActivity : BaseActivity() {
                 binding.nextBtn.setText(R.string.next)
                 binding.skipBtn.visibility = View.VISIBLE
             } else {
-                binding.nextBtn.setText(R.string.done)
+                binding.nextBtn.setText(R.string.next)
                 binding.skipBtn.visibility = View.INVISIBLE
             }
 
