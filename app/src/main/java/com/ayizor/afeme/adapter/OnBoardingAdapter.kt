@@ -19,7 +19,7 @@ class OnBoardingAdapter(var context: Context) : PagerAdapter() {
 
     private var images = intArrayOf(
         R.drawable.house_1,
-        R.drawable.house_1, R.drawable.house_1
+        R.drawable.house_2, R.drawable.house_3
     )
     var headings = intArrayOf(
         R.string.onboarding_first_page,

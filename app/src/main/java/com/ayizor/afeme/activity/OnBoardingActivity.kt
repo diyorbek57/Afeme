@@ -10,31 +10,30 @@ import android.view.animation.Animation
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.ayizor.afeme.R
 import com.ayizor.afeme.adapter.OnBoardingAdapter
+import com.ayizor.afeme.databinding.ActivityOnBoardingBinding
+import com.ayizor.afeme.databinding.ActivitySplashBinding
 
 
 class OnBoardingActivity : BaseActivity() {
 
     //Variables
-    lateinit var viewPager: ViewPager
-    lateinit var dotsLayout: LinearLayout
     lateinit var sliderAdapter: OnBoardingAdapter
-    lateinit var next: Button
-    lateinit var skip: Button
     lateinit var animation: Animation
     var currentPos = 0
-
+    lateinit var binding: ActivityOnBoardingBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getWindow().setFlags(
+        window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-        setContentView(R.layout.activity_on_boarding)
+        binding = ActivityOnBoardingBinding.inflate(layoutInflater)
+        val view: View = binding.root
+        setContentView(view)
         if (onlyOnce()) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
@@ -46,24 +45,19 @@ class OnBoardingActivity : BaseActivity() {
     }
 
     private fun inits() {
-        //Hooks
-        viewPager = findViewById(R.id.slider)
-        dotsLayout = findViewById(R.id.dots)
-        next = findViewById(R.id.next_btn)
-        skip = findViewById(R.id.skip_btn)
         //Call adapter
         sliderAdapter = OnBoardingAdapter(this)
-        viewPager.setAdapter(sliderAdapter)
+        binding.vpOnboarding.adapter = sliderAdapter
 
         //Dots
         addDots(0)
-        viewPager.addOnPageChangeListener(changeListener)
-        next.setOnClickListener {
+        binding.vpOnboarding.addOnPageChangeListener(changeListener)
+        binding.nextBtn.setOnClickListener {
             next()
         }
 
 
-        skip.setOnClickListener {
+        binding.skipBtn.setOnClickListener {
             skip()
         }
 
@@ -80,8 +74,8 @@ class OnBoardingActivity : BaseActivity() {
     }
 
     fun next() {
-        viewPager.currentItem = currentPos + 1
-        if (next.text.toString().contains("Done")) {
+        binding.vpOnboarding.currentItem = currentPos + 1
+        if (binding.nextBtn.text.toString().contains("Done")) {
             val sharedpreferences = getSharedPreferences("ONLYONCE", MODE_PRIVATE)
             val editor = sharedpreferences.edit()
             editor.putBoolean("ONLYONCE", true)
@@ -93,13 +87,13 @@ class OnBoardingActivity : BaseActivity() {
     }
 
     private fun addDots(position: Int) {
-        val dots = arrayOfNulls<TextView>(4)
-        dotsLayout.removeAllViews()
+        val dots = arrayOfNulls<TextView>(3)
+        binding.llDots.removeAllViews()
         for (i in dots.indices) {
             dots[i] = TextView(this)
             dots[i]?.text = Html.fromHtml("&#8226;")
             dots[i]?.textSize = 35F
-            dotsLayout.addView(dots[i])
+            binding.llDots.addView(dots[i])
         }
         if (dots.isNotEmpty()) {
             dots[position]?.setTextColor(resources.getColor(R.color.bright_blue))
@@ -112,25 +106,25 @@ class OnBoardingActivity : BaseActivity() {
             positionOffset: Float,
             positionOffsetPixels: Int
         ) {
+
         }
 
         override fun onPageSelected(position: Int) {
-            addDots(position)
-            currentPos = position
-            if (position == 0) {
-                next.setText(R.string.next)
-                skip.visibility = View.VISIBLE
-            } else if (position == 1) {
-                next.setText(R.string.next)
-                skip.visibility = View.VISIBLE
-            } else if (position == 2) {
-                next.setText(R.string.next)
-                skip.visibility = View.VISIBLE
-            } else {
-                next.setText(R.string.skip)
-                skip.visibility = View.INVISIBLE
-            }
 
+            addDots(position)
+            if (position == 0) {
+                binding.nextBtn.setText(R.string.next)
+                binding.skipBtn.visibility = View.VISIBLE
+            } else if (position == 1) {
+                binding.nextBtn.setText(R.string.next)
+                binding.skipBtn.visibility = View.VISIBLE
+            } else if (position == 2) {
+                binding.nextBtn.setText(R.string.next)
+                binding.skipBtn.visibility = View.VISIBLE
+            } else {
+                binding.nextBtn.setText(R.string.done)
+                binding.skipBtn.visibility = View.INVISIBLE
+            }
 
 //                animation = AnimationUtils.loadAnimation(OnBoarding.this, R.anim.bottom_anim);
 //                letsGetStarted.setAnimation(animation);

@@ -3,22 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable-v24/gradient_solid_rounded.xml" value="0.1" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1235" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/gradient_solid_rounded.xml" value="0.12" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_facebook.xml" value="0.1" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_il_welcome_cats.xml" value="0.121" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1235" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/solid_rounded.xml" value="0.1235" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_on_boarding.xml" value="0.25" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_sign_in.xml" value="0.4" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_sign_up.xml" value="0.136" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_splash.xml" value="0.25" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_welcome.xml" value="0.10989583333333333" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/item_onboarding.xml" value="0.25" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/view_dialog_double.xml" value="0.24895833333333334" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/view_dialog_single.xml" value="0.25" />
+        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_on_boarding.xml" value="0.3569230769230769" />
+        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/item_onboarding.xml" value="0.14791666666666667" />
       </map>
     </option>
   </component>
