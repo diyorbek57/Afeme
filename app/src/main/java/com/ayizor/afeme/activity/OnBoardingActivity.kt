@@ -125,6 +125,7 @@ class OnBoardingActivity : BaseActivity() {
                 binding.nextBtn.setText(R.string.next)
                 binding.skipBtn.visibility = View.INVISIBLE
             }
+            ///
 
 //                animation = AnimationUtils.loadAnimation(OnBoarding.this, R.anim.bottom_anim);
 //                letsGetStarted.setAnimation(animation);
