@@ -7,15 +7,11 @@ import android.text.Html
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.Animation
-import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.ayizor.afeme.R
 import com.ayizor.afeme.adapter.OnBoardingAdapter
 import com.ayizor.afeme.databinding.ActivityOnBoardingBinding
-import com.ayizor.afeme.databinding.ActivitySplashBinding
 
 
 class OnBoardingActivity : BaseActivity() {
@@ -48,9 +44,9 @@ class OnBoardingActivity : BaseActivity() {
         //Call adapter
         sliderAdapter = OnBoardingAdapter(this)
         binding.vpOnboarding.adapter = sliderAdapter
-
+binding.llDots.setupWithViewPager(binding.vpOnboarding)
         //Dots
-        addDots(0)
+//        addDots(0)
         binding.vpOnboarding.addOnPageChangeListener(changeListener)
         binding.nextBtn.setOnClickListener {
             next()
@@ -74,8 +70,9 @@ class OnBoardingActivity : BaseActivity() {
     }
 
     fun next() {
-        binding.vpOnboarding.currentItem = currentPos + 1
-        if (binding.nextBtn.text.toString().contains("Done")) {
+     currentPos =  binding.vpOnboarding.currentItem
+        currentPos++
+        if (binding.vpOnboarding.currentItem == 2) {
             val sharedpreferences = getSharedPreferences("ONLYONCE", MODE_PRIVATE)
             val editor = sharedpreferences.edit()
             editor.putBoolean("ONLYONCE", true)
@@ -84,21 +81,22 @@ class OnBoardingActivity : BaseActivity() {
             startActivity(intent)
             finish()
         }
+        binding.vpOnboarding.currentItem=currentPos
     }
 
-    private fun addDots(position: Int) {
-        val dots = arrayOfNulls<TextView>(3)
-        binding.llDots.removeAllViews()
-        for (i in dots.indices) {
-            dots[i] = TextView(this)
-            dots[i]?.text = Html.fromHtml("&#8226;")
-            dots[i]?.textSize = 35F
-            binding.llDots.addView(dots[i])
-        }
-        if (dots.isNotEmpty()) {
-            dots[position]?.setTextColor(resources.getColor(R.color.bright_blue))
-        }
-    }
+//    private fun addDots(position: Int) {
+//        val dots = arrayOfNulls<TextView>(3)
+//        binding.llDots.removeAllViews()
+//        for (i in dots.indices) {
+//            dots[i] = TextView(this)
+//            dots[i]?.text = Html.fromHtml("&#8226;")
+//            dots[i]?.textSize = 12F
+//            binding.llDots.addView(dots[i])
+//        }
+//        if (dots.isNotEmpty()) {
+//            dots[position]?.setTextColor(resources.getColor(R.color.bright_blue))
+//        }
+//    }
 
     var changeListener: OnPageChangeListener = object : OnPageChangeListener {
         override fun onPageScrolled(
@@ -111,7 +109,7 @@ class OnBoardingActivity : BaseActivity() {
 
         override fun onPageSelected(position: Int) {
 
-            addDots(position)
+//            addDots(position)
             if (position == 0) {
                 binding.nextBtn.setText(R.string.next)
                 binding.skipBtn.visibility = View.VISIBLE

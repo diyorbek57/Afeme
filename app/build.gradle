@@ -38,6 +38,8 @@ android {
 
 dependencies {
 //custom
+    //smoothBottomBar
+    implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.9'
     //glide
     implementation 'com.github.bumptech.glide:glide:4.13.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'

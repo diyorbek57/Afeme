@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:padding="20dp"
+
     tools:context=".activity.OnBoardingActivity">
 
     <androidx.viewpager.widget.ViewPager
@@ -29,30 +29,39 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-
-        <LinearLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/ll_dots"
-            android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" />
+            android:background="@null"
+            app:background="@null"
+
+            app:tabBackground="@drawable/tab_selector"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp"/>
 
         <Button
-            android:id="@+id/next_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="#00000000"
-            android:text="@string/next"
-            android:textColor="@color/black" />
-
-        <Button
-            app:backgroundTint="@null"
             android:id="@+id/skip_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/gradient_solid_rounded"
+            android:background="#00000000"
+            android:fontFamily="@font/source_sans_pro_semibold"
             android:text="@string/skip"
-            android:textColor="@color/black" />
+            android:textColor="@color/bright_blue"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/next_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/gradient_solid_rounded"
+            android:text="@string/next"
+            android:fontFamily="@font/source_sans_pro_semibold"
+            android:textColor="@color/white"
+            app:backgroundTint="@null"
+            android:textSize="16sp" />
+
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,13 +1,22 @@
 package com.ayizor.afeme.activity
 
 import android.os.Bundle
-import com.ayizor.afeme.R
+import android.view.View
 import com.ayizor.afeme.databinding.ActivityMainBinding
+import com.ayizor.afeme.utils.Logger
 
 class MainActivity : BaseActivity() {
-    lateinit var binding:ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view: View = binding.root
+        setContentView(view)
+        inits()
+    }
+
+    private fun inits() {
+
     }
 }
