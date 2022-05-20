@@ -6,11 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:backgroundTint="@null"
+        app:backgroundTint="@null"
+        app:itemBackground="@color/white"
+        app:itemIconSize="28dp"
+        app:itemIconTint="@color/black"
         app:labelVisibilityMode="unlabeled"
         android:layout_alignParentBottom="true"
         app:menu="@menu/main_bottom_navigation" />
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomBar"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/main_navigation" />
+
 </RelativeLayout>

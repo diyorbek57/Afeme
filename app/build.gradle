@@ -38,11 +38,20 @@ android {
 
 dependencies {
 //custom
+    def nav_version = "2.4.2"
+    //image slider
+    implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
+    //fragment
+    implementation 'androidx.fragment:fragment-ktx:1.4.1'
     //smoothBottomBar
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.9'
     //glide
     implementation 'com.github.bumptech.glide:glide:4.13.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
+    //navigation
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
     //Retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     //Firebase
@@ -54,6 +63,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging-ktx'
 //
     //
+    //noinspection GradleDependency
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.21"
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.6.0'

@@ -7,7 +7,7 @@
         android:title="" />
 
     <item
-        android:id="@+id/nav_calendar"
+        android:id="@+id/nav_search"
         android:icon="@drawable/nav_search_selector"
         android:title="" />
     <item
@@ -15,8 +15,8 @@
         android:icon="@drawable/ic_add_outline"
         android:title="" />
     <item
-        android:id="@+id/nav_category"
-        android:icon="@drawable/nav_favorites_selector"
+        android:id="@+id/nav_chat"
+        android:icon="@drawable/nav_chat_selector"
         android:title="" />
 
     <item

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="230dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_margin="9dp"
+    android:background="@drawable/bright_blue_stroke_box">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/source_sans_pro_semibold"
+        android:text="@string/view_all"
+        android:textColor="@color/bright_blue"
+        android:textSize="24sp" />
+</RelativeLayout>
