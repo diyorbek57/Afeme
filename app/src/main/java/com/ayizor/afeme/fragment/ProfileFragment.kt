@@ -26,11 +26,11 @@ class ProfileFragment : Fragment() {
     }
 
     private fun inits() {
-        val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottomBar)
+        /*val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottomBar)
 
         if (navBar != null) {
             navBar.visibility=View.GONE
-        }
+        }*/
     }
 
 }

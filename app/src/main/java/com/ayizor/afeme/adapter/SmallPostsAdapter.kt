@@ -80,7 +80,7 @@ class SmallPostsAdapter(
 
     }
 
-    internal class SmallPostsViewHolder : RecyclerView.ViewHolder {
+    inner class SmallPostsViewHolder : RecyclerView.ViewHolder {
         private var smallPostBinding: ItemPostSmallBinding? = null
         private var smallPostViewAllBinding: ItemViewAllBinding? = null
 

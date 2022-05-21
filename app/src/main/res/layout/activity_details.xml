@@ -38,6 +38,7 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
+                android:backgroundTint="@null"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
@@ -141,7 +142,6 @@
             </RelativeLayout>
 
             <TextView
-
                 android:id="@+id/tv_name_post_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -156,7 +156,6 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -166,7 +165,7 @@
                     android:src="@drawable/ic_location_full" />
 
                 <TextView
-                    android:id="@+id/tv_location_post_large"
+                    android:id="@+id/tv_location_details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -174,7 +173,135 @@
                     android:text="Sudirman St.169, Surabaya, Indonesia"
                     android:textColor="@color/dark_grayish_blue"
                     android:textSize="18sp" />
+
+
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="15dp"
+                android:background="@color/dark_grayish_blue" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_users_profile_details"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/house_1"
+                    app:shapeAppearanceOverlay="@style/circler_imageView" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/iv_users_profile_details"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_username_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/source_sans_pro_semibold"
+                        android:text="@string/username"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/tv_user_type_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:fontFamily="@font/source_sans_pro_semibold"
+                        android:text="Relter"
+                        android:textAllCaps="false"
+                        android:textColor="@color/dark_grayish_blue"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:id="@+id/fl_chat_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:background="@drawable/ic_item_light_icon_circle_background">
+
+                        <ImageView
+                            android:id="@+id/iv_chat_image_details"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_margin="15dp"
+                            android:src="@drawable/nav_ic_chat_selected" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/fl_call_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/ic_item_light_icon_circle_background">
+
+                        <ImageView
+                            android:id="@+id/iv_call_image_details"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_margin="15dp"
+                            android:src="@drawable/ic_call" />
+                    </FrameLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:fontFamily="@font/source_sans_pro_semibold"
+                android:text="@string/popular"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_description_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro_semibold"
+                android:text="@string/dummy_text"
+                android:textColor="@color/dark_grayish_blue"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:fontFamily="@font/source_sans_pro_semibold"
+                android:text="@string/gallery"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_gallery_small_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
