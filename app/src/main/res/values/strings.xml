@@ -18,7 +18,6 @@
     <string name="already_have_an_account_sign_in"><font color='#949AA1'>Already have an account?</font><font color='#2972FE'>  Sign in</font></string>
     <string name="forgot_the_password">Forgot the password?</string>
     <string name="sign_in_to_your_account">Sign in to your account</string>
-
     <string name="next">Next</string>
     <string name="text">Text</string>
     <string name="skip">Skip</string>
@@ -27,7 +26,6 @@
     <string name="onboarding_third_page">Find your Beloved Family\'s Dream House with us</string>
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="house">House</string>
     <string name="popular">Popular</string>
@@ -48,4 +46,7 @@
     </string>
     <string name="username">Username</string>
     <string name="gallery">Gallery</string>
+    <string name="search">Search</string>
+    <string name="api_key">AIzaSyA27nXNCNVty9NjHzzFfKAdNo6FvEPhUzM</string>
+    <string name="location">Location</string>
 </resources>

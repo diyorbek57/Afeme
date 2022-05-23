@@ -108,6 +108,9 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
         feeds.add(Category("Apartment"))
         feeds.add(Category("Villa"))
         feeds.add(Category("House"))
+        feeds.add(Category("House"))
+        feeds.add(Category("House"))
+        feeds.add(Category("House"))
 
         return feeds
     }

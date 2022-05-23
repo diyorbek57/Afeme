@@ -1,5 +1,8 @@
 package com.ayizor.afeme.activity
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
@@ -11,14 +14,26 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.TextView
 import android.widget.TextView.BufferType
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.ayizor.afeme.R
 import com.ayizor.afeme.databinding.ActivityDetailsBinding
 import com.ayizor.afeme.utils.CustomSpannable
+import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.interfaces.ItemClickListener
+import com.denzcoskun.imageslider.models.SlideModel
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.*
 
 
-class DetailsActivity : AppCompatActivity() {
+class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     lateinit var binding: ActivityDetailsBinding
     val TAG: String = DetailsActivity::class.java.simpleName
+    lateinit var supportMapFragment: SupportMapFragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailsBinding.inflate(layoutInflater)
@@ -28,8 +43,32 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private fun inits() {
-
+        setupViewPager()
+        //Assign variable
+        supportMapFragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_map_details) as SupportMapFragment
+        supportMapFragment.getMapAsync(this)
+        //Check location permission
         makeTextViewResizable(binding.tvDescriptionDetails, 3, "View More", true);
+
+    }
+
+    private fun setupViewPager() {
+        val imageList = ArrayList<SlideModel>() // Create image list
+
+// imageList.add(SlideModel("String Url" or R.drawable)
+// imageList.add(SlideModel("String Url" or R.drawable, "title") You can add title
+
+        imageList.add(SlideModel("https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-1.2.1&raw_url=true&q=80&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075"))
+        imageList.add(SlideModel("https://images.unsplash.com/photo-1569420742472-06233f00cbf7?ixlib=rb-1.2.1&raw_url=true&q=80&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687"))
+        imageList.add(SlideModel("https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-1.2.1&raw_url=true&q=80&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074"))
+        binding.isDetails.setImageList(imageList, scaleType = ScaleTypes.CENTER_CROP)
+
+        binding.isDetails.setItemClickListener(object : ItemClickListener {
+            override fun onItemSelected(position: Int) {
+                // Toast.makeText(this@DetailsActivity, imageList[position].imageUrl, Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun makeTextViewResizable(
@@ -73,8 +112,11 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private fun addClickablePartTextViewResizable(
-        strSpanned: Spanned, tv: TextView,
-        maxLine: Int, spanableText: String, viewMore: Boolean
+        strSpanned: Spanned,
+        tv: TextView,
+        maxLine: Int,
+        spanableText: String,
+        viewMore: Boolean
     ): SpannableStringBuilder? {
         val str = strSpanned.toString()
         val ssb = SpannableStringBuilder(strSpanned)
@@ -95,5 +137,36 @@ class DetailsActivity : AppCompatActivity() {
             }, str.indexOf(spanableText), str.indexOf(spanableText) + spanableText.length, 0)
         }
         return ssb
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        val latitude = 40.747457
+        val longitude = 72.359775
+        val postLocation = LatLng(latitude, longitude)
+        googleMap.uiSettings.isZoomGesturesEnabled = false;
+        googleMap.uiSettings.isScrollGesturesEnabledDuringRotateOrZoom=false
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(postLocation, 16f))
+        // create marker
+        val marker: MarkerOptions =
+            MarkerOptions().position(LatLng(latitude, longitude))
+
+// Changing marker icon
+        marker.icon(bitmapDescriptorFromVector(this, R.drawable.ic_home_marker))
+
+// adding marker
+        googleMap.addMarker(marker);
+        googleMap.addCircle(
+            CircleOptions().center(LatLng(latitude, longitude)).radius(100.0)
+                .strokeColor(R.color.bright_blue).fillColor(R.color.light_blue)
+        )
+    }
+
+    private fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
+        return ContextCompat.getDrawable(context, vectorResId)?.run {
+            setBounds(0, 0, intrinsicWidth, intrinsicHeight)
+            val bitmap = Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888)
+            draw(Canvas(bitmap))
+            BitmapDescriptorFactory.fromBitmap(bitmap)
+        }
     }
 }
