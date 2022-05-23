@@ -1,32 +1,27 @@
 package com.ayizor.afeme.activity
 
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.ayizor.afeme.R
 import com.ayizor.afeme.databinding.ActivityMainBinding
 import com.ayizor.afeme.utils.Logger
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
 
 
 class MainActivity : BaseActivity() {
 
 
     lateinit var binding: ActivityMainBinding
-val TAG:String=MainActivity::class.java.simpleName
+    val TAG: String = MainActivity::class.java.simpleName
     val LAUNCH_SECOND_ACTIVITY: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        Logger.d(TAG,"onCreate")
+        Logger.d(TAG, "onCreate")
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         NavigationUI.setupWithNavController(binding.bottomBar, navHostFragment.navController)
@@ -37,7 +32,9 @@ val TAG:String=MainActivity::class.java.simpleName
 
         binding.bottomBar.itemIconTintList = null
 
-
+        binding.ivAdd.setOnClickListener {
+            callCreatePostActivity()
+        }
 
 
     }
@@ -58,7 +55,7 @@ val TAG:String=MainActivity::class.java.simpleName
 
     override fun onStart() {
         super.onStart()
-        Logger.d(TAG,"onStart")
+        Logger.d(TAG, "onStart")
     }
 }
 

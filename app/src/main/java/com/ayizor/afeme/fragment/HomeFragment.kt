@@ -179,6 +179,23 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
                 "month",
                 "Andijan",
                 3.4,
+                1
+            )
+        )
+        feeds.add(
+            Post(
+                R.drawable.house_1,
+                "Test",
+                "1",
+                "1",
+                "1",
+                1,
+                "1000",
+                "Rent",
+                "Villa",
+                "month",
+                "Andijan",
+                3.4,
                 0
             )
         )

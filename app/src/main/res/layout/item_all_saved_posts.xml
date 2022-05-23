@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/black"
+    app:cardCornerRadius="15dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_allpins_4"
+            android:layout_width="110dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="80dp"
+            android:background="@color/light_blue"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/rounded_border_imageView_15"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1.5dp" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_allpins_3"
+            android:layout_width="110dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="60dp"
+            android:scaleType="centerCrop"
+            android:background="@color/teal_200"
+            app:shapeAppearanceOverlay="@style/rounded_border_imageView_15"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1.5dp" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_allpins_2"
+            android:layout_width="110dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="40dp"
+            android:scaleType="centerCrop"
+            android:background="@color/purple_700"
+            app:shapeAppearanceOverlay="@style/rounded_border_imageView_15"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1.5dp" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_allpins_1"
+            android:layout_width="110dp"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:layout_marginStart="20dp"
+            android:background="@color/white"
+            app:shapeAppearanceOverlay="@style/rounded_border_imageView_15"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1.5dp" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_allpins_0"
+            android:layout_width="110dp"
+            android:layout_height="150dp"
+            android:background="@color/bright_blue"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/rounded_border_imageView_15"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1.5dp" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_allpins_4"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

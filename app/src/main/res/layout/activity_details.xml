@@ -10,7 +10,8 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
+        android:elevation="0dp"
+        android:stateListAnimator="@null"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -28,28 +29,26 @@
                 app:iss_corner_radius="5"
                 app:iss_delay="0"
                 app:iss_error_image="@android:color/darker_gray"
-
                 app:iss_period="1000"
-                app:iss_placeholder="@color/light_blue"
+                app:iss_placeholder="@color/black"
                 app:iss_selected_dot="@drawable/tab_indicator_selected"
                 app:iss_text_align="1"
                 app:iss_unselected_dot="@drawable/tab_indicator_default"
+                app:layout_collapseMode="pin"
                 tools:ignore="MissingConstraints" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:backgroundTint="@null"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+                android:elevation="0dp"
+                app:layout_collapseMode="pin">
 
                 <RelativeLayout
                     android:id="@+id/rl_1_home"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="10dp">
-
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -66,8 +65,6 @@
                         android:background="@drawable/ic_item_light_icon_15_background"
                         android:padding="10dp"
                         android:src="@drawable/ic_heart_outline" />
-
-
                 </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>
 

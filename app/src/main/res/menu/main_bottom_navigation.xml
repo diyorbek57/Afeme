@@ -11,8 +11,7 @@
         android:icon="@drawable/nav_search_selector"
         android:title="" />
     <item
-        android:id="@+id/nav_add"
-        android:icon="@drawable/ic_add_outline"
+        android:id="@+id/nav_add_not_use"
         android:title="" />
     <item
         android:id="@+id/nav_chat"
