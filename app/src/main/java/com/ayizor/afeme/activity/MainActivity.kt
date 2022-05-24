@@ -3,14 +3,18 @@ package com.ayizor.afeme.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.ayizor.afeme.R
 import com.ayizor.afeme.databinding.ActivityMainBinding
 import com.ayizor.afeme.utils.Logger
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 
 
-class MainActivity : BaseActivity() {
+class MainActivity : AppCompatActivity() {
 
 
     lateinit var binding: ActivityMainBinding
@@ -22,10 +26,10 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         Logger.d(TAG, "onCreate")
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         NavigationUI.setupWithNavController(binding.bottomBar, navHostFragment.navController)
         inits()
+
     }
 
     private fun inits() {
@@ -36,7 +40,7 @@ class MainActivity : BaseActivity() {
             callCreatePostActivity()
         }
 
-
+        loadFCMToken()
     }
 
 
@@ -56,6 +60,16 @@ class MainActivity : BaseActivity() {
     override fun onStart() {
         super.onStart()
         Logger.d(TAG, "onStart")
+    }
+    private fun loadFCMToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Logger.d(TAG+"Token", "Fetching FCM registration token failed")
+                return@OnCompleteListener
+            }
+            val token = task.result
+            Logger.d(TAG+"Token", token.toString())
+        })
     }
 }
 

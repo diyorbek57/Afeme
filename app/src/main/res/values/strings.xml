@@ -49,4 +49,13 @@
     <string name="search">Search</string>
     <string name="api_key">AIzaSyA27nXNCNVty9NjHzzFfKAdNo6FvEPhUzM</string>
     <string name="location">Location</string>
+    <string name="features_amp_facilities"><![CDATA[Features & Facilities]]></string>
+    <string name="status">Status</string>
+    <string name="area">Area</string>
+    <string name="year_build">Year build</string>
+    <string name="floor">Floor</string>
+    <string name="area_amp_lot"><![CDATA[Area & Lot]]></string>
+    <string name="interior">Interior</string>
+    <string name="price">Price</string>
+    <string name="buy">Buy</string>
 </resources>

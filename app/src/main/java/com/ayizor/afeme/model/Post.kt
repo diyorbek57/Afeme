@@ -11,6 +11,8 @@ data class Post(
     val post_type: String? = "",
     val post_building_type: String? = "",
     val post_period: String? = "",
+    val post_latitude: String? = "",
+    val post_longitude: String? = "",
     val post_location: String? = "",
     val post_rating: Double? = null,
     val model_type: Int? = null

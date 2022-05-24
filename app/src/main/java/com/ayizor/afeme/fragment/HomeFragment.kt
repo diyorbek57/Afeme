@@ -1,6 +1,6 @@
 package com.ayizor.afeme.fragment
 
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +12,7 @@ import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ayizor.afeme.R
 import com.ayizor.afeme.activity.DetailsActivity
+import com.ayizor.afeme.activity.ViewAllActivity
 import com.ayizor.afeme.adapter.CategoryAdapter
 import com.ayizor.afeme.adapter.SmallPostsAdapter
 import com.ayizor.afeme.databinding.FragmentHomeBinding
@@ -25,7 +26,7 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
     CategoryAdapter.OnCategoryItemClickListener {
 
     lateinit var binding: FragmentHomeBinding
-    val TAG:String= HomeFragment::class.java.simpleName
+    val TAG: String = HomeFragment::class.java.simpleName
     private val viewModel by navGraphViewModels<HomeFragmentViewModel>(R.id.main_navigation)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,6 +64,19 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
         refreshNearbyAdapter(getAllPosts())
         refreshCheapAdapter(getAllPosts())
         refreshCategoryAdapter(getAllCategory())
+        setupClickableViews()
+    }
+
+    private fun setupClickableViews() {
+        binding.tvPopularViewAll.setOnClickListener {
+            callViewAllActivity("Popular")
+        };
+        binding.tvCheapViewAll.setOnClickListener {
+            callViewAllActivity("Cheap")
+        }
+        binding.tvNearbyViewAll.setOnClickListener {
+            callViewAllActivity("Nearby your location")
+        }
     }
 
 
@@ -70,7 +84,7 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
         val adapter = CategoryAdapter(requireContext(), filters, this)
         binding.rvHomeCategory.adapter = adapter
 
-        if (viewModel.categoryListState != null){
+        if (viewModel.categoryListState != null) {
             binding.rvHomeCategory.layoutManager?.onRestoreInstanceState(viewModel.categoryListState)
             viewModel.categoryListState = null
         }
@@ -129,40 +143,8 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
                 "Rent",
                 "Villa",
                 "month",
-                "Andijan",
-                3.4,
-                1
-            )
-        )
-        feeds.add(
-            Post(
-                R.drawable.house_2,
-                "Test",
-                "1",
-                "1",
-                "1",
-                1,
-                "1000",
-                "Rent",
-                "Villa",
-                "month",
-                "Andijan",
-                3.4,
-                1
-            )
-        )
-        feeds.add(
-            Post(
-                R.drawable.house_3,
-                "Test",
-                "1",
-                "1",
-                "1",
-                1,
-                "1000",
-                "Rent",
-                "Villa",
-                "month",
+                null,
+                null,
                 "Andijan",
                 3.4,
                 1
@@ -180,6 +162,8 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
                 "Rent",
                 "Villa",
                 "month",
+                null,
+                null,
                 "Andijan",
                 3.4,
                 1
@@ -197,6 +181,46 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
                 "Rent",
                 "Villa",
                 "month",
+                null,
+                null,
+                "Andijan",
+                3.4,
+                1
+            )
+        )
+        feeds.add(
+            Post(
+                R.drawable.house_1,
+                "Test",
+                "1",
+                "1",
+                "1",
+                1,
+                "1000",
+                "Rent",
+                "Villa",
+                "month",
+                null,
+                null,
+                "Andijan",
+                3.4,
+                1
+            )
+        )
+        feeds.add(
+            Post(
+                R.drawable.house_1,
+                "Test",
+                "1",
+                "1",
+                "1",
+                1,
+                "1000",
+                "Rent",
+                "Villa",
+                "month",
+                null,
+                null,
                 "Andijan",
                 3.4,
                 0
@@ -214,6 +238,7 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
     override fun onCategoryItemClickListener(name: String) {
         Toast.makeText(requireContext(), name, Toast.LENGTH_SHORT).show()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         viewModel.popularListState = binding.rvHomePopular.layoutManager?.onSaveInstanceState()
@@ -222,17 +247,26 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
         viewModel.categoryListState = binding.rvHomeCategory.layoutManager?.onSaveInstanceState()
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Logger.d(TAG,"onAttach")
-    }
+
+
 
     override fun onResume() {
         super.onResume()
-        Logger.d(TAG,"onResume")
+        Logger.d(TAG, "onResume")
     }
+
     override fun onStart() {
         super.onStart()
-        Logger.d(TAG,"onStart")
+        Logger.d(TAG, "onStart")
     }
+
+
+
+    private fun callViewAllActivity(name: String) {
+        val intent = Intent(requireContext(), ViewAllActivity::class.java)
+        intent.putExtra("category_name",name)
+        startActivity(intent)
+    }
+
+
 }

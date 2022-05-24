@@ -1,23 +1,32 @@
 package com.ayizor.afeme.activity
 
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.view.View
+import android.view.ViewGroup
+import android.view.ViewGroup.MarginLayoutParams
 import android.view.ViewTreeObserver
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.TextView
 import android.widget.TextView.BufferType
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.ayizor.afeme.R
+import com.ayizor.afeme.adapter.DetailsViewPagerAdapter
 import com.ayizor.afeme.databinding.ActivityDetailsBinding
+import com.ayizor.afeme.fragment.AreaAndLotFragment
+import com.ayizor.afeme.fragment.InteriorFragment
 import com.ayizor.afeme.utils.CustomSpannable
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
@@ -27,6 +36,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.google.android.material.tabs.TabLayout
 
 
 class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -34,7 +44,9 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     lateinit var binding: ActivityDetailsBinding
     val TAG: String = DetailsActivity::class.java.simpleName
     lateinit var supportMapFragment: SupportMapFragment
-
+    lateinit var adapter: DetailsViewPagerAdapter
+    private val REQUEST_CALL = 1
+     var phoneNumber: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailsBinding.inflate(layoutInflater)
@@ -44,15 +56,46 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun inits() {
+        phoneNumber="998948461770"
         setupViewPager()
+        setupFeaturesViewPager()
         //Assign variable
         supportMapFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_map_details) as SupportMapFragment
         supportMapFragment.getMapAsync(this)
         //Check location permission
         makeTextViewResizable(binding.tvDescriptionDetails, 3, "View More", true);
+        binding.flCallDetails.setOnClickListener {
+
+            callToPostOwner(phoneNumber)
+        }
+    }
+
+    private fun setupFeaturesViewPager() {
+        adapter = DetailsViewPagerAdapter(supportFragmentManager)
+        adapter.addFragment(AreaAndLotFragment(), getString(R.string.area_amp_lot))
+        adapter.addFragment(InteriorFragment(), getString(R.string.interior))
+        binding.vpDetails.adapter = adapter
+        binding.tlDetails.setupWithViewPager(binding.vpDetails)
+        binding.tlDetails.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
+        //set margin between tabs
+        for (i in 0 until binding.tlDetails.tabCount) {
+            val tab = (binding.tlDetails.getChildAt(0) as ViewGroup).getChildAt(i)
+            val p = tab.layoutParams as MarginLayoutParams
+            p.setMargins(0, 0, 50, 0)
+            tab.requestLayout()
+        }
 
     }
+
 
     private fun setupViewPager() {
         val imageList = ArrayList<SlideModel>() // Create image list
@@ -165,9 +208,18 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
         return ContextCompat.getDrawable(context, vectorResId)?.run {
             setBounds(0, 0, intrinsicWidth, intrinsicHeight)
-            val bitmap = Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888)
+            val bitmap =
+                Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888)
             draw(Canvas(bitmap))
             BitmapDescriptorFactory.fromBitmap(bitmap)
         }
     }
+
+    fun callToPostOwner(number: String) {
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse("tel:+$number")
+        startActivity(intent)
+    }
+
+
 }

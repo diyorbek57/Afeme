@@ -1,12 +1,22 @@
 package com.ayizor.afeme.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.ayizor.afeme.R
+import com.ayizor.afeme.databinding.ActivityViewAllBinding
+import com.ayizor.afeme.fragment.HomeFragment
 
-class ViewAllActivity : AppCompatActivity() {
+class ViewAllActivity : BaseActivity(){
+
+    lateinit var binding: ActivityViewAllBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_view_all)
+        binding = ActivityViewAllBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        inits()
     }
+
+    private fun inits() {
+        binding.tvTitle.text =intent.getStringExtra("category_name")
+    }
+
+
 }
