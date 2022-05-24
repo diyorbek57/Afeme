@@ -3,6 +3,7 @@ package com.ayizor.afeme.activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
@@ -77,8 +78,8 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         expandText: String,
         viewMore: Boolean
     ) {
-        if (tv.getTag() == null) {
-            tv.setTag(tv.getText())
+        if (tv.tag == null) {
+            tv.tag = tv.text
         }
         val vto: ViewTreeObserver = tv.getViewTreeObserver()
         vto.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
@@ -97,13 +98,13 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
                         .toString() + " " + expandText
                 } else {
                     lineEndIndex = tv.layout.getLineEnd(tv.layout.lineCount - 1)
-                    text = tv.getText().subSequence(0, lineEndIndex).toString() + " " + expandText
+                    text = tv.text.subSequence(0, lineEndIndex).toString() + " " + expandText
                 }
                 tv.text = text
                 tv.movementMethod = LinkMovementMethod.getInstance()
                 tv.setText(
                     addClickablePartTextViewResizable(
-                        SpannableString(tv.getText().toString()), tv, lineEndIndex, expandText,
+                        SpannableString(tv.text.toString()), tv, lineEndIndex, expandText,
                         viewMore
                     ), BufferType.SPANNABLE
                 )
@@ -144,7 +145,7 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         val longitude = 72.359775
         val postLocation = LatLng(latitude, longitude)
         googleMap.uiSettings.isZoomGesturesEnabled = false;
-        googleMap.uiSettings.isScrollGesturesEnabledDuringRotateOrZoom=false
+        googleMap.uiSettings.isScrollGesturesEnabled=false
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(postLocation, 16f))
         // create marker
         val marker: MarkerOptions =
@@ -157,7 +158,7 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         googleMap.addMarker(marker);
         googleMap.addCircle(
             CircleOptions().center(LatLng(latitude, longitude)).radius(100.0)
-                .strokeColor(R.color.bright_blue).fillColor(R.color.light_blue)
+                .strokeColor(Color.parseColor("#2972FE")).fillColor(Color.parseColor("#6499FF"))
         )
     }
 

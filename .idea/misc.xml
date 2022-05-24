@@ -3,55 +3,37 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/avd_instagram_like.xml" value="0.1475" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/bright_blue_stroke_box.xml" value="0.1065" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_add_outline.xml" value="0.125" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_heart_outline.xml" value="0.125" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_heart_outline_white.xml" value="0.125" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_home_full.xml" value="0.125" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_home_full_white.xml" value="0.125" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_home_marker.xml" value="0.1575" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_house.xml" value="0.1065" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_item_light_icon_15_background.xml" value="0.1065" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_item_light_icon_circle_background.xml" value="0.1065" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_nav_ic_heart_default.xml" value="0.1145" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_notification_full.xml" value="0.1065" />
+        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_home_marker.xml" value="0.1" />
+        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_location_full.xml" value="0.1" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_search_outline.xml" value="0.125" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_search_outline_white.xml" value="0.125" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_user_full.xml" value="0.125" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_user_full_white.xml" value="0.125" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_villa.xml" value="0.1475" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/inav_ic_chat_default.xml" value="0.1475" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/item_search_view_background.xml" value="0.182" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/item_slider_indicator_seleceted.xml" value="0.182" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/light_gray_stroke_box.xml" value="0.1065" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/nav_calendar_selector.xml" value="0.125" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/nav_favorites_selector.xml" value="0.125" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/nav_home_selector.xml" value="0.125" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/nav_ic_heart_selected.xml" value="0.121" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/nav_ic_home_selected.xml" value="0.1475" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/nav_ic_user_selected.xml" value="0.121" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/nav_profile_selector.xml" value="0.125" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/nav_search_selector.xml" value="0.125" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/tab_indicator_default.xml" value="0.1235" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/tab_indicator_selected.xml" value="0.1235" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/tab_selector.xml" value="0.1235" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_create_post.xml" value="0.25" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_details.xml" value="0.2029598308668076" />
+        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_details.xml" value="0.20652818991097924" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_main.xml" value="0.18888888888888888" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_notification.xml" value="0.25" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_on_boarding.xml" value="0.2" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/fragment_favorites.xml" value="0.215625" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/fragment_profile.xml" value="0.3569230769230769" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/fragment_search.xml" value="0.2359375" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/item_all_saved_posts.xml" value="0.25" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/item_gallery_details.xml" value="0.25" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/item_home_category.xml" value="0.4" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/item_notification.xml" value="0.24895833333333334" />
+        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/item_all_saved_posts.xml" value="0.2936708860759494" />
+        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/item_gallery_details.xml" value="0.29814814814814816" />
+        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/item_gallery_view_all_details.xml" value="0.29814814814814816" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/item_onboarding.xml" value="0.14791666666666667" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/item_post_large.xml" value="0.20427350427350427" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/item_post_small.xml" value="0.4" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/item_view_all.xml" value="0.4" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/menu/main_bottom_navigation.xml" value="0.25" />
       </map>
     </option>
