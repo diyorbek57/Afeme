@@ -1,12 +1,24 @@
 package com.ayizor.afeme.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.ayizor.afeme.R
+import androidx.appcompat.app.AppCompatActivity
+import com.ayizor.afeme.databinding.ActivityNotificationBinding
 
 class NotificationActivity : AppCompatActivity() {
+
+    lateinit var binding: ActivityNotificationBinding
+    val TAG: String = NotificationActivity::class.java.simpleName
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_notification)
+        binding = ActivityNotificationBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        inits()
+    }
+
+    private fun inits() {
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
+        }
     }
 }

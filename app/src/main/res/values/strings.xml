@@ -58,4 +58,7 @@
     <string name="interior">Interior</string>
     <string name="price">Price</string>
     <string name="buy">Buy</string>
+    <string name="notification">Notification</string>
+    <string name="send_sms">Send SMS</string>
+    <string name="to_call">To call</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.ayizor.afeme.fragment
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +11,7 @@ import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ayizor.afeme.R
 import com.ayizor.afeme.activity.DetailsActivity
+import com.ayizor.afeme.activity.NotificationActivity
 import com.ayizor.afeme.activity.ViewAllActivity
 import com.ayizor.afeme.adapter.CategoryAdapter
 import com.ayizor.afeme.adapter.SmallPostsAdapter
@@ -39,6 +39,9 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
     }
 
     private fun inits() {
+        binding.ivNotificationsHome.setOnClickListener {
+            callNotificationsActivity()
+        }
         binding.rvHomeCategory.layoutManager = LinearLayoutManager(
             requireContext(),
             LinearLayoutManager.HORIZONTAL,
@@ -65,6 +68,11 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
         refreshCheapAdapter(getAllPosts())
         refreshCategoryAdapter(getAllCategory())
         setupClickableViews()
+    }
+
+    private fun callNotificationsActivity() {
+        val intent = Intent(requireContext(), NotificationActivity::class.java)
+        startActivity(intent)
     }
 
     private fun setupClickableViews() {

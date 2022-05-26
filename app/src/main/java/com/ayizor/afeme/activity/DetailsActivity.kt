@@ -1,8 +1,8 @@
 package com.ayizor.afeme.activity
 
+
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -19,12 +19,12 @@ import android.view.ViewTreeObserver
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.TextView
 import android.widget.TextView.BufferType
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.ayizor.afeme.R
 import com.ayizor.afeme.adapter.DetailsViewPagerAdapter
 import com.ayizor.afeme.databinding.ActivityDetailsBinding
+import com.ayizor.afeme.databinding.ItemCallBottomSheetDetailsBinding
 import com.ayizor.afeme.fragment.AreaAndLotFragment
 import com.ayizor.afeme.fragment.InteriorFragment
 import com.ayizor.afeme.utils.CustomSpannable
@@ -36,6 +36,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayout
 
 
@@ -56,9 +57,13 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun inits() {
-        phoneNumber="998948461770"
+        phoneNumber = "+998948461770"
         setupViewPager()
         setupFeaturesViewPager()
+        //Toolbar back button
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
+        }
         //Assign variable
         supportMapFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_map_details) as SupportMapFragment
@@ -66,8 +71,8 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         //Check location permission
         makeTextViewResizable(binding.tvDescriptionDetails, 3, "View More", true);
         binding.flCallDetails.setOnClickListener {
+            showCallBottomSheet()
 
-            callToPostOwner(phoneNumber)
         }
     }
 
@@ -188,16 +193,15 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         val longitude = 72.359775
         val postLocation = LatLng(latitude, longitude)
         googleMap.uiSettings.isZoomGesturesEnabled = false;
-        googleMap.uiSettings.isScrollGesturesEnabled=false
+        googleMap.uiSettings.isScrollGesturesEnabled = false
+        googleMap.uiSettings.isMapToolbarEnabled = true;
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(postLocation, 16f))
         // create marker
         val marker: MarkerOptions =
             MarkerOptions().position(LatLng(latitude, longitude))
-
-// Changing marker icon
+        // Changing marker icon
         marker.icon(bitmapDescriptorFromVector(this, R.drawable.ic_home_marker))
-
-// adding marker
+        // adding marker
         googleMap.addMarker(marker);
         googleMap.addCircle(
             CircleOptions().center(LatLng(latitude, longitude)).radius(100.0)
@@ -217,8 +221,33 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     fun callToPostOwner(number: String) {
         val intent = Intent(Intent.ACTION_DIAL)
-        intent.data = Uri.parse("tel:+$number")
+        intent.data = Uri.parse("tel:$number")
         startActivity(intent)
+    }
+
+    fun sendSmsToPostOwner(number: String) {
+        val sendIntent = Intent(Intent.ACTION_VIEW)
+        sendIntent.data = Uri.parse("sms:$number")
+        startActivity(sendIntent)
+    }
+
+    fun showCallBottomSheet() {
+        val sheetDialog = BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme)
+        val bottomSheetBinding: ItemCallBottomSheetDetailsBinding =
+            ItemCallBottomSheetDetailsBinding.inflate(layoutInflater)
+        sheetDialog.setContentView(bottomSheetBinding.root)
+
+        bottomSheetBinding.tvPhoneNumber.text = phoneNumber
+        bottomSheetBinding.btnToCallBottomSheet.setOnClickListener {
+            callToPostOwner(phoneNumber)
+        }
+        bottomSheetBinding.btnSendSmsBottomSheet.setOnClickListener {
+
+            sendSmsToPostOwner(phoneNumber)
+        }
+
+        sheetDialog.show();
+        sheetDialog.window?.attributes?.windowAnimations = R.style.DialogAnimaton;
     }
 
 

@@ -15,8 +15,29 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m" >true</item>
     </style>
 
+    //Bottomsheet theme
+    <style name="DialogAnimaton">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottomsheet</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottomsheet</item>
+    </style>
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
 
-    //circler image view styles
+    <style name="AppModalStyle"
+        parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
+        <item name="backgroundColor">@color/white</item>
+    </style>
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+    //Circler image view styles
     <style name="circler_imageView" parent="">
         <item name="cornerSize">50%</item>
     </style>
