@@ -24,6 +24,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/house_1" />
+
             <ImageView
                 android:id="@+id/iv_heart_anim"
                 android:layout_width="90dp"
