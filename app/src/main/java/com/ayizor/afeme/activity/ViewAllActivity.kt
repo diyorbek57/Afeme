@@ -2,7 +2,6 @@ package com.ayizor.afeme.activity
 
 import android.os.Bundle
 import com.ayizor.afeme.databinding.ActivityViewAllBinding
-import com.ayizor.afeme.fragment.HomeFragment
 
 class ViewAllActivity : BaseActivity(){
 
@@ -15,7 +14,10 @@ class ViewAllActivity : BaseActivity(){
     }
 
     private fun inits() {
-        binding.tvTitle.text =intent.getStringExtra("category_name")
+        binding.tvTitle.text = intent.getStringExtra("category_name")
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
+        }
     }
 
 
