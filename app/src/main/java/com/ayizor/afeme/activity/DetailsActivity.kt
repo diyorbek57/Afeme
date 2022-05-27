@@ -233,8 +233,7 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     fun showCallBottomSheet() {
         val sheetDialog = BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme)
-        val bottomSheetBinding: ItemCallBottomSheetDetailsBinding =
-            ItemCallBottomSheetDetailsBinding.inflate(layoutInflater)
+        val bottomSheetBinding: ItemCallBottomSheetDetailsBinding = ItemCallBottomSheetDetailsBinding.inflate(layoutInflater)
         sheetDialog.setContentView(bottomSheetBinding.root)
 
         bottomSheetBinding.tvPhoneNumber.text = phoneNumber

@@ -7,15 +7,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.SearchFragment">
 
+
+
     <RelativeLayout
         android:id="@+id/rl_1_search"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragment_map_search"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <!--        <androidx.fragment.app.FragmentContainerView-->
+        <!--            android:id="@+id/fragment_map_search"-->
+        <!--            android:name="com.google.android.gms.maps.SupportMapFragment"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent" />-->
+
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_search"
             android:layout_width="match_parent"
@@ -58,7 +62,7 @@
                 </RelativeLayout>
 
                 <ImageView
-                    android:id="@+id/iv_search_filter_home"
+                    android:id="@+id/iv_search_filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_item_light_icon_15_background"
@@ -68,40 +72,15 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/map_view_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
 
 
     </RelativeLayout>
 
 
-    <LinearLayout
-        android:id="@+id/bs_search"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_height="match_parent"
-        android:background="@drawable/item_bottom_sheet_background"
-        android:orientation="vertical"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-        <View
-            android:id="@+id/top_closer"
-            android:layout_width="200dp"
-            android:layout_height="4dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginVertical="10dp"
-            android:background="@drawable/item_bottom_sheet_top_closer" />
-
-        <View
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginVertical="10dp"
-            android:background="@drawable/item_bottom_sheet_top_closer" />
-        <!--        <androidx.recyclerview.widget.RecyclerView-->
-        <!--            android:id="@+id/rv_search_bottom_sheet"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="match_parent"-->
-        <!--            android:background="@color/black" />-->
-    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
