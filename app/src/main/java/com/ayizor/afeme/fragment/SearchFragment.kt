@@ -98,7 +98,7 @@ class SearchFragment : Fragment(), OnMapReadyCallback {
             }
             isDown = !isDown;
         }
-        googleMap.setOnMarkerClickListener(object :GoogleMap.)
+
     }
 
     // slide the view from below itself to the current position

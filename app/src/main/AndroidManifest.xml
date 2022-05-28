@@ -7,13 +7,16 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <permission
         android:name="com.example.permission.MAPS_RECEIVE"
-        android:protectionLevel="signature"/>
-    <uses-permission android:name="com.example.permission.MAPS_RECEIVE"/>
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.example.permission.MAPS_RECEIVE" />
 
     <application
         android:allowBackup="true"
@@ -25,6 +28,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Afeme"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.authentication.LocationActivity"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".activity.authentication.OtherInformationActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.authentication.CodeConfirmActivity"
+            android:exported="false" />
+
         <service
             android:name=".services.FCMService"
             android:exported="true">
@@ -32,8 +53,8 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <meta-data
 
+        <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/api_key" />
 
@@ -55,11 +76,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.authentication.SignInActivity"
@@ -76,6 +93,9 @@
         <activity
             android:name=".activity.OnBoardingActivity"
             android:exported="true" />
+        <activity
+            android:name="com.sucho.placepicker.PlacePickerActivity"
+            android:theme="@style/PlacePickerTheme"/>
     </application>
 
 </manifest>

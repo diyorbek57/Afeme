@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/avd_instagram_like.xml" value="0.1475" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/bright_blue_stroke_box.xml" value="0.1065" />
+        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/gradient_solid_rounded.xml" value="0.1535" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_add_outline.xml" value="0.125" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_apartment.xml" value="0.1575" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_back.xml" value="0.1575" />
@@ -42,11 +43,15 @@
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/tab_indicator_default.xml" value="0.1235" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/tab_indicator_selected.xml" value="0.1235" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/tab_selector.xml" value="0.1235" />
+        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_birthday.xml" value="0.2323076923076923" />
+        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_code_confirm.xml" value="0.2359375" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_create_post.xml" value="0.25" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_details.xml" value="0.2029598308668076" />
+        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_location.xml" value="0.25" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_main.xml" value="0.18888888888888888" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_notification.xml" value="0.25" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_on_boarding.xml" value="0.2" />
+        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_other_information.xml" value="0.25" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_view_all.xml" value="0.25" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/fragment_area_and_lot.xml" value="0.2359375" />

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.authentication.OtherInformationActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp">
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/et_name_informations"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxStrokeColor="@color/bright_blue"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/full_name"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/et_passport_number_informations"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxStrokeColor="@color/bright_blue"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/series_and_number_of_the_passport_id_card"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/bright_blue_stroke_box"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="3.3">
+
+                    <TextView
+                        android:id="@+id/tv_select_from_map"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.14"
+                        android:fontFamily="@font/source_sans_pro_semibold"
+                        android:gravity="center_vertical|center"
+                        android:maxLength="28"
+                        android:maxLines="1"
+                        android:text="@string/select_from_map"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/bright_blue"
+                        android:textSize="18sp" />
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="35dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="10dp"
+                        android:background="@color/dark_grayish_blue" />
+
+                    <ImageView
+                        android:id="@+id/iv_current_location"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_current_location" />
+                </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/btn_sigup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/gradient_solid_rounded"
+                    android:fontFamily="@font/source_sans_pro_semibold"
+                    android:text="@string/next"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"
+                    app:backgroundTint="@null" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>

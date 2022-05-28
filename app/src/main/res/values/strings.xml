@@ -61,4 +61,17 @@
     <string name="notification">Notification</string>
     <string name="send_sms">Send SMS</string>
     <string name="to_call">To call</string>
+    <string name="ism">Ism</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="enter_the_confirmation_code_we_send_to">Enter the confirmation code we send to</string>
+    <string name="change_phone_number">Change phone number</string>
+    <string name="resend_sms">resend SMS</string>
+    <string name="confirmation_code">Confirmation code</string>
+    <string name="add_your_birthday">Add your birthday</string>
+    <string name="this_won_t_be_part_of_your_public_profile">This won\'t be part of your public profile.</string>
+    <string name="series_and_number_of_the_passport_id_card">Series and number of the passport(ID card)<font color='#DA1414'>*</font></string>
+    <string name="full_name">Full name<font color='#DA1414'>*</font></string>
+    <string name="select_from_map">Select from map</string>
+    <string name="comma">,</string>
 </resources>
