@@ -1,20 +1,21 @@
 package com.ayizor.afeme.utils
 
+import android.app.Application
 import android.app.Dialog
 import android.content.Context
+import android.content.Context.WINDOW_SERVICE
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.provider.Settings
+import android.text.TextWatcher
+import android.util.DisplayMetrics
 import android.view.Window
+import android.view.WindowManager
+import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat.getSystemService
 import com.ayizor.afeme.R
-import android.app.Application
-import android.content.Context.WINDOW_SERVICE
-import android.provider.Settings
-import android.util.DisplayMetrics
-import android.view.WindowManager
 import com.ayizor.afeme.model.ScreenSize
 
 
@@ -90,6 +91,22 @@ object Utils {
         }
         dialog.show()
     }
+
+     fun validEditText(editText: EditText?,errorText:String): Boolean {
+        val fullName: String = editText?.text.toString()
+        return if (fullName.isEmpty()) {
+            if (editText != null) {
+                editText.error = errorText
+            }
+            false
+        } else {
+            if (editText != null) {
+                editText.error = null
+            }
+            true
+        }
+    }
+
 }
 
 interface DialogListener {

@@ -36,11 +36,7 @@
         <activity
             android:name=".activity.authentication.OtherInformationActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.authentication.CodeConfirmActivity"
@@ -83,7 +79,13 @@
             android:exported="true" />
         <activity
             android:name=".activity.authentication.SignUpActivity"
-            android:exported="true" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.BaseActivity"
             android:exported="true" />

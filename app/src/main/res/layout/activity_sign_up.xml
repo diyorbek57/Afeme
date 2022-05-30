@@ -29,71 +29,81 @@
             android:orientation="vertical"
             android:paddingHorizontal="20dp"
             android:paddingVertical="10dp">
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/et_name_signup"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro_regular"
+                android:text="@string/account_type"
+                android:layout_gravity="start"
+                android:layout_marginVertical="5dp"
+                android:textColor="@color/very_dark_blue_black"
+                android:textSize="18sp" />
+            <com.skydoves.powerspinner.PowerSpinnerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:boxStrokeColor="@color/bright_blue"
-                app:errorEnabled="true">
+                android:id="@+id/spinner_signup"
+                android:background="@drawable/bright_blue_stroke_box"
+                android:gravity="center"
+                android:padding="15dp"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/very_dark_blue_black"
+                android:textColorHint="@color/very_dark_blue_black"
+                android:textSize="14.5sp"
+                app:spinner_arrow_gravity="end"
+                app:spinner_arrow_padding="8dp"
+                app:spinner_divider_color="@color/dark_grayish_blue"
+                app:spinner_divider_show="true"
+                app:spinner_divider_size="0.4dp"
+                app:spinner_item_array="@array/account_types"
+                app:spinner_item_height="46dp"
+                app:spinner_popup_animation="dropdown"
+                app:spinner_popup_background="@color/white"
+                app:spinner_popup_elevation="14dp" />
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/first_name"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/et_last_name_signup"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/ccp_signup"
+                android:background="@drawable/bright_blue_stroke_box"
+                app:ccp_showFlag="false"
+                app:ccp_defaultNameCode="uz"
+                app:ccp_showArrow="true"
+                app:ccp_showFullName="true"
+                android:padding="8dp"
+                app:ccp_textSize="16dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:boxStrokeColor="@color/bright_blue"
-                app:errorEnabled="true">
+                android:layout_height="wrap_content"/>
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/last_name"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_number_signup"
+        android:orientation="horizontal"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_marginVertical="10dp"
+        android:layout_height="wrap_content"
+        app:boxStrokeColor="@color/bright_blue"
+        >
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:orientation="horizontal">
+        <EditText
+            android:id="@+id/et_number_signup"
+            android:text="@string/_998"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/phone_number"
+            android:inputType="phone" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-                <CheckBox
-                    android:id="@+id/cb_remember_me"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:backgroundTint="@color/bright_blue"
-                    android:buttonTint="@color/bright_blue"
-                    android:checked="true"
-                    android:textColor="@color/bright_blue"
-                    app:backgroundTint="@color/bright_blue" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/source_sans_pro_semibold"
-                    android:text="@string/remember_me"
-                    android:textColor="@color/very_dark_grayish_blue"
-                    android:textSize="14sp" />
-            </LinearLayout>
+
+
+
+
+
 
             <Button
+
                 android:id="@+id/btn_sigup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/gradient_solid_rounded"
+                android:background="@drawable/item_button_selector"
                 android:fontFamily="@font/source_sans_pro_semibold"
                 android:text="@string/sign_up"
                 android:textAllCaps="false"

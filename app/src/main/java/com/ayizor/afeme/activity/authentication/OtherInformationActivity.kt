@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.ayizor.afeme.R
+import com.ayizor.afeme.activity.BaseActivity
 import com.ayizor.afeme.databinding.ActivityOtherInformationBinding
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.LatLng
@@ -27,7 +28,7 @@ import com.sucho.placepicker.PlacePicker
 import java.util.*
 
 
-class OtherInformationActivity : AppCompatActivity() {
+class OtherInformationActivity : BaseActivity() {
     lateinit var binding: ActivityOtherInformationBinding
     private val pERMISSION_ID = 42
     lateinit var mFusedLocationClient: FusedLocationProviderClient
