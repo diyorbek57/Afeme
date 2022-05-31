@@ -7,6 +7,7 @@
     tools:context=".activity.authentication.CodeConfirmActivity">
 
     <LinearLayout
+        android:layout_gravity=""
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"

@@ -78,6 +78,9 @@
     <string name="phone_number">Phone number</string>
     <string name="plus_sumbol">+</string>
     <string name="_998">+998</string>
+    <string name="registration_error">Registration error</string>
+    <string name="incorrect_code_entered">Incorrect code entered</string>
+    <string name="enter_the_code_sent_via_sms">Enter the code sent via SMS</string>
     <array name="account_types">
         <item name="personal">Personal</item>
         <item name="business">Business</item>

@@ -24,9 +24,9 @@ import com.skydoves.powerspinner.createPowerSpinnerView
 class SignUpActivity : BaseActivity() {
     lateinit var binding: ActivitySignUpBinding
     val TAG: String = SignUpActivity::class.java.simpleName
-    lateinit var user_account_type:String
+    lateinit var user_account_type: String
     var firstNameDone: Boolean = false
-    var lastNameDone: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
@@ -50,7 +50,7 @@ class SignUpActivity : BaseActivity() {
                 val i = Intent(this, CodeConfirmActivity::class.java)
                 i.putExtra("user_phone_number", binding.tilNumberSignup.editText?.text.toString())
                 i.putExtra("user_account_type", user_account_type)
-                Logger.d("User type",user_account_type)
+                Logger.d("User type", user_account_type)
                 startActivity(i)
             }
         }
@@ -58,10 +58,10 @@ class SignUpActivity : BaseActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun loadCodePicker() {
-        binding.ccpSignup.ccpDialogShowFlag=false
+        binding.ccpSignup.ccpDialogShowFlag = false
 
         binding.ccpSignup.setOnCountryChangeListener {
-            val code =binding.ccpSignup.selectedCountryCode.toString()
+            val code = binding.ccpSignup.selectedCountryCode.toString()
             binding.etNumberSignup.setText("+$code")
         }
     }
@@ -72,7 +72,7 @@ class SignUpActivity : BaseActivity() {
         binding.spinnerSignup.selectItemByIndex(0)
 
         binding.spinnerSignup.setOnSpinnerItemSelectedListener<String> { oldIndex, oldItem, newIndex, newText ->
-            user_account_type=newText
+            user_account_type = newText
         }
 
 
@@ -81,16 +81,15 @@ class SignUpActivity : BaseActivity() {
     private fun phoneNumberValid() {
         binding.tilNumberSignup.editText?.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (!s.isEmpty()&&s.length>6) {
+                if (!s.isEmpty() && s.length > 6) {
                     //set background and text color to button
                     firstNameDone = true
-                    if (firstNameDone&&lastNameDone){
+                    if (firstNameDone) {
                         binding.btnSigup.isEnabled = true
                     }
                 } else {
                     firstNameDone = false
-
-                        binding.btnSigup.isEnabled = false
+                    binding.btnSigup.isEnabled = false
 
                 }
             }
@@ -98,7 +97,8 @@ class SignUpActivity : BaseActivity() {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
             }
 
-            override fun afterTextChanged(s: Editable
+            override fun afterTextChanged(
+                s: Editable
             ) {
             }
         })

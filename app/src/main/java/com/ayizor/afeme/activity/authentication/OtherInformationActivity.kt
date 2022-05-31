@@ -13,12 +13,15 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.ayizor.afeme.R
 import com.ayizor.afeme.activity.BaseActivity
+import com.ayizor.afeme.activity.MainActivity
 import com.ayizor.afeme.databinding.ActivityOtherInformationBinding
+import com.ayizor.afeme.utils.Logger
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.LatLng
 import com.sucho.placepicker.AddressData
@@ -26,6 +29,8 @@ import com.sucho.placepicker.Constants
 import com.sucho.placepicker.Constants.GOOGLE_API_KEY
 import com.sucho.placepicker.PlacePicker
 import java.util.*
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 
 class OtherInformationActivity : BaseActivity() {
@@ -38,16 +43,27 @@ class OtherInformationActivity : BaseActivity() {
     // Current location is set to Uzbekistan, this will be of no use
     var currentLocation: LatLng = LatLng(20.5, 78.9)
     lateinit var addresses: List<Address>;
-
+    lateinit var user_phone_number: String
+    lateinit var user_account_type: String
+    lateinit var user_confirmation_code: String
+    lateinit var user_latitude: String
+    lateinit var user_longitude: String
+    lateinit var user_address: String
+    lateinit var user_passport_number: String
+    lateinit var user_full_name: String
+    var fullnameDone: Boolean = false
+    var passportDone: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOtherInformationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        getEnteredDatas()
         inits()
     }
 
     private fun inits() {
+        passportNumberValid()
+        fullNameValid()
         // Initializing fused location client
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         binding.tvSelectFromMap.setOnClickListener {
@@ -72,6 +88,23 @@ class OtherInformationActivity : BaseActivity() {
         }
         binding.ivCurrentLocation.setOnClickListener {
             getLastLocation()
+        }
+        binding.btnNextOtherInfo.setOnClickListener {
+            user_passport_number=binding.etPassportNumberInformations.editText?.text.toString()
+            user_full_name=binding.etNameInformations.editText?.text.toString()
+            if (checkPassportNumber(user_passport_number))
+            if (!user_latitude.isNullOrEmpty() && !user_longitude.isNullOrEmpty() && !user_address.isNullOrEmpty()) {
+                val i = Intent(this, MainActivity::class.java)
+                i.putExtra("user_phone_number", user_phone_number)
+                i.putExtra("user_account_type", user_account_type)
+                i.putExtra("user_confirmation_code", user_confirmation_code)
+                i.putExtra("user_latitude", user_latitude)
+                i.putExtra("user_longitude", user_longitude)
+                i.putExtra("user_address", user_address)
+                i.putExtra("user_full_name", user_full_name)
+                i.putExtra("user_passport_number", user_passport_number)
+                startActivity(i)
+            }
         }
 
     }
@@ -102,6 +135,7 @@ class OtherInformationActivity : BaseActivity() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     fun getCoordinateName(latitude: Double, longitude: Double) {
         geocoder = Geocoder(this, Locale.getDefault());
         addresses = geocoder!!.getFromLocation(latitude, longitude, 1);
@@ -115,6 +149,9 @@ class OtherInformationActivity : BaseActivity() {
         val knownName =
             addresses[0].featureName // Only if available else return NULL
         binding.tvSelectFromMap.text = "$state, $city"
+        user_latitude = latitude.toString()
+        user_longitude = longitude.toString()
+        user_address = "$state, $city"
     }
 
     // Get current location, if shifted
@@ -202,10 +239,80 @@ class OtherInformationActivity : BaseActivity() {
                 val addressData = data?.getParcelableExtra<AddressData>(Constants.ADDRESS_INTENT)
                 if (addressData != null) {
                     getCoordinateName(addressData.latitude, addressData.longitude)
+                    user_latitude = addressData.latitude.toString()
+                    user_longitude = addressData.longitude.toString()
                 }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    private fun getEnteredDatas() {
+        user_account_type = intent.getStringExtra("user_account_type").toString()
+        user_phone_number = intent.getStringExtra("user_phone_number").toString()
+        user_confirmation_code = intent.getStringExtra("user_confirmation_code").toString()
+    }
+
+
+    private fun fullNameValid() {
+        binding.etNameInformations.editText?.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if (!s.isEmpty() && s.length > 6) {
+                    //set background and text color to button
+                    fullnameDone = true
+                    if (fullnameDone && passportDone) {
+                        binding.btnNextOtherInfo.isEnabled = true
+                    }
+                } else {
+                    fullnameDone = false
+
+                    binding.btnNextOtherInfo.isEnabled = false
+
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun afterTextChanged(
+                s: Editable
+            ) {
+            }
+        })
+    }
+
+    private fun passportNumberValid() {
+        binding.etNameInformations.editText?.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if (!s.isEmpty() && s.length == 9) {
+                    //set background and text color to button
+                    passportDone = true
+                    if (passportDone && fullnameDone) {
+                        binding.btnNextOtherInfo.isEnabled = true
+                    }
+                } else {
+                    passportDone = false
+                    binding.btnNextOtherInfo.isEnabled = false
+
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun afterTextChanged(
+                s: Editable
+            ) {
+            }
+        })
+    }
+
+
+    fun checkPassportNumber(number: String): Boolean {
+        val pattern: Pattern = Pattern.compile("[A-Z]{2}[0-9]{7}");
+        val matcher: Matcher = pattern.matcher(number);
+        return matcher.find()
+        // match
     }
 }

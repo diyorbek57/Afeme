@@ -99,10 +99,11 @@
 
 
                 <Button
-                    android:id="@+id/btn_sigup"
+                    android:enabled="false"
+                    android:id="@+id/btn_next_other_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/gradient_solid_rounded"
+                    android:background="@drawable/item_button_selector"
                     android:fontFamily="@font/source_sans_pro_semibold"
                     android:text="@string/next"
                     android:textAllCaps="false"
