@@ -1,5 +1,6 @@
 package com.ayizor.afeme.utils
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.app.Dialog
 import android.content.Context
@@ -8,7 +9,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.provider.Settings
-import android.text.TextWatcher
 import android.util.DisplayMetrics
 import android.view.Window
 import android.view.WindowManager
@@ -42,10 +42,9 @@ object Utils {
         return false
     }
 
+    @SuppressLint("HardwareIds")
     fun getDeviceID(context: Context): String {
-        val device_id: String =
-            Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
-        return device_id
+        return Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
     }
 
     fun screenSize(context: Application): ScreenSize {

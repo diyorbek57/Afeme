@@ -1,100 +1,55 @@
 package com.ayizor.afeme.api
 
 import com.ayizor.afeme.model.Post
+import com.ayizor.afeme.model.User
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
+
 
 interface ApiInterface {
+    //Post Interface
     @GET("post/{id}")
-    fun getSinglePost(
-        @Path("id") id: String
-    ): Call<Post>
+    fun getSinglePost(@Path("id") id: String): Call<Post>
 
-    @GET("posts")
-    fun getPosts(
-        @Query("page") page: Int,
-        @Query("per_page") perPage: Int?,
-        @Query("order_by") orderBy: String
-    ): Call<List<Post>>
+    @GET("post")
+    fun getAllPosts(): Call<List<Post>>
 
-    @GET("posts/curated")
-    fun getCuratedPosts(
-        @Query("page") page: Int,
-        @Query("per_page") perPage: Int,
-        @Query("order_by") orderBy: String
-    ): Call<List<Post>>
+    @POST("post")
+    fun createPost(@Body post: Post?): Call<Post?>?
 
-    @GET("post/random")
-    fun getRandomPost(
-        @Query("collections") collections: String,
-        @Query("featured") featured: Boolean,
-        @Query("username") username: String,
-        @Query("query") query: String,
-        @Query("w") width: Int,
-        @Query("h") height: Int,
-        @Query("orientation") orientation: String
-    ): Call<Post>
+    @PUT("post/{id}")
+    fun updatePost(@Path("id") id: String): Call<List<Post>>
 
-    @GET("posts/random")
-    fun getRandomPhotos(
-        @Query("collections") collections: String,
-        @Query("featured") featured: Boolean,
-        @Query("username") username: String,
-        @Query("query") query: String,
-        @Query("w") width: Int,
-        @Query("h") height: Int,
-        @Query("orientation") orientation: String,
-        @Query("count") count: Int
-    ): Call<List<Post>>
+    @DELETE("post/{id}")
+    fun deletePost(@Path("id") id: String): Call<List<Post>>
 
-//    @GET("photos/{id}/download")
-//    fun getPhotoDownloadLink(@Path("id") id: String): Call<Download>
+    //
+    //auth
+    @POST("register")
+    fun register(@Body user: User?): Call<User?>?
 
-//    @GET("search/photos")
-//    fun searchPhotos(
-//        @Query("query") query: String,
-//        @Query("page") page: Int,
-//        @Query("per_page") perPage: Int,
-//        @Query("orientation") orientation: String
-//    ): Call<SearchResults>
+    @POST("login")
+    fun login(): Call<User?>?
 
-//    @GET("topics")
-//    fun getTopics(
-//        @Query("page") page: Int,
-//        @Query("per_page") perPage: Int?,
-//        @Query("order_by") orderBy: String
-//    ): Call<List<Topic>>
+    @POST("logout")
+    fun logout(): Call<User?>?
 
-//    @GET("topics/{id}/photos")
-//    fun getTopictPhotos(
-//        @Path("id") id: String?,
-//        @Query("page") page: Int,
-//        @Query("per_page") perPage: Int?,
-//        @Query("order_by") orderBy: String
-//    ): Call<List<Topic>>
+    //
+    //user
+    @GET("user")
+    fun getAllUsers(): Call<User?>?
 
-//    @GET("photos/{id}/related")
-//    fun getRelatedPhotos(
-//        @Path("id") id: String?,
-//        @Query("page") page: Int,
-//        @Query("per_page") perPage: Int?
-//    ): Call<RelatedPhotos>
+    @GET("user/{id}")
+    fun getSingleUser(@Path("id") id: String): Call<Post>
 
-//    @GET("search/photos")
-//    fun getSearchPhoto(
-//        @Query("page") page: Int,
-//        @Query("query") query: String,
-//        @Query("per_page") perPage: Int
-//    ): Call<Explore>
-//
-//
-//    @GET("search/users")
-//    fun getSearchProfile(
-//        @Query("page") page: Int,
-//        @Query("query") query: String,
-//        @Query("per_page") perPage: Int
-//    ): Call<ResultProfiles>
+    @PUT("user/{id}")
+    fun updateSingleUser(@Path("id") id: String): Call<Post>
+
+    @DELETE("user/{id}")
+    fun deleteSingleUser(@Path("id") id: String): Call<Post>
+    //
+    //categores
+    @GET("user")
+    fun getAllCategori(): Call<User?>?
 
 }
