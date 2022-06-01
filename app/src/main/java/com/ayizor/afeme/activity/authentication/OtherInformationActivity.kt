@@ -20,7 +20,10 @@ import androidx.core.app.ActivityCompat
 import com.ayizor.afeme.R
 import com.ayizor.afeme.activity.BaseActivity
 import com.ayizor.afeme.activity.MainActivity
+import com.ayizor.afeme.api.ApiInterface
+import com.ayizor.afeme.api.Client
 import com.ayizor.afeme.databinding.ActivityOtherInformationBinding
+import com.ayizor.afeme.model.User
 import com.ayizor.afeme.utils.Logger
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.LatLng
@@ -28,6 +31,9 @@ import com.sucho.placepicker.AddressData
 import com.sucho.placepicker.Constants
 import com.sucho.placepicker.Constants.GOOGLE_API_KEY
 import com.sucho.placepicker.PlacePicker
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -53,6 +59,7 @@ class OtherInformationActivity : BaseActivity() {
     lateinit var user_full_name: String
     var fullnameDone: Boolean = false
     var passportDone: Boolean = false
+    var dataService: ApiInterface? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOtherInformationBinding.inflate(layoutInflater)
@@ -64,6 +71,7 @@ class OtherInformationActivity : BaseActivity() {
     private fun inits() {
         passportNumberValid()
         fullNameValid()
+        dataService = Client.getClient()?.create(ApiInterface::class.java)
         // Initializing fused location client
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         binding.tvSelectFromMap.setOnClickListener {
@@ -103,6 +111,7 @@ class OtherInformationActivity : BaseActivity() {
                 i.putExtra("user_address", user_address)
                 i.putExtra("user_full_name", user_full_name)
                 i.putExtra("user_passport_number", user_passport_number)
+                val user:User = User(user_full_name)
                 startActivity(i)
             }
         }
@@ -307,7 +316,23 @@ class OtherInformationActivity : BaseActivity() {
             }
         })
     }
+    private fun createUser(user:User) {
+        dataService!!.register(user).enqueue(object : Callback<User> {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                Logger.d("Register", "User created")
 
+                //response.body()?.let { adapter?.addPhotos(it) }
+                //progressBar!!.visibility = View.GONE
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                t.message?.let { Logger.d("Register", it) }
+                //progressBar!!.visibility = View.GONE
+            }
+        })
+
+    }
 
     fun checkPassportNumber(number: String): Boolean {
         val pattern: Pattern = Pattern.compile("[A-Z]{2}[0-9]{7}");

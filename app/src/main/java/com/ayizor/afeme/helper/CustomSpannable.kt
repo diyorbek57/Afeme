@@ -1,4 +1,4 @@
-package com.ayizor.afeme.utils
+package com.ayizor.afeme.helper
 
 import android.graphics.Color
 import android.text.TextPaint

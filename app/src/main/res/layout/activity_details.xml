@@ -345,7 +345,7 @@
                     app:tabSelectedTextColor="@color/white"
                     app:tabTextColor="@color/bright_blue" />
 
-                <androidx.viewpager.widget.ViewPager
+                <com.ayizor.afeme.helper.WrapContentHeightViewPager
                     android:id="@+id/vp_details"
                     android:layout_width="match_parent"
                     android:layout_height="350dp" />

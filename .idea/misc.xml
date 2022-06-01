@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.10847628657921292" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/avd_instagram_like.xml" value="0.1475" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/bright_blue_stroke_box.xml" value="0.1065" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/gradient_solid_rounded.xml" value="0.1535" />
@@ -76,9 +77,20 @@
         <entry key="app/src/main/res/drawable/item_button_selector.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/item_disabled_background.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/item_enabled_background.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable/item_profile_gradient.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable/item_search_view_background.xml" value="0.142" />
         <entry key="app/src/main/res/layout/activity_code_confirm.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/activity_details.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/activity_filter.xml" value="0.29583333333333334" />
         <entry key="app/src/main/res/layout/activity_other_information.xml" value="0.253125" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.2006340579710145" />
+        <entry key="app/src/main/res/layout/fragment_created_posts.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_saved_posts.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/item_home_category.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/item_sorted_saved_posts.xml" value="0.30885416666666665" />
+        <entry key="app/src/main/res/xml/network_security_config.xml" value="0.1265625" />
       </map>
     </option>
   </component>

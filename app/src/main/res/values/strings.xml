@@ -81,6 +81,9 @@
     <string name="registration_error">Registration error</string>
     <string name="incorrect_code_entered">Incorrect code entered</string>
     <string name="enter_the_code_sent_via_sms">Enter the code sent via SMS</string>
+    <string name="created">Created</string>
+    <string name="saved">Saved</string>
+    <string name="last_viewed_posts">Last viewed posts</string>
     <array name="account_types">
         <item name="personal">Personal</item>
         <item name="business">Business</item>

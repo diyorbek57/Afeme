@@ -1,5 +1,6 @@
 package com.ayizor.afeme.fragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,11 +16,17 @@ import com.ayizor.afeme.activity.NotificationActivity
 import com.ayizor.afeme.activity.ViewAllActivity
 import com.ayizor.afeme.adapter.CategoryAdapter
 import com.ayizor.afeme.adapter.SmallPostsAdapter
+import com.ayizor.afeme.api.ApiInterface
+import com.ayizor.afeme.api.Client
 import com.ayizor.afeme.databinding.FragmentHomeBinding
 import com.ayizor.afeme.model.Category
+import com.ayizor.afeme.model.response.CategoryResponse
 import com.ayizor.afeme.model.Post
 import com.ayizor.afeme.utils.Logger
 import com.ayizor.afeme.viewmodel.HomeFragmentViewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
@@ -28,6 +35,7 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
     lateinit var binding: FragmentHomeBinding
     val TAG: String = HomeFragment::class.java.simpleName
     private val viewModel by navGraphViewModels<HomeFragmentViewModel>(R.id.main_navigation)
+    var dataService: ApiInterface? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,6 +47,7 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
     }
 
     private fun inits() {
+        dataService = Client.getClient()?.create(ApiInterface::class.java)
         binding.ivNotificationsHome.setOnClickListener {
             callNotificationsActivity()
         }
@@ -66,7 +75,7 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
         refreshPopularAdapter(getAllPosts())
         refreshNearbyAdapter(getAllPosts())
         refreshCheapAdapter(getAllPosts())
-        refreshCategoryAdapter(getAllCategory())
+        getAllCategory()
         setupClickableViews()
     }
 
@@ -125,18 +134,23 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
         }
     }
 
-    private fun getAllCategory(): ArrayList<Category> {
-        val feeds: ArrayList<Category> = ArrayList<Category>()
-        feeds.add(Category("Apartment"))
-        feeds.add(Category("Villa"))
-        feeds.add(Category("House"))
-        feeds.add(Category("House"))
-        feeds.add(Category("House"))
-        feeds.add(Category("House"))
 
-        return feeds
+    private fun getAllCategory() {
+        dataService!!.getAllCategory().enqueue(object : Callback<CategoryResponse> {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(call: Call<CategoryResponse>, response: Response<CategoryResponse>) {
+               Logger.d("Category", response.body().toString())
+                response.body()?.data?.let { refreshCategoryAdapter(it) }
+
+                //progressBar!!.visibility = View.GONE
+            }
+            override fun onFailure(call: Call<CategoryResponse>, t: Throwable) {
+                t.message?.let { Logger.d("Category", it) }
+                //progressBar!!.visibility = View.GONE
+            }
+        })
+
     }
-
     fun getAllPosts(): ArrayList<Post> {
         val feeds: ArrayList<Post> = ArrayList<Post>()
         feeds.add(

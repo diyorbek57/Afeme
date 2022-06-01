@@ -36,7 +36,10 @@ class CategoryAdapter(
             with(categoryList[position]) {
                 binding.tvCategoryName.text = category_name
                 if (category_name != null) {
-                    setImageToCategory(category_name, binding.ivCategoryImage, context)
+                    //setImageToCategory(category_name, binding.ivCategoryImage, context)
+                    Glide.with(context)
+                        .load("https://ali98.uz/public/admin2/categories/$category_icon")
+                        .into(binding.ivCategoryImage)
                 }
                 binding.cvCategory.setOnClickListener {
                     if (category_name != null) {

@@ -27,7 +27,7 @@ import com.ayizor.afeme.databinding.ActivityDetailsBinding
 import com.ayizor.afeme.databinding.ItemCallBottomSheetDetailsBinding
 import com.ayizor.afeme.fragment.AreaAndLotFragment
 import com.ayizor.afeme.fragment.InteriorFragment
-import com.ayizor.afeme.utils.CustomSpannable
+import com.ayizor.afeme.helper.CustomSpannable
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel

@@ -21,12 +21,14 @@
             android:layout_height="wrap_content"
             android:background="@drawable/ic_item_light_icon_circle_background">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_category_image"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/circler_imageView"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="15dp" />
+                />
         </FrameLayout>
 
 

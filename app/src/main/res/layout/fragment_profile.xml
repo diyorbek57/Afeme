@@ -27,57 +27,49 @@
                     <ImageView
                         android:id="@+id/iv_profile_background"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp" />
+                        android:layout_height="180dp" />
 
-<!--                    <ImageView-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:scaleType="centerCrop"-->
-<!--                        android:src="@drawable/details_gradient" />-->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/item_profile_gradient" />
 
                 </FrameLayout>
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_profile"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:layout_gravity="bottom|center_horizontal"
-                    android:padding="1dp"
+                    android:scaleType="centerCrop"
                     android:src="@color/black"
                     app:shapeAppearanceOverlay="@style/circler_imageView" />
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="15dp">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="start|center_vertical">
-
-<!--                        <ImageView-->
-<!--                            android:layout_width="24dp"-->
-<!--                            android:layout_height="24dp"-->
-<!--                            android:src="@drawable/ic_stats" />-->
-
-                    </LinearLayout>
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/iv_share_profile"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginEnd="20dp"
+                        android:layout_toStartOf="@id/iv_setting_profile"
                         android:src="@drawable/ic_share" />
 
                     <ImageView
+                        android:layout_alignParentEnd="true"
+                        android:id="@+id/iv_setting_profile"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:src="@drawable/ic_setting" />
 
-                </LinearLayout>
+                </RelativeLayout>
 
             </FrameLayout>
 
@@ -107,63 +99,89 @@
                 android:padding="5dp"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="7.5dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:background="@drawable/shape_rounded_categories"-->
-<!--                    android:backgroundTint="@color/dark_grey"-->
-<!--                    android:gravity="center_vertical"-->
-<!--                    android:orientation="horizontal"-->
-<!--                    android:padding="10dp">-->
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tl_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="5dp"
+                    app:tabBackground="@drawable/bright_blue_stroke_box"
+                    app:tabGravity="center"
+                    app:tabIndicator="@drawable/item_tab_indicator_details"
+                    app:tabIndicatorAnimationMode="elastic"
+                    app:tabIndicatorColor="@null"
+                    app:tabIndicatorGravity="stretch"
+                    app:tabMode="fixed"
+                    app:tabPaddingEnd="10dp"
+                    app:tabPaddingStart="10dp"
+                    app:tabSelectedTextColor="@color/white"
+                    app:tabTextColor="@color/bright_blue" />
 
-<!--                    <ImageView-->
-<!--                        android:id="@+id/iv_ic_search"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center_vertical"-->
-<!--                        android:src="@drawable/ic_search_white" />-->
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/tv_search"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_gravity="center_vertical"-->
-<!--                        android:layout_marginStart="10dp"-->
-<!--                        android:text="@string/search_for_ideas"-->
-<!--                        android:textColor="@color/light_grey"-->
-<!--                        android:textSize="15sp" />-->
-
-<!--                </LinearLayout>-->
-
-                <ImageView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/ll_search_profile"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:src="@drawable/ic_filter" />
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginVertical="20dp"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
 
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="3"
+                        android:background="@drawable/item_search_view_background"
+                        android:paddingHorizontal="25dp"
+                        android:paddingVertical="10dp">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/source_sans_pro_semibold"
+                            android:text="@string/search"
+                            android:textColor="@color/dark_grayish_blue"
+                            android:textSize="18sp" />
+
+                        <ImageView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:src="@drawable/nav_ic_search_default"
+                            app:tint="@color/dark_grayish_blue" />
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_search_filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_item_light_icon_15_background"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_filter" />
+
+                </LinearLayout>
+
+                <com.ayizor.afeme.helper.WrapContentHeightViewPager
+                    android:id="@+id/vp_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_saved_photos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingStart="0dp"
-                android:paddingEnd="7.5dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="75dp" />
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/rv_saved_photos_profile"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:paddingStart="0dp"-->
+<!--                android:paddingEnd="7.5dp" />-->
 
         </LinearLayout>
 
