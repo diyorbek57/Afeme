@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.ayizor.afeme.R
+import com.ayizor.afeme.api.Api
 import com.ayizor.afeme.databinding.ItemHomeCategoryBinding
 import com.ayizor.afeme.model.Category
 import com.bumptech.glide.Glide
@@ -38,7 +39,7 @@ class CategoryAdapter(
                 if (category_name != null) {
                     //setImageToCategory(category_name, binding.ivCategoryImage, context)
                     Glide.with(context)
-                        .load("https://ali98.uz/public/admin2/categories/$category_icon")
+                        .load(Api.CATEGORY_IMAGE_URL + category_icon)
                         .into(binding.ivCategoryImage)
                 }
                 binding.cvCategory.setOnClickListener {
@@ -79,7 +80,7 @@ private fun setImageToCategory(category_name: String, imageView: ImageView, cont
         Glide.with(context)
             .load(R.drawable.ic_villa)
             .into(imageView)
-    }else if (category_name.contentEquals("Apartment")) {
+    } else if (category_name.contentEquals("Apartment")) {
         Glide.with(context)
             .load(R.drawable.ic_flat_house)
             .into(imageView)

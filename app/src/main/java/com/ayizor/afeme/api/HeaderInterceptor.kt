@@ -10,7 +10,7 @@ class HeaderInterceptor(private val accessKey: String) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response? {
         var request: Request = chain.request()
         request = request.newBuilder()
-            .addHeader("Authorization", "Client-ID $accessKey")
+            .addHeader("Authorization", "Bearer $accessKey")
             .build()
         return chain.proceed(request)
     }

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ayizor.afeme.R
 import com.ayizor.afeme.adapter.ProfileViewPagerAdapter
+import com.ayizor.afeme.api.Api
 import com.ayizor.afeme.api.ApiInterface
 import com.ayizor.afeme.api.Client
 import com.ayizor.afeme.databinding.FragmentProfileBinding
@@ -51,10 +52,12 @@ class ProfileFragment : Fragment() {
             navBar.visibility=View.GONE
         }*/
     }
-    private fun displayUserDatas(userdatas:UserResponse) {
+
+    private fun displayUserDatas(user: User) {
 //        val user: ArrayList<User>? =userdatas.data
-//        Glide.with(this).load(user[].).into(binding.ivProfile);
+        Glide.with(this).load(Api.USER_IMAGE_URL + user.user_photo).into(binding.ivProfile);
     }
+
     private fun setupFeaturesViewPager() {
         adapter = ProfileViewPagerAdapter(parentFragmentManager)
         adapter.addFragment(CreatedPostsFragment(), getString(R.string.created))
@@ -94,15 +97,15 @@ class ProfileFragment : Fragment() {
     }
 
 
-
     private fun getUserDatas() {
-        dataService!!.getSingleUser(1).enqueue(object : Callback<UserResponse> {
+        dataService!!.getSingleUser(13).enqueue(object : Callback<UserResponse> {
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
-                Logger.d("Profile", response.body()?.status.toString())
-                response.body()?.let { displayUserDatas(it) }
+                Logger.d("Profile", response.body()?.data.toString())
+                response.body()?.data?.let { displayUserDatas(it) }
                 //progressBar!!.visibility = View.GONE
             }
+
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 t.message?.let { Logger.d("Profile", it) }
                 //progressBar!!.visibility = View.GONE

@@ -44,7 +44,7 @@ interface ApiInterface {
     @GET("user/{id}")
     fun getSingleUser(@Path("id") id: Int): Call<UserResponse>
 
-    @PUT("user/{id}")
+    @PUT @POST("user/{id}")
     fun updateSingleUser(@Path("id") id: String): Call<UserResponse>
 
     @DELETE("user/{id}")

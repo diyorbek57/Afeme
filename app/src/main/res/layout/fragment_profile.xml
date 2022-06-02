@@ -43,7 +43,7 @@
                     android:layout_height="120dp"
                     android:layout_gravity="bottom|center_horizontal"
                     android:scaleType="centerCrop"
-                    android:src="@color/black"
+                    android:src="@drawable/default_profile_image"
                     app:shapeAppearanceOverlay="@style/circler_imageView" />
 
                 <RelativeLayout

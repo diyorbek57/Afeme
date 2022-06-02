@@ -2,7 +2,6 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.HomeFragment">
@@ -75,8 +74,24 @@
         android:id="@+id/nestedScrollView"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/progress_bar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/ic_item_light_icon_15_background"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="four_circle_loading.json"
+        app:lottie_loop="true"
+        app:lottie_speed="1.3" />
 
         <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_main_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -200,5 +215,6 @@
                     android:layout_height="match_parent" />
             </LinearLayout>
         </LinearLayout>
+</RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

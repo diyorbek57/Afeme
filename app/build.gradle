@@ -34,6 +34,13 @@ android {
     viewBinding {
         enabled = true
     }
+    sourceSets {
+        main {
+            assets {
+                srcDirs 'src/main/assets'
+            }
+        }
+    }
 
 }
 
@@ -62,6 +69,8 @@ dependencies {
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
     //ccp
     implementation 'com.hbb20:ccp:2.6.0'
+    //lottie animation
+    implementation 'com.airbnb.android:lottie:5.0.3'
     //pinview
     implementation 'io.github.chaosleung:pinview:1.4.4'
     //spinner

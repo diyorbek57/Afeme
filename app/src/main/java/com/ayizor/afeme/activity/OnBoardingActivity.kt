@@ -30,12 +30,13 @@ class OnBoardingActivity : BaseActivity() {
         binding = ActivityOnBoardingBinding.inflate(layoutInflater)
         val view: View = binding.root
         setContentView(view)
+        inits()
         if (onlyOnce()) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         } else {
-            inits()
+
         }
 
     }

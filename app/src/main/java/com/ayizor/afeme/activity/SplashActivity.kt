@@ -45,6 +45,7 @@ class SplashActivity : BaseActivity() {
             override fun onTick(millisUntilFinished: Long) {}
             override fun onFinish() {
                 callOnBoardingActivity(this@SplashActivity)
+
             }
         }.start()
     }
