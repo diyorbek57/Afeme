@@ -74,6 +74,7 @@
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/item_view_all.xml" value="0.4" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/menu/main_bottom_navigation.xml" value="0.25" />
         <entry key="app/src/main/res/drawable/gradient_solid_rounded.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable/ic_notification_warning.xml" value="0.1195" />
         <entry key="app/src/main/res/drawable/item_button_selector.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/item_disabled_background.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/item_enabled_background.xml" value="0.142" />
@@ -91,6 +92,11 @@
         <entry key="app/src/main/res/layout/fragment_saved_posts.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_home_category.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/item_notification.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/item_notification_fail.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/item_notification_info.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/item_notification_success.xml" value="0.3049611409505208" />
+        <entry key="app/src/main/res/layout/item_notification_warning.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_post_small.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_sorted_saved_posts.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/xml/network_security_config.xml" value="0.1265625" />
