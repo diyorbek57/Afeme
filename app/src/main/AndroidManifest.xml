@@ -32,14 +32,18 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".FilterActivity"
+            android:name=".activity.FilterActivity"
             android:exported="false" />
         <activity
             android:name=".activity.authentication.LocationActivity"
-            android:exported="true"></activity>
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".activity.authentication.OtherInformationActivity"
-            android:exported="true"></activity>
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".activity.authentication.CodeConfirmActivity"
             android:exported="false" />

@@ -61,7 +61,6 @@
     <string name="notification">Notification</string>
     <string name="send_sms">Send SMS</string>
     <string name="to_call">To call</string>
-    <string name="ism">Ism</string>
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
     <string name="enter_the_confirmation_code_we_send_to">Enter the confirmation code we send to</string>
@@ -84,6 +83,16 @@
     <string name="created">Created</string>
     <string name="saved">Saved</string>
     <string name="last_viewed_posts">Last viewed posts</string>
+    <string name="create_post">Create Post</string>
+    <string name="building_type">Building type</string>
+    <string name="address">address</string>
+    <string name="about">About</string>
+    <string name="number_of_rooms">Number of rooms*</string>
+    <string name="total_area">Total area</string>
+    <string name="sell_property">Sell property</string>
+    <string name="mortgage">Mortgage</string>
+    <string name="take_a_long_time">Take a long time</string>
+    <string name="rent_by_the_day">Rent by the day</string>
     <array name="account_types">
         <item name="personal">Personal</item>
         <item name="business">Business</item>

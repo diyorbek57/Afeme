@@ -35,7 +35,6 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
 
     lateinit var binding: FragmentHomeBinding
     val TAG: String = HomeFragment::class.java.simpleName
-   // private val viewModel by navGraphViewModels<HomeFragmentViewModel>(R.id.main_navigation)
     var dataService: ApiInterface? = null
 
     override fun onCreateView(
