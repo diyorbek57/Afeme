@@ -1,4 +1,4 @@
-package com.ayizor.afeme.fragment
+package com.ayizor.afeme.fragment.creatpost
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,14 +8,17 @@ import android.view.ViewGroup
 import com.ayizor.afeme.R
 
 
-class BuildningTypeFragment : Fragment() {
+class AreaFragment : Fragment() {
+
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        return inflater.inflate(R.layout.fragment_buildning_type, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_area, container, false)
     }
 
 

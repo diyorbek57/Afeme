@@ -67,8 +67,10 @@ dependencies {
     implementation "androidx.room:room-paging:2.5.0-alpha01"
     //image slider
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
-    //Neumorphism
-    implementation 'com.github.fornewid:neumorphism:{latest_version}'
+    //eventBus
+    implementation("org.greenrobot:eventbus:3.3.1")
+//    //Neumorphism
+//    implementation 'com.github.fornewid:neumorphism:{latest_version}'
     //ccp
     implementation 'com.hbb20:ccp:2.6.0'
     //lottie animation

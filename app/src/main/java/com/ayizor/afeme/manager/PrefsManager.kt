@@ -6,8 +6,10 @@ import android.content.SharedPreferences
 class PrefsManager(context: Context) {
     val sharedPreferences: SharedPreferences?
 
+
     init {
         sharedPreferences = context.getSharedPreferences("afeme_db", Context.MODE_PRIVATE)
+
     }
 
     fun storeDeviceToken(token: String?) {
@@ -39,5 +41,8 @@ class PrefsManager(context: Context) {
     fun loadUserId(): String? {
         return sharedPreferences!!.getString("user_id", "")
     }
+
+
+
 
 }

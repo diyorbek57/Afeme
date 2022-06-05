@@ -1,49 +1,38 @@
 package com.ayizor.afeme.activity
 
-import android.annotation.SuppressLint
-import android.content.Intent
-import android.graphics.Color
+
 import android.os.Bundle
-import android.view.View
-import android.widget.FrameLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.FragmentManager
 import com.ayizor.afeme.R
-import com.ayizor.afeme.adapter.CategoryAdapter
-import com.ayizor.afeme.adapter.CreatePostBuildingTypeAdapter
-import com.ayizor.afeme.api.ApiInterface
-import com.ayizor.afeme.api.Client
 import com.ayizor.afeme.databinding.ActivityCreatePostBinding
-import com.ayizor.afeme.databinding.ActivityDetailsBinding
 import com.ayizor.afeme.fragment.HomeFragment
-import com.ayizor.afeme.model.Category
-import com.ayizor.afeme.model.response.CategoryResponse
-import com.ayizor.afeme.utils.Logger
-import com.google.android.material.card.MaterialCardView
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.ayizor.afeme.fragment.creatpost.PostTypeFragment
 
 
 class CreatePostActivity : BaseActivity() {
     lateinit var binding: ActivityCreatePostBinding
     val TAG: String = HomeFragment::class.java.simpleName
-
+    var fm: FragmentManager = supportFragmentManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreatePostBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        if (savedInstanceState == null) {
+            fm.beginTransaction()
+                .replace(R.id.fragment_container_creat_post, PostTypeFragment())
+                .addToBackStack(PostTypeFragment()::class.java.name)
+                .commit()
+        }
         inits()
     }
 
     private fun inits() {
-
+      //  binding.progressBarMainCreatPost.progress = fm.backStackEntryCount
 
     }
 
 
-//    private fun changeIcons() {
+    //    private fun changeIcons() {
 //        if (binding.cvSaleTypePost.isChecked) {
 //            binding.ivSaleTypePost.setImageResource(R.drawable.ic_creat_post_house_selected);
 //        } else {
@@ -62,11 +51,19 @@ class CreatePostActivity : BaseActivity() {
 //
 //
 //    }
+//    @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
+//    fun onEvent(event: MessageEvent) {
+//        binding.progressBarMainCreatPost.progress = event.message
+//    }
 
+    override fun onStart() {
+        super.onStart()
+//        EventBus.getDefault().register(this)
+    }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-
+    override fun onStop() {
+        super.onStop()
+//        EventBus.getDefault().unregister(this)
     }
 
 

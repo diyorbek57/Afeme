@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.BuildningTypeFragment">
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".fragment.creatpost.BuildningTypeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/tv_name_post_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:fontFamily="@font/source_sans_pro_semibold"
+        android:text="@string/select_property_type"
+        android:textAlignment="center"
+        android:textColor="@color/very_dark_blue_black"
+        android:textSize="24sp" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/progress_bar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/ic_item_light_icon_15_background"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="four_circle_loading.json"
+        app:lottie_loop="true"
+        app:lottie_speed="1.3" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_building_type"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-</FrameLayout>
+        android:visibility="gone" />
+</LinearLayout>

@@ -93,8 +93,32 @@
     <string name="mortgage">Mortgage</string>
     <string name="take_a_long_time">Take a long time</string>
     <string name="rent_by_the_day">Rent by the day</string>
+    <string name="select_property_type">Select property type</string>
+    <string name="how_many_rooms_in_the_properity">How many rooms in the properity?</string>
+    <string name="studio">Studio</string>
+    <string name="_1_room">1 room</string>
+    <string name="_2_room">2 room</string>
+    <string name="_3_room">3 room</string>
+    <string name="_4_room">4 room</string>
+    <string name="_5_room">5 room</string>
+    <string name="_6_room">6 room</string>
+    <string name="over_7_room">over 7 room</string>
+    <string name="apartment_area">Apartment area</string>
+    <string name="living_space">Living space</string>
+    <string name="kitchen_area">Kitchen area</string>
+    <string name="photos">Photos</string>
+    <string name="take_a_picture_of_all_the_rooms_the_kitchen_the_bathroom_the_corridor_the_balcony_the_view_from_the_window_the_facade_of_the_building_the_entrance_don_t_use_screenshots">Take a picture of all the rooms, kitchen, bathroom, corridor, balcony, view from the window, facade of the building, entrance. Don\'t use screenshots.</string>
+    <string name="maximum_15_photos">Maximum 15 photos</string>
+    <string name="apartment_floor">Apartment floor</string>
+    <string name="floors_in_the_house">Floors in the house</string>
+    <string name="price_and_terms_of_the_deal">Price and terms of the deal</string>
+    <string name="description">Description</string>
     <array name="account_types">
         <item name="personal">Personal</item>
         <item name="business">Business</item>
+    </array>
+    <array name="currency_types">
+        <item name="uzs">UZS</item>
+        <item name="usd">USD</item>
     </array>
 </resources>
