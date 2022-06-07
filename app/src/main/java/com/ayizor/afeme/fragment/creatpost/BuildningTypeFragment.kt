@@ -7,23 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.ayizor.afeme.R
-import com.ayizor.afeme.adapter.CreatePostBuildingTypeAdapter
-import com.ayizor.afeme.api.ApiInterface
-import com.ayizor.afeme.api.Client
+import com.ayizor.afeme.adapter.createpostadapters.CreatePostBuildingTypeAdapter
+import com.ayizor.afeme.api.main.ApiInterface
+import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.FragmentBuildningTypeBinding
-import com.ayizor.afeme.eventbus.MessageEvent
+import com.ayizor.afeme.manager.PostPrefsManager
 import com.ayizor.afeme.model.Category
 import com.ayizor.afeme.model.response.CategoryResponse
 import com.ayizor.afeme.utils.Logger
-import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.collections.ArrayList
 
 
 class BuildningTypeFragment : Fragment(),
@@ -31,7 +28,8 @@ class BuildningTypeFragment : Fragment(),
     lateinit var binding: FragmentBuildningTypeBinding
     val TAG: String = BuildningTypeFragment::class.java.simpleName
     var dataService: ApiInterface? = null
-    var fragmentNumber = 3
+    var fragmentNumber = 2
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,7 +41,8 @@ class BuildningTypeFragment : Fragment(),
     }
 
     private fun inits() {
-        activity?.findViewById<ProgressBar>(R.id.progress_bar_main_creat_post)?.progress=2
+        activity?.findViewById<ProgressBar>(R.id.progress_bar_main_creat_post)?.progress =
+            fragmentNumber
 
         binding.progressBar.visibility = View.VISIBLE
         dataService = Client.getClient()?.create(ApiInterface::class.java)
@@ -85,8 +84,22 @@ class BuildningTypeFragment : Fragment(),
 
     }
 
-    override fun onBuildingTypeItemClickListener(name: Int?) {
+    override fun onBuildingTypeItemClickListener(id: Int) {
+        PostPrefsManager(requireContext()).storeBuildingType(id)
+        parentFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.enter_from_right,
+                R.anim.exit_to_left,
+                R.anim.enter_from_left,
+                R.anim.exit_to_right
+            )
+            .replace(R.id.fragment_container_creat_post, MapFragment())
+            .addToBackStack(BuildningTypeFragment::class.java.name).commit()
+
 
     }
+
+
+
 
 }

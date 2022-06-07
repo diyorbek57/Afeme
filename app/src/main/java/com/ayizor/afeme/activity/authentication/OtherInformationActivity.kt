@@ -20,8 +20,8 @@ import androidx.core.app.ActivityCompat
 import com.ayizor.afeme.R
 import com.ayizor.afeme.activity.BaseActivity
 import com.ayizor.afeme.activity.MainActivity
-import com.ayizor.afeme.api.ApiInterface
-import com.ayizor.afeme.api.Client
+import com.ayizor.afeme.api.main.ApiInterface
+import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.ActivityOtherInformationBinding
 import com.ayizor.afeme.model.User
 import com.ayizor.afeme.utils.Logger

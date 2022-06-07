@@ -98,6 +98,7 @@
         <entry key="app/src/main/res/layout/fragment_description.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_floor.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_map.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_photos.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_post_type.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_price.xml" value="0.3098958333333333" />
@@ -110,6 +111,7 @@
         <entry key="app/src/main/res/layout/item_bottom_sheet_search.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_create_post_building_type.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_create_post_selecting_cards.xml" value="0.30885416666666665" />
+        <entry key="app/src/main/res/layout/item_create_post_sell_type.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_home_category.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_notification.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_notification_fail.xml" value="0.3098958333333333" />

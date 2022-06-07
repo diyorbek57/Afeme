@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,37 +8,56 @@
     android:padding="15dp"
     tools:context=".fragment.creatpost.PhotosFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
-        android:fontFamily="@font/source_sans_pro_semibold"
-        android:text="@string/photos"
-        android:textAlignment="center"
-        android:textColor="@color/very_dark_blue_black"
-        android:textSize="24sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/source_sans_pro_semibold"
-        android:text="@string/maximum_15_photos"
-        android:textAlignment="center"
-        android:textColor="@color/very_dark_blue_black"
-        android:textSize="18sp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_choose_photos_creat_post"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
-        android:fontFamily="@font/source_sans_pro_regular"
-        android:text="@string/take_a_picture_of_all_the_rooms_the_kitchen_the_bathroom_the_corridor_the_balcony_the_view_from_the_window_the_facade_of_the_building_the_entrance_don_t_use_screenshots"
+        android:orientation="vertical">
 
-        android:textColor="@color/dark_grayish_blue"
-        android:textSize="18sp" />
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:fontFamily="@font/source_sans_pro_semibold"
+            android:text="@string/photos"
+            android:textAlignment="center"
+            android:textColor="@color/very_dark_blue_black"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/source_sans_pro_semibold"
+            android:text="@string/maximum_15_photos"
+            android:textAlignment="center"
+            android:textColor="@color/very_dark_blue_black"
+            android:textSize="18sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_choose_photos_creat_post"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:fontFamily="@font/source_sans_pro_regular"
+            android:text="@string/take_a_picture_of_all_the_rooms_the_kitchen_the_bathroom_the_corridor_the_balcony_the_view_from_the_window_the_facade_of_the_building_the_entrance_don_t_use_screenshots"
+
+            android:textColor="@color/dark_grayish_blue"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/item_button_selector"
+        android:fontFamily="@font/source_sans_pro_semibold"
+        android:text="@string/choose_photo"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        app:backgroundTint="@null" />
+</RelativeLayout>

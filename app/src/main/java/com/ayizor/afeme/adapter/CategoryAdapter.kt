@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.ayizor.afeme.R
-import com.ayizor.afeme.api.Api
+import com.ayizor.afeme.api.main.Api
 import com.ayizor.afeme.databinding.ItemHomeCategoryBinding
 import com.ayizor.afeme.model.Category
 import com.bumptech.glide.Glide

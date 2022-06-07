@@ -1,4 +1,4 @@
-package com.ayizor.afeme.api
+package com.ayizor.afeme.api.main
 
 class Api {
     companion object {

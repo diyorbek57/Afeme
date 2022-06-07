@@ -1,33 +1,35 @@
 package com.ayizor.afeme.activity
 
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import com.ayizor.afeme.R
 import com.ayizor.afeme.databinding.ActivityCreatePostBinding
 import com.ayizor.afeme.fragment.HomeFragment
+import com.ayizor.afeme.fragment.creatpost.PhotosFragment
 import com.ayizor.afeme.fragment.creatpost.PostTypeFragment
+import com.ayizor.afeme.fragment.creatpost.PriceFragment
 
 
 class CreatePostActivity : BaseActivity() {
     lateinit var binding: ActivityCreatePostBinding
     val TAG: String = HomeFragment::class.java.simpleName
-    var fm: FragmentManager = supportFragmentManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreatePostBinding.inflate(layoutInflater)
         setContentView(binding.root)
         if (savedInstanceState == null) {
-            fm.beginTransaction()
-                .replace(R.id.fragment_container_creat_post, PostTypeFragment())
-                .addToBackStack(PostTypeFragment()::class.java.name)
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container_creat_post, PriceFragment())
+                .addToBackStack(PriceFragment()::class.java.name)
                 .commit()
         }
         inits()
     }
 
     private fun inits() {
-      //  binding.progressBarMainCreatPost.progress = fm.backStackEntryCount
+        //  binding.progressBarMainCreatPost.progress = fm.backStackEntryCount
 
     }
 

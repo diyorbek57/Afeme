@@ -9,12 +9,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ayizor.afeme.R
 import com.ayizor.afeme.adapter.ProfileViewPagerAdapter
-import com.ayizor.afeme.api.Api
-import com.ayizor.afeme.api.ApiInterface
-import com.ayizor.afeme.api.Client
+import com.ayizor.afeme.api.main.Api
+import com.ayizor.afeme.api.main.ApiInterface
+import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.FragmentProfileBinding
 import com.ayizor.afeme.model.User
-import com.ayizor.afeme.model.response.CategoryResponse
 import com.ayizor.afeme.model.response.UserResponse
 import com.ayizor.afeme.utils.Logger
 import com.bumptech.glide.Glide

@@ -47,7 +47,7 @@
     <string name="username">Username</string>
     <string name="gallery">Gallery</string>
     <string name="search">Search</string>
-    <string name="api_key">AIzaSyA27nXNCNVty9NjHzzFfKAdNo6FvEPhUzM</string>
+    <string name="api_key">AIzaSyCd8QB-uV3aPATmNH2OSQN2fFQYRSZJnUA</string>
     <string name="location">Location</string>
     <string name="features_amp_facilities"><![CDATA[Features & Facilities]]></string>
     <string name="status">Status</string>
@@ -96,13 +96,9 @@
     <string name="select_property_type">Select property type</string>
     <string name="how_many_rooms_in_the_properity">How many rooms in the properity?</string>
     <string name="studio">Studio</string>
-    <string name="_1_room">1 room</string>
-    <string name="_2_room">2 room</string>
-    <string name="_3_room">3 room</string>
-    <string name="_4_room">4 room</string>
-    <string name="_5_room">5 room</string>
-    <string name="_6_room">6 room</string>
-    <string name="over_7_room">over 7 room</string>
+    <string name="rooms">Rooms</string>
+    <string name="room">Room</string>
+    <string name="over">Over</string>
     <string name="apartment_area">Apartment area</string>
     <string name="living_space">Living space</string>
     <string name="kitchen_area">Kitchen area</string>
@@ -113,6 +109,7 @@
     <string name="floors_in_the_house">Floors in the house</string>
     <string name="price_and_terms_of_the_deal">Price and terms of the deal</string>
     <string name="description">Description</string>
+    <string name="choose_photo">Choose photo</string>
     <array name="account_types">
         <item name="personal">Personal</item>
         <item name="business">Business</item>

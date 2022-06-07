@@ -1,26 +1,33 @@
 package com.ayizor.afeme.fragment.creatpost
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import com.ayizor.afeme.R
-import com.ayizor.afeme.activity.CreatePostActivity
-import com.ayizor.afeme.databinding.ActivityCreatePostBinding
+import com.ayizor.afeme.adapter.createpostadapters.SellTypesAdapter
+import com.ayizor.afeme.api.main.ApiInterface
+import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.FragmentPostTypeBinding
-import com.ayizor.afeme.eventbus.MessageEvent
 import com.ayizor.afeme.fragment.HomeFragment
+import com.ayizor.afeme.manager.PostPrefsManager
+import com.ayizor.afeme.model.SellType
+import com.ayizor.afeme.model.response.SellResponse
 import com.ayizor.afeme.utils.Logger
-import org.greenrobot.eventbus.EventBus
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
-class PostTypeFragment : Fragment(), View.OnClickListener{
+class PostTypeFragment : Fragment(), SellTypesAdapter.OnSellTypeItemClickListener {
 
     lateinit var binding: FragmentPostTypeBinding
-    var fragmentNumber = 2
+    var dataService: ApiInterface? = null
+    var fragmentNumber = 1
     val TAG: String = HomeFragment::class.java.simpleName
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,57 +39,57 @@ class PostTypeFragment : Fragment(), View.OnClickListener{
     }
 
     private fun inits() {
-        activity?.findViewById<ProgressBar>(R.id.progress_bar_main_creat_post)?.progress=1
-       // mainBinding.progressBarMainCreatPost.progress=1
-        setupOnClicks()
+        activity?.findViewById<ProgressBar>(R.id.progress_bar_main_creat_post)?.progress =
+            fragmentNumber
+        binding.progressBar.visibility = View.VISIBLE
+        dataService = Client.getClient()?.create(ApiInterface::class.java)
+        binding.rvSellType.layoutManager = GridLayoutManager(
+            requireContext(), 1, GridLayoutManager.VERTICAL, false
+        )
+        getAllSellTypes()
+    }
+
+    private fun refreshSellTypesAdapter(filters: ArrayList<SellType>) {
+        val adapter = SellTypesAdapter(requireContext(), filters, this)
+        binding.rvSellType.adapter = adapter
+
 
     }
 
-    private fun setupOnClicks() {
-        binding.cvSell.setOnClickListener {
-            Logger.d("OnClick", "cvsell")
-//            EventBus.getDefault().post(MessageEvent(2))
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.enter_from_right,
-                    R.anim.exit_to_left,
-                    R.anim.enter_from_left,
-                    R.anim.exit_to_right
-                )
-                .replace(R.id.fragment_container_creat_post, BuildningTypeFragment())
-                .addToBackStack(PostTypeFragment::class.java.name).commit()
-        }
-        binding.cvMortgage.setOnClickListener(this)
-        binding.cvRentByDay.setOnClickListener(this)
-        binding.cvTakeLongTime.setOnClickListener(this)
-    }
-
-    override fun onClick(v: View?) {
-        var fragment: Fragment? = null
-        when (v?.id) {
-            R.id.cv_sell -> {
-                fragment = BuildningTypeFragment()
+    private fun getAllSellTypes() {
+        dataService!!.getAllSellTypes().enqueue(object : Callback<SellResponse> {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(
+                call: Call<SellResponse>,
+                response: Response<SellResponse>
+            ) {
+                Logger.d(TAG, response.body().toString())
+                response.body()?.data?.let { refreshSellTypesAdapter(it) }
+                binding.rvSellType.visibility = View.VISIBLE
+                binding.progressBar.visibility = View.GONE
             }
-//            R.id.cv_mortgage ->{
-//                fragment = BuildningTypeFragment()
-//            }
-            R.id.cv_take_long_time -> {
-                fragment = BuildningTypeFragment()
+
+            override fun onFailure(call: Call<SellResponse>, t: Throwable) {
+                t.message?.let { Logger.d(TAG, it) }
+                //progressBar!!.visibility = View.GONE
             }
-            //            R.id.cv_mortgage ->{
-//                fragment = BuildningTypeFragment()
-//
+        })
 
-
-        }
-        assert(fragment != null)
-        if (fragment != null) {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container_creat_post, fragment).commit()
-        }
     }
 
+    override fun onSellTypeItemClickListener(id: Int) {
+        PostPrefsManager(requireContext()).storePostType(id)
+        parentFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.enter_from_right,
+                R.anim.exit_to_left,
+                R.anim.enter_from_left,
+                R.anim.exit_to_right
+            )
+            .replace(R.id.fragment_container_creat_post, BuildningTypeFragment())
+            .addToBackStack(PostTypeFragment::class.java.name).commit()
 
+    }
 
 
 }

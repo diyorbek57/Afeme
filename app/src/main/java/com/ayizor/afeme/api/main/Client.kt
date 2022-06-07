@@ -1,4 +1,4 @@
-package com.ayizor.afeme.api
+package com.ayizor.afeme.api.main
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

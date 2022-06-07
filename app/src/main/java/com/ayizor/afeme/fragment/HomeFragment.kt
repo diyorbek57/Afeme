@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ayizor.afeme.R
 import com.ayizor.afeme.activity.DetailsActivity
@@ -17,8 +16,8 @@ import com.ayizor.afeme.activity.NotificationActivity
 import com.ayizor.afeme.activity.ViewAllActivity
 import com.ayizor.afeme.adapter.CategoryAdapter
 import com.ayizor.afeme.adapter.SmallPostsAdapter
-import com.ayizor.afeme.api.ApiInterface
-import com.ayizor.afeme.api.Client
+import com.ayizor.afeme.api.main.ApiInterface
+import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.FragmentHomeBinding
 import com.ayizor.afeme.model.Category
 import com.ayizor.afeme.model.response.CategoryResponse

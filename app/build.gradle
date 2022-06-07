@@ -46,6 +46,7 @@ android {
 
 dependencies {
     implementation 'com.google.android.libraries.places:places:2.6.0'
+    implementation 'androidx.test:core-ktx:1.4.0'
 
 //custom
     //navigation version
@@ -64,7 +65,7 @@ dependencies {
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
     // optional - Paging 3 Integration
-    implementation "androidx.room:room-paging:2.5.0-alpha01"
+    implementation "androidx.room:room-paging:2.5.0-alpha02"
     //image slider
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
     //eventBus
@@ -107,13 +108,15 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging-ktx'
     // firebase auth
     implementation 'com.google.firebase:firebase-auth-ktx'
+    //storage
+    implementation 'com.google.firebase:firebase-storage-ktx'
 //
     //
     //noinspection GradleDependency
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.21"
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.6.0'
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

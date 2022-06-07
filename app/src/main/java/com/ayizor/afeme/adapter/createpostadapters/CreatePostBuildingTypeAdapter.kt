@@ -1,11 +1,11 @@
-package com.ayizor.afeme.adapter
+package com.ayizor.afeme.adapter.createpostadapters
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.ayizor.afeme.api.Api
+import com.ayizor.afeme.api.main.Api
 import com.ayizor.afeme.databinding.ItemCreatePostBuildingTypeBinding
 import com.ayizor.afeme.model.Category
 import com.bumptech.glide.Glide
@@ -40,7 +40,7 @@ class CreatePostBuildingTypeAdapter(
                         .into(binding.ivBuildingTypeIcon)
                 }
                 binding.cvBuildingType.setOnClickListener {
-                    if (category_name != null) {
+                    if (category_id != null) {
                         onBuildingTypeItemClickListener.onBuildingTypeItemClickListener(
                             category_id
                         )
@@ -61,7 +61,7 @@ class CreatePostBuildingTypeAdapter(
         RecyclerView.ViewHolder(binding.root)
 
     interface OnBuildingTypeItemClickListener {
-        fun onBuildingTypeItemClickListener(name: Int?)
+        fun onBuildingTypeItemClickListener(id: Int)
     }
 }
 

@@ -1,8 +1,9 @@
-package com.ayizor.afeme.api
+package com.ayizor.afeme.api.main
 
 import com.ayizor.afeme.model.response.CategoryResponse
 import com.ayizor.afeme.model.Post
 import com.ayizor.afeme.model.User
+import com.ayizor.afeme.model.response.SellResponse
 import com.ayizor.afeme.model.response.UserResponse
 import retrofit2.Call
 import retrofit2.http.*
@@ -44,14 +45,19 @@ interface ApiInterface {
     @GET("user/{id}")
     fun getSingleUser(@Path("id") id: Int): Call<UserResponse>
 
-    @PUT @POST("user/{id}")
+    @PUT
+    @POST("user/{id}")
     fun updateSingleUser(@Path("id") id: String): Call<UserResponse>
 
     @DELETE("user/{id}")
     fun deleteSingleUser(@Path("id") id: String): Call<UserResponse>
+
     //
     //categores
     @GET("htype")
     fun getAllCategory(): Call<CategoryResponse>
 
+    //selltypes
+    @GET("sales")
+    fun getAllSellTypes(): Call<SellResponse>
 }
