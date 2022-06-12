@@ -25,13 +25,10 @@ class SavedPostsAdapter(
     private val TYPE_ITEM_VIEWALL = 0
     private val TYPE_ITEM_POST = 1
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == TYPE_ITEM_POST) {
-            binding = ItemPostSmallBinding.inflate(LayoutInflater.from(context), parent, false)
-            SmallPostsViewHolder(binding)
-        } else {
-             viewAllBinding = ItemViewAllBinding.inflate(LayoutInflater.from(context), parent, false)
-            SmallPostsViewHolder(viewAllBinding)
-        }
+
+        binding = ItemPostSmallBinding.inflate(LayoutInflater.from(context), parent, false)
+        return SmallPostsViewHolder(binding)
+
 
     }
 
@@ -39,12 +36,12 @@ class SavedPostsAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         with(holder.itemViewType) {
             with(postsList[position]) {
-                binding.tvNamePostSmall.text = post_name
-                binding.tvLocationPostSmall.text = post_location
-                binding.tvPricePostSmall.text = "$$post_price"
-                binding.tvTypePostSmall.text = post_building_type
-                binding.tvPeriodPostSmall.text = "/$post_period"
-                binding.tvRatingPostSmall.text = post_rating.toString()
+                //  binding.tvNamePostSmall.text = post_name
+                //   binding.tvLocationPostSmall.text = post_location
+                binding.tvPricePostSmall.text = "$$post_price_usd"
+                binding.tvTypePostSmall.text = post_building_type.toString()
+                //  binding.tvPeriodPostSmall.text = "/$post_period"
+                binding.tvRatingPostSmall.text = "3.6"
                 Glide.with(holder.itemView.context)
                     .load(post_images)
                     .into(binding.ivImagePostSmall)
@@ -62,13 +59,6 @@ class SavedPostsAdapter(
 
     }
 
-    override fun getItemViewType(position: Int): Int {
-        val post = postsList[position]
-        return if (post.model_type == TYPE_ITEM_POST)
-            TYPE_ITEM_POST
-        else
-            return TYPE_ITEM_VIEWALL
-    }
 
     override fun getItemCount(): Int {
         return postsList.size

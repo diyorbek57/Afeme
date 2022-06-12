@@ -22,78 +22,69 @@ class LastSavedPostsAdapter(
 
     private lateinit var binding: ItemPostSmallBinding
     private lateinit var viewAllBinding: ItemViewAllBinding
-    private val TYPE_ITEM_VIEWALL = 0
-    private val TYPE_ITEM_POST = 1
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == TYPE_ITEM_POST) {
-            binding = ItemPostSmallBinding.inflate(LayoutInflater.from(context), parent, false)
-            SmallPostsViewHolder(binding)
-        } else {
-             viewAllBinding = ItemViewAllBinding.inflate(LayoutInflater.from(context), parent, false)
-            SmallPostsViewHolder(viewAllBinding)
-        }
+
+        binding = ItemPostSmallBinding.inflate(LayoutInflater.from(context), parent, false)
+        return SmallPostsViewHolder(binding)
+
 
     }
 
-    @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        with(holder.itemViewType) {
-            with(postsList[position]) {
-                binding.tvNamePostSmall.text = post_name
-                binding.tvLocationPostSmall.text = post_location
-                binding.tvPricePostSmall.text = "$$post_price"
-                binding.tvTypePostSmall.text = post_building_type
-                binding.tvPeriodPostSmall.text = "/$post_period"
-                binding.tvRatingPostSmall.text = post_rating.toString()
-                Glide.with(holder.itemView.context)
-                    .load(post_images)
-                    .into(binding.ivImagePostSmall)
 
-                binding.rlImagePostSmall.setOnClickListener {
-                    if (post_id != null) {
-                        onItemClickListener.onItemClickListener(post_id)
-                    }
-                }
-                binding.ivLikePostSmall.setOnClickListener {
-                    heartAnimation(binding.ivHeartAnim)
+
+@SuppressLint("SetTextI18n")
+override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    with(holder.itemViewType) {
+        with(postsList[position]) {
+            /// binding.tvNamePostSmall.text = post_name
+            //  binding.tvLocationPostSmall.text = post_location
+            binding.tvPricePostSmall.text = "$$post_price_usd"
+            binding.tvTypePostSmall.text = post_building_type.toString()
+            /// binding.tvPeriodPostSmall.text = "/$post_period"
+            binding.tvRatingPostSmall.text = "3.5"
+            Glide.with(holder.itemView.context)
+                .load(post_images)
+                .into(binding.ivImagePostSmall)
+
+            binding.rlImagePostSmall.setOnClickListener {
+                if (post_id != null) {
+                    onItemClickListener.onItemClickListener(post_id)
                 }
             }
-        }
-
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        val post = postsList[position]
-        return if (post.model_type == TYPE_ITEM_POST)
-            TYPE_ITEM_POST
-        else
-            return TYPE_ITEM_VIEWALL
-    }
-
-    override fun getItemCount(): Int {
-        return postsList.size
-    }
-
-    private fun heartAnimation(animationHeart: ImageView) {
-        animationHeart.alpha = 0.70f
-        (animationHeart.drawable as? Animatable)?.start()
-
-    }
-
-    inner class SmallPostsViewHolder : RecyclerView.ViewHolder {
-        private var smallPostBinding: ItemPostSmallBinding? = null
-        private var smallPostViewAllBinding: ItemViewAllBinding? = null
-
-        constructor(binding: ItemPostSmallBinding) : super(binding.root) {
-            smallPostBinding = binding
-        }
-
-        constructor(binding: ItemViewAllBinding) : super(binding.root) {
-            smallPostViewAllBinding = binding
+            binding.ivLikePostSmall.setOnClickListener {
+                heartAnimation(binding.ivHeartAnim)
+            }
         }
     }
 
-    interface OnItemClickListener {
-        fun onItemClickListener(id: String)
+}
+
+
+override fun getItemCount(): Int {
+    return postsList.size
+}
+
+private fun heartAnimation(animationHeart: ImageView) {
+    animationHeart.alpha = 0.70f
+    (animationHeart.drawable as? Animatable)?.start()
+
+}
+
+inner class SmallPostsViewHolder : RecyclerView.ViewHolder {
+    private var smallPostBinding: ItemPostSmallBinding? = null
+    private var smallPostViewAllBinding: ItemViewAllBinding? = null
+
+    constructor(binding: ItemPostSmallBinding) : super(binding.root) {
+        smallPostBinding = binding
     }
+
+    constructor(binding: ItemViewAllBinding) : super(binding.root) {
+        smallPostViewAllBinding = binding
+    }
+}
+
+interface OnItemClickListener {
+    fun onItemClickListener(id: String)
+}
 }

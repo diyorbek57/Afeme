@@ -7,12 +7,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ayizor.afeme.databinding.*
+import com.ayizor.afeme.model.Image
 import com.ayizor.afeme.model.ImageDetails
 import com.bumptech.glide.Glide
 
 class ChoosePhotoAdapter(
     var context: Context,
-    var photoList: ArrayList<Uri>,
+    var photoList: ArrayList<Image>,
     var onChoosePhotoItemClickListener: OnChoosePhotoItemClickListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -36,7 +37,7 @@ class ChoosePhotoAdapter(
         with(holder.itemViewType) {
             with(photoList[position]) {
                 Glide.with(context)
-                    .load(photoList[position])
+                    .load(photoList[position].image_url)
                     .into(choosedBinding.ivImage)
 //                chooseBinding.cvAddPhoto.setOnClickListener {
 //                    onChoosePhotoItemClickListener.onChoosePhotoItemClickListener(1)

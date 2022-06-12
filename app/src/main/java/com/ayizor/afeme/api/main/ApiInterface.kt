@@ -1,10 +1,9 @@
 package com.ayizor.afeme.api.main
 
-import com.ayizor.afeme.model.response.CategoryResponse
+import com.ayizor.afeme.model.BuildingMaterial
 import com.ayizor.afeme.model.Post
 import com.ayizor.afeme.model.User
-import com.ayizor.afeme.model.response.SellResponse
-import com.ayizor.afeme.model.response.UserResponse
+import com.ayizor.afeme.model.response.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -15,10 +14,10 @@ interface ApiInterface {
     fun getSinglePost(@Path("id") id: String): Call<Post>
 
     @GET("post")
-    fun getAllPosts(): Call<List<Post>>
+    fun getAllPosts(): Call<GetPostResponse>
 
     @POST("post")
-    fun createPost(@Body post: Post): Call<Post>
+    fun createPost(@Body post: Post): Call<PostResponse>
 
     @PUT("post/{id}")
     fun updatePost(@Path("id") id: String): Call<List<Post>>
@@ -60,4 +59,7 @@ interface ApiInterface {
     //selltypes
     @GET("sales")
     fun getAllSellTypes(): Call<SellResponse>
+    //building materials
+    @GET("materials")
+    fun getAllBuildingMaterials(): Call<BuildingMaterialResponse>
 }

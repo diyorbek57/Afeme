@@ -1,7 +1,6 @@
 package com.ayizor.afeme.fragment
 
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,9 +14,10 @@ import com.ayizor.afeme.databinding.ItemBottomSheetSearchBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
@@ -26,6 +26,7 @@ class SearchFragment : Fragment(), OnMapReadyCallback {
     lateinit var binding: FragmentSearchBinding
     val TAG: String = SearchFragment::class.java.simpleName
     var isDown = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -71,23 +72,34 @@ class SearchFragment : Fragment(), OnMapReadyCallback {
 
 
     override fun onMapReady(googleMap: GoogleMap) {
-        val latitude = 40.747457
-        val longitude = 72.359775
-        val postLocation = LatLng(latitude, longitude)
+        val bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheetSearch)
+        val latLngList: ArrayList<LatLng> = ArrayList()
+        val latLng = LatLng(40.776570, 72.344192)
+        val latLng2 = LatLng(40.778971, 72.360888)
+        val latLng3 = LatLng(40.770889, 72.362367)
+        val latLng4 = LatLng(40.763686, 72.359514)
+        latLngList.add(latLng)
+        latLngList.add(latLng2)
+        latLngList.add(latLng3)
+        latLngList.add(latLng4)
+        // val postLocation = LatLng(latitude, longitude)
         googleMap.uiSettings.isZoomGesturesEnabled = true;
         googleMap.uiSettings.isScrollGesturesEnabled = true
         googleMap.uiSettings.isMapToolbarEnabled = true;
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(postLocation, 16f))
-        // create marker
-        val marker: MarkerOptions =
-            MarkerOptions().position(LatLng(latitude, longitude))
+        googleMap.moveCamera(CameraUpdateFactory.zoomTo(25f))
+        for (i in 0 until latLngList.size) {
+
+            // create marker
+            val marker: MarkerOptions = MarkerOptions().position(latLngList[i])
+            googleMap.addMarker(marker);
+        }
         // Changing marker icon
         // adding marker
-        googleMap.addMarker(marker);
-        googleMap.addCircle(
-            CircleOptions().center(LatLng(latitude, longitude)).radius(100.0)
-                .strokeColor(Color.parseColor("#2972FE")).fillColor(Color.parseColor("#6499FF"))
-        )
+
+        googleMap.setOnMapClickListener {
+            bottomSheetBehavior.setPeekHeight(375)
+            bottomSheetBehavior.isHideable = false
+        }
         googleMap.setOnMapClickListener {
             if (isDown) {
                 slideDown(binding.cvSearch);
@@ -140,5 +152,7 @@ class SearchFragment : Fragment(), OnMapReadyCallback {
         super.onLowMemory()
         binding.mapViewSearch.onLowMemory()
     }
+
+
 
 }

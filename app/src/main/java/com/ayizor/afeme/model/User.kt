@@ -15,7 +15,7 @@ data class User(
     val user_phone_number: String? = "",
     @SerializedName("photo")
     val user_photo: String? = "",
-    @SerializedName("pasport")
+    @SerializedName("passport")
     val user_passport_number: String? = "",
     @SerializedName("user_type")
     val user_type: String? = "",

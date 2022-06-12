@@ -26,7 +26,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:iss_auto_cycle="false"
-
                 app:iss_error_image="@android:color/darker_gray"
                 app:iss_placeholder="@color/bright_blue"
                 app:iss_selected_dot="@drawable/item_slider_indicator_seleceted"
@@ -45,22 +44,25 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
+                app:contentInsetStart="0dp"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:elevation="0dp"
                 app:layout_collapseMode="pin">
 
                 <RelativeLayout
+                    android:layout_marginHorizontal="10dp"
                     android:id="@+id/rl_1_home"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="10dp">
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:id="@+id/iv_back"
+                        android:padding="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:background="@drawable/ic_item_light_icon_15_background"
                         android:src="@drawable/ic_back" />
 
 
@@ -69,7 +71,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="5dp"
                         android:background="@drawable/ic_item_light_icon_15_background"
                         android:padding="10dp"
                         android:src="@drawable/ic_heart_outline" />
@@ -422,6 +423,7 @@
                 android:orientation="vertical">
 
                 <Button
+                    android:id="@+id/btn_buy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/gradient_solid_rounded"

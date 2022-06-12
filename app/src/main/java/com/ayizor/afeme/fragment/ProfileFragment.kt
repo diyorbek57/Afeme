@@ -54,7 +54,7 @@ class ProfileFragment : Fragment() {
 
     private fun displayUserDatas(user: User) {
 //        val user: ArrayList<User>? =userdatas.data
-        Glide.with(this).load(Api.USER_IMAGE_URL + user.user_photo).into(binding.ivProfile);
+        Glide.with(this).load(user.user_photo).into(binding.ivProfile);
     }
 
     private fun setupFeaturesViewPager() {
@@ -97,7 +97,7 @@ class ProfileFragment : Fragment() {
 
 
     private fun getUserDatas() {
-        dataService!!.getSingleUser(13).enqueue(object : Callback<UserResponse> {
+        dataService!!.getSingleUser(67).enqueue(object : Callback<UserResponse> {
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 Logger.d("Profile", response.body()?.data.toString())

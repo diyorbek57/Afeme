@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import com.ayizor.afeme.model.Area
 import com.ayizor.afeme.model.Floor
+import com.ayizor.afeme.model.Image
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -73,7 +74,7 @@ class PostPrefsManager(context: Context) {
     }
 
     ///////
-    fun storeArea(area: ArrayList<Area>) {
+    fun storeArea(area: Area) {
         val gson = Gson()
         val json = gson.toJson(area)
         val prefsEditor = postSharedPreferences!!.edit()
@@ -81,15 +82,15 @@ class PostPrefsManager(context: Context) {
         prefsEditor.apply()
     }
 
-    fun loadArea(): ArrayList<Area> {
+    fun loadArea(): Area {
         val gson = Gson()
         val json: String? = postSharedPreferences?.getString("area", null)
-        val type = object : TypeToken<ArrayList<Area?>?>() {}.type
-        return gson.fromJson<Any>(json, type) as ArrayList<Area>
+        val type = object : TypeToken<Area>() {}.type
+        return gson.fromJson(json, type)
     }
 
     ///////
-    fun storeFloor(area: ArrayList<Floor>) {
+    fun storeFloor(area: Floor) {
         val gson = Gson()
         val json = gson.toJson(area)
         val prefsEditor = postSharedPreferences!!.edit()
@@ -97,15 +98,15 @@ class PostPrefsManager(context: Context) {
         prefsEditor.apply()
     }
 
-    fun loadFloor(): ArrayList<Floor> {
+    fun loadFloor(): Floor {
         val gson = Gson()
         val json: String? = postSharedPreferences?.getString("floor", null)
-        val type = object : TypeToken<ArrayList<Floor?>?>() {}.type
-        return gson.fromJson<Any>(json, type) as ArrayList<Floor>
+        val type = object : TypeToken<Floor>() {}.type
+        return gson.fromJson(json, type)
     }
 
     ///////
-    fun storeImages(area: ArrayList<Uri>) {
+    fun storeImages(area: ArrayList<Image>) {
         val gson = Gson()
         val json = gson.toJson(area)
         val prefsEditor = postSharedPreferences!!.edit()
@@ -113,11 +114,11 @@ class PostPrefsManager(context: Context) {
         prefsEditor.apply()
     }
 
-    fun loadIaages(): ArrayList<Uri> {
+    fun loadImages(): ArrayList<Image> {
         val gson = Gson()
         val json: String? = postSharedPreferences?.getString("images", null)
-        val type = object : TypeToken<ArrayList<Floor?>?>() {}.type
-        return gson.fromJson<Any>(json, type) as ArrayList<Uri>
+        val type = object : TypeToken<ArrayList<Image?>?>() {}.type
+        return gson.fromJson(json, type) as ArrayList<Image>
     }
 
 
@@ -130,5 +131,15 @@ class PostPrefsManager(context: Context) {
 
     fun loadPrice(): String? {
         return postSharedPreferences!!.getString("price", "")
+    }
+    ///////
+    fun storeDescription(description: String) {
+        val prefsEditor = postSharedPreferences!!.edit()
+        prefsEditor.putString("description", description)
+        prefsEditor.apply()
+    }
+
+    fun loadDescription(): String? {
+        return postSharedPreferences!!.getString("description", "")
     }
 }

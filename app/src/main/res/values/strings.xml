@@ -110,6 +110,16 @@
     <string name="price_and_terms_of_the_deal">Price and terms of the deal</string>
     <string name="description">Description</string>
     <string name="choose_photo">Choose photo</string>
+    <string name="preview">Preview</string>
+    <string name="about_the_apartment">About the apartment</string>
+    <string name="about_the_house">About the house</string>
+    <string name="built_year">Built year</string>
+    <string name="building_material">Building material</string>
+    <string name="amenities_and_details">Amenities and Details</string>
+    <string name="additionally">Additionally</string>
+    <string name="communication_method">Communication method</string>
+    <string name="publish">Publish</string>
+    <string name="publish_later">Publish later</string>
     <array name="account_types">
         <item name="personal">Personal</item>
         <item name="business">Business</item>

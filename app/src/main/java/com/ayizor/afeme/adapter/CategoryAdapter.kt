@@ -1,8 +1,11 @@
 package com.ayizor.afeme.adapter
 
+
+
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Animatable
+import android.graphics.drawable.PictureDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -12,6 +15,8 @@ import com.ayizor.afeme.api.main.Api
 import com.ayizor.afeme.databinding.ItemHomeCategoryBinding
 import com.ayizor.afeme.model.Category
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
+
 
 class CategoryAdapter(
     var context: Context,

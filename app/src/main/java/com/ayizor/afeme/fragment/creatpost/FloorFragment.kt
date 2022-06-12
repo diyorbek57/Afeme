@@ -37,13 +37,11 @@ class FloorFragment : Fragment() {
             fragmentNumber
         binding.btnNext.setOnClickListener {
             if (validFloorHouse() && validApartmentFloor()) {
-                val floorList: ArrayList<Floor> = ArrayList()
                 val floor = Floor(
                     binding.etFloorsInTheHouse.editText?.text.toString(),
                     binding.etApartmentFloor.editText?.text.toString(),
                 )
-                floorList.add(floor)
-                PostPrefsManager(requireContext()).storeFloor(floorList)
+                PostPrefsManager(requireContext()).storeFloor(floor)
                 parentFragmentManager.beginTransaction()
                     .setCustomAnimations(
                         R.anim.enter_from_right,

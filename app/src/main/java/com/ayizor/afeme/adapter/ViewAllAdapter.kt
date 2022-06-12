@@ -33,12 +33,12 @@ class ViewAllAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         with(holder) {
             with(postsList[position]) {
-                binding.tvNamePostLarge.text = post_name
-                binding.tvLocationPostLarge.text = post_location
-                binding.tvPricePostLarge.text = "$$post_price"
-                binding.tvTypePostLarge.text = post_building_type
-                binding.tvPeriodPostLarge.text = "/$post_period"
-                binding.tvRatingPostLarge.text = post_rating.toString()
+              //  binding.tvNamePostLarge.text = post_name
+               // binding.tvLocationPostLarge.text = post_location
+                binding.tvPricePostLarge.text = "$$post_price_usd"
+                binding.tvTypePostLarge.text = post_building_type.toString()
+               // binding.tvPeriodPostLarge.text = "/$post_period"
+                binding.tvRatingPostLarge.text = "3.7"
                 Glide.with(holder.itemView.context)
                     .load(post_images)
                     .into(binding.ivImagePostLarge)

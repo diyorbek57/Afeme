@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_main_search"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/cl_main_search"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.SearchFragment">
-
 
 
     <RelativeLayout
@@ -78,21 +77,20 @@
             android:layout_height="match_parent" />
 
 
-
     </RelativeLayout>
 
-<!-- bottomsheet-->
+    <!-- bottomsheet-->
 
     <RelativeLayout
-        app:behavior_hideable="true"
-        app:behavior_peekHeight="52dp"
         android:id="@+id/bottom_sheet_search"
         android:layout_width="match_parent"
         android:layout_height="375dp"
         android:layout_marginTop="10dp"
-        android:paddingBottom="10dp"
         android:background="@drawable/item_bottom_sheet_background"
         android:orientation="vertical"
+        android:paddingBottom="10dp"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="52dp"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
         <View
@@ -100,16 +98,16 @@
             android:layout_width="200dp"
             android:layout_height="4dp"
             android:layout_centerHorizontal="true"
-           android:layout_marginTop="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/item_bottom_sheet_top_closer" />
 
         <androidx.cardview.widget.CardView
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_marginHorizontal="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_height="wrap_content"
             app:cardCornerRadius="25dp">
 
             <RelativeLayout

@@ -28,7 +28,7 @@ class ViewAllActivity : BaseActivity(), ViewAllAdapter.OnViewAllItemClickListene
             LinearLayoutManager.VERTICAL,
             false
         )
-        refreshViewAllAdapter(getAllPosts())
+      //  refreshViewAllAdapter(getAllPosts())
     }
 
     override fun onViewAllItemClickListener(id: String) {
@@ -43,105 +43,105 @@ class ViewAllActivity : BaseActivity(), ViewAllAdapter.OnViewAllItemClickListene
 
     }
 
-    fun getAllPosts(): ArrayList<Post> {
-        val feeds: ArrayList<Post> = ArrayList<Post>()
-        feeds.add(
-            Post(
-                R.drawable.house_1,
-                "Test",
-                "1",
-                "1",
-                "1",
-                1,
-                "1000",
-                "Rent",
-                "Villa",
-                "month",
-                null,
-                null,
-                "Andijan",
-                3.4,
-                1
-            )
-        )
-        feeds.add(
-            Post(
-                R.drawable.house_1,
-                "Test",
-                "1",
-                "1",
-                "1",
-                1,
-                "1000",
-                "Rent",
-                "Villa",
-                "month",
-                null,
-                null,
-                "Andijan",
-                3.4,
-                1
-            )
-        )
-        feeds.add(
-            Post(
-                R.drawable.house_1,
-                "Test",
-                "1",
-                "1",
-                "1",
-                1,
-                "1000",
-                "Rent",
-                "Villa",
-                "month",
-                null,
-                null,
-                "Andijan",
-                3.4,
-                1
-            )
-        )
-        feeds.add(
-            Post(
-                R.drawable.house_1,
-                "Test",
-                "1",
-                "1",
-                "1",
-                1,
-                "1000",
-                "Rent",
-                "Villa",
-                "month",
-                null,
-                null,
-                "Andijan",
-                3.4,
-                1
-            )
-        )
-        feeds.add(
-            Post(
-                R.drawable.house_1,
-                "Test",
-                "1",
-                "1",
-                "1",
-                1,
-                "1000",
-                "Rent",
-                "Villa",
-                "month",
-                null,
-                null,
-                "Andijan",
-                3.4,
-                1
-            )
-        )
-        return feeds
-    }
+   // fun getAllPosts(): ArrayList<Post> {
+//        val feeds: ArrayList<Post> = ArrayList<Post>()
+//        feeds.add(
+//            Post(
+//                R.drawable.house_1,
+//                "Test",
+//                "1",
+//                "1",
+//                "1",
+//                1,
+//                "1000",
+//                "Rent",
+//                "Villa",
+//                "month",
+//                null,
+//                null,
+//                "Andijan",
+//                3.4,
+//                1
+//            )
+//        )
+//        feeds.add(
+//            Post(
+//                R.drawable.house_1,
+//                "Test",
+//                "1",
+//                "1",
+//                "1",
+//                1,
+//                "1000",
+//                "Rent",
+//                "Villa",
+//                "month",
+//                null,
+//                null,
+//                "Andijan",
+//                3.4,
+//                1
+//            )
+//        )
+//        feeds.add(
+//            Post(
+//                R.drawable.house_1,
+//                "Test",
+//                "1",
+//                "1",
+//                "1",
+//                1,
+//                "1000",
+//                "Rent",
+//                "Villa",
+//                "month",
+//                null,
+//                null,
+//                "Andijan",
+//                3.4,
+//                1
+//            )
+//        )
+//        feeds.add(
+//            Post(
+//                R.drawable.house_1,
+//                "Test",
+//                "1",
+//                "1",
+//                "1",
+//                1,
+//                "1000",
+//                "Rent",
+//                "Villa",
+//                "month",
+//                null,
+//                null,
+//                "Andijan",
+//                3.4,
+//                1
+//            )
+//        )
+//        feeds.add(
+//            Post(
+//                R.drawable.house_1,
+//                "Test",
+//                "1",
+//                "1",
+//                "1",
+//                1,
+//                "1000",
+//                "Rent",
+//                "Villa",
+//                "month",
+//                null,
+//                null,
+//                "Andijan",
+//                3.4,
+//                1
+//            )
+//        )
+//        return feeds
+  //  }
 
 
 }

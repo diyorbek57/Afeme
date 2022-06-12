@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager
 import com.ayizor.afeme.R
 import com.ayizor.afeme.databinding.ActivityCreatePostBinding
 import com.ayizor.afeme.fragment.HomeFragment
+import com.ayizor.afeme.fragment.creatpost.DescriptionFragment
 import com.ayizor.afeme.fragment.creatpost.PhotosFragment
 import com.ayizor.afeme.fragment.creatpost.PostTypeFragment
 import com.ayizor.afeme.fragment.creatpost.PriceFragment
@@ -21,8 +22,7 @@ class CreatePostActivity : BaseActivity() {
         setContentView(binding.root)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container_creat_post, PriceFragment())
-                .addToBackStack(PriceFragment()::class.java.name)
+                .replace(R.id.fragment_container_creat_post, PostTypeFragment())
                 .commit()
         }
         inits()

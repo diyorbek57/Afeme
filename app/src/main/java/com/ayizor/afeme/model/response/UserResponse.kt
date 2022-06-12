@@ -6,5 +6,4 @@ import com.ayizor.afeme.model.User
 data class UserResponse (
         val status: Boolean? = null,
         val message: String? = "",
-        val data: User? = null
-        )
+        val data: User? = null)

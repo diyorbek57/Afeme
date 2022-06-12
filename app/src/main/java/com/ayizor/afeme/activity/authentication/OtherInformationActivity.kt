@@ -23,6 +23,7 @@ import com.ayizor.afeme.activity.MainActivity
 import com.ayizor.afeme.api.main.ApiInterface
 import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.ActivityOtherInformationBinding
+import com.ayizor.afeme.manager.PrefsManager
 import com.ayizor.afeme.model.User
 import com.ayizor.afeme.utils.Logger
 import com.google.android.gms.location.*
@@ -56,8 +57,10 @@ class OtherInformationActivity : BaseActivity() {
     lateinit var user_longitude: String
     lateinit var user_address: String
     lateinit var user_passport_number: String
-    lateinit var user_full_name: String
-    var fullnameDone: Boolean = false
+    lateinit var user_first_name: String
+    lateinit var user_last_name: String
+    var firstnameDone: Boolean = false
+    var lastnameDone: Boolean = false
     var passportDone: Boolean = false
     var dataService: ApiInterface? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,7 +73,8 @@ class OtherInformationActivity : BaseActivity() {
 
     private fun inits() {
         passportNumberValid()
-        fullNameValid()
+        firstNameValid()
+        lastNameValid()
         dataService = Client.getClient()?.create(ApiInterface::class.java)
         // Initializing fused location client
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -98,22 +102,25 @@ class OtherInformationActivity : BaseActivity() {
             getLastLocation()
         }
         binding.btnNextOtherInfo.setOnClickListener {
-            user_passport_number=binding.etPassportNumberInformations.editText?.text.toString()
-            user_full_name=binding.etNameInformations.editText?.text.toString()
+            user_passport_number = binding.etPassportNumberInformations.editText?.text.toString()
+            user_first_name = binding.etNameInformations.editText?.text.toString()
+            user_last_name = binding.etLastNameInformations.editText?.text.toString()
             if (checkPassportNumber(user_passport_number))
-            if (!user_latitude.isNullOrEmpty() && !user_longitude.isNullOrEmpty() && !user_address.isNullOrEmpty()) {
-                val i = Intent(this, MainActivity::class.java)
-                i.putExtra("user_phone_number", user_phone_number)
-                i.putExtra("user_account_type", user_account_type)
-                i.putExtra("user_confirmation_code", user_confirmation_code)
-                i.putExtra("user_latitude", user_latitude)
-                i.putExtra("user_longitude", user_longitude)
-                i.putExtra("user_address", user_address)
-                i.putExtra("user_full_name", user_full_name)
-                i.putExtra("user_passport_number", user_passport_number)
-                val user:User = User(user_full_name)
-                startActivity(i)
-            }
+                if (!user_latitude.isNullOrEmpty() && !user_longitude.isNullOrEmpty() && !user_address.isNullOrEmpty()) {
+
+//                i.putExtra("user_phone_number", user_phone_number)
+//                i.putExtra("user_account_type", user_account_type)
+//                i.putExtra("user_confirmation_code", user_confirmation_code)
+//                i.putExtra("user_latitude", user_latitude)
+//                i.putExtra("user_longitude", user_longitude)
+//                i.putExtra("user_address", user_address)
+//                i.putExtra("user_full_name", user_full_name)
+//                i.putExtra("user_passport_number", user_passport_number)
+
+                    val user = User(null, user_first_name, user_last_name)
+                    createUser(user)
+
+                }
         }
 
     }
@@ -264,18 +271,44 @@ class OtherInformationActivity : BaseActivity() {
     }
 
 
-    private fun fullNameValid() {
+    private fun firstNameValid() {
         binding.etNameInformations.editText?.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (!s.isEmpty() && s.length > 6) {
+                if (!s.isEmpty()) {
                     //set background and text color to button
-                    fullnameDone = true
-                    if (fullnameDone && passportDone) {
+                    firstnameDone = true
+                    if (firstnameDone && passportDone && lastnameDone) {
                         binding.btnNextOtherInfo.isEnabled = true
                     }
                 } else {
-                    fullnameDone = false
+                    firstnameDone = false
 
+                    binding.btnNextOtherInfo.isEnabled = false
+
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun afterTextChanged(
+                s: Editable
+            ) {
+            }
+        })
+    }
+
+    private fun lastNameValid() {
+        binding.etNameInformations.editText?.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if (!s.isEmpty()) {
+                    //set background and text color to button
+                    lastnameDone = true
+                    if (lastnameDone && passportDone && firstnameDone) {
+                        binding.btnNextOtherInfo.isEnabled = true
+                    }
+                } else {
+                    lastnameDone = false
                     binding.btnNextOtherInfo.isEnabled = false
 
                 }
@@ -297,7 +330,7 @@ class OtherInformationActivity : BaseActivity() {
                 if (!s.isEmpty() && s.length == 9) {
                     //set background and text color to button
                     passportDone = true
-                    if (passportDone && fullnameDone) {
+                    if (passportDone && firstnameDone && lastnameDone) {
                         binding.btnNextOtherInfo.isEnabled = true
                     }
                 } else {
@@ -316,12 +349,18 @@ class OtherInformationActivity : BaseActivity() {
             }
         })
     }
-    private fun createUser(user:User) {
+
+    private fun createUser(user: User) {
         dataService!!.register(user).enqueue(object : Callback<User> {
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 Logger.d("Register", "User created")
+                if (response.isSuccessful) {
+                    val i = Intent(this@OtherInformationActivity, MainActivity::class.java)
+                    startActivity(i)
+                    PrefsManager(this@OtherInformationActivity).storeUserRegistered(true)
 
+                }
                 //response.body()?.let { adapter?.addPhotos(it) }
                 //progressBar!!.visibility = View.GONE
             }

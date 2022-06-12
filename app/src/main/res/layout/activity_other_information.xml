@@ -43,6 +43,21 @@
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/et_last_name_informations"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxStrokeColor="@color/bright_blue"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/full_name"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/et_passport_number_informations"
@@ -99,11 +114,11 @@
 
 
                 <Button
-                    android:enabled="false"
                     android:id="@+id/btn_next_other_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/item_button_selector"
+                    android:enabled="false"
                     android:fontFamily="@font/source_sans_pro_semibold"
                     android:text="@string/next"
                     android:textAllCaps="false"

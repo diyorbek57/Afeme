@@ -28,7 +28,7 @@
             android:layout_alignParentEnd="true"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:src="@drawable/ic_cancel" />
+            android:src="@drawable/ic_cancel_circle" />
     </RelativeLayout>
 
 

@@ -22,6 +22,7 @@ import com.ayizor.afeme.R
 import com.ayizor.afeme.adapter.createpostadapters.ChoosePhotoAdapter
 import com.ayizor.afeme.databinding.FragmentPhotosBinding
 import com.ayizor.afeme.manager.PostPrefsManager
+import com.ayizor.afeme.model.Image
 import com.ayizor.afeme.model.ImageDetails
 import com.ayizor.afeme.utils.Logger
 
@@ -34,7 +35,7 @@ class PhotosFragment : Fragment(), ChoosePhotoAdapter.OnChoosePhotoItemClickList
     var fragmentNumber = 7
     lateinit var adapter: ChoosePhotoAdapter
 
-    var mArrayUri: ArrayList<Uri> = ArrayList<Uri>();
+    var mArrayUri: ArrayList<Image> = ArrayList();
     val REQUEST_CODE = 200
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,7 +82,7 @@ class PhotosFragment : Fragment(), ChoosePhotoAdapter.OnChoosePhotoItemClickList
 
     }
 
-    private fun refreshCategoryAdapter(filters: ArrayList<Uri>) {
+    private fun refreshCategoryAdapter(filters: ArrayList<Image>) {
         val imageDetails: ArrayList<ImageDetails> = ArrayList()
         adapter = ChoosePhotoAdapter(requireContext(), filters, this)
         binding.rvChoosePhotosCreatPost.adapter = adapter
@@ -121,7 +122,7 @@ class PhotosFragment : Fragment(), ChoosePhotoAdapter.OnChoosePhotoItemClickList
 
                 for (i in 0 until count!!) {
                     val imageUri: Uri = data.clipData?.getItemAt(i)!!.uri
-                    mArrayUri.add(imageUri)
+                    mArrayUri.add(Image(i, imageUri.toString()))
                 }
                 binding.btnNext.text = getString(R.string.next)
                 refreshCategoryAdapter(mArrayUri)
@@ -129,7 +130,7 @@ class PhotosFragment : Fragment(), ChoosePhotoAdapter.OnChoosePhotoItemClickList
                 // if single image is selected
 
                 val imageUri: Uri = data.data!!
-                mArrayUri.add(imageUri)
+                mArrayUri.add(Image(null, imageUri.toString()))
                 refreshCategoryAdapter(mArrayUri)
             }
         }

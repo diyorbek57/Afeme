@@ -47,7 +47,7 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     lateinit var supportMapFragment: SupportMapFragment
     lateinit var adapter: DetailsViewPagerAdapter
     private val REQUEST_CALL = 1
-     var phoneNumber: String = ""
+    var phoneNumber: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailsBinding.inflate(layoutInflater)
@@ -64,11 +64,12 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         binding.ivBack.setOnClickListener {
             onBackPressed()
         }
-        //Assign variable
+        binding.btnBuy.setOnClickListener {
+            showCallBottomSheet()
+        }
         supportMapFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_map_details) as SupportMapFragment
         supportMapFragment.getMapAsync(this)
-        //Check location permission
         makeTextViewResizable(binding.tvDescriptionDetails, 3, "View More", true);
         binding.flCallDetails.setOnClickListener {
             showCallBottomSheet()
@@ -233,7 +234,8 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     fun showCallBottomSheet() {
         val sheetDialog = BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme)
-        val bottomSheetBinding: ItemCallBottomSheetDetailsBinding = ItemCallBottomSheetDetailsBinding.inflate(layoutInflater)
+        val bottomSheetBinding: ItemCallBottomSheetDetailsBinding =
+            ItemCallBottomSheetDetailsBinding.inflate(layoutInflater)
         sheetDialog.setContentView(bottomSheetBinding.root)
 
         bottomSheetBinding.tvPhoneNumber.text = phoneNumber

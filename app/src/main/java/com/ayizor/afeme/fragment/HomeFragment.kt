@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ayizor.afeme.R
 import com.ayizor.afeme.activity.DetailsActivity
 import com.ayizor.afeme.activity.NotificationActivity
 import com.ayizor.afeme.activity.ViewAllActivity
@@ -20,10 +19,10 @@ import com.ayizor.afeme.api.main.ApiInterface
 import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.FragmentHomeBinding
 import com.ayizor.afeme.model.Category
-import com.ayizor.afeme.model.response.CategoryResponse
 import com.ayizor.afeme.model.Post
+import com.ayizor.afeme.model.response.CategoryResponse
+import com.ayizor.afeme.model.response.GetPostResponse
 import com.ayizor.afeme.utils.Logger
-
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -47,7 +46,7 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
     }
 
     private fun inits() {
-        binding.progressBar.visibility=View.VISIBLE
+        binding.progressBar.visibility = View.VISIBLE
         dataService = Client.getClient()?.create(ApiInterface::class.java)
         binding.ivNotificationsHome.setOnClickListener {
             callNotificationsActivity()
@@ -73,9 +72,10 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
             LinearLayoutManager.HORIZONTAL,
             false
         )
-        refreshPopularAdapter(getAllPosts())
-        refreshNearbyAdapter(getAllPosts())
-        refreshCheapAdapter(getAllPosts())
+        getAllPosts()
+//        refreshPopularAdapter(getAllPosts())
+//        refreshNearbyAdapter(getAllPosts())
+//        refreshCheapAdapter(getAllPosts())
         getAllCategory()
         setupClickableViews()
 
@@ -130,12 +130,16 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
     private fun getAllCategory() {
         dataService!!.getAllCategory().enqueue(object : Callback<CategoryResponse> {
             @SuppressLint("NotifyDataSetChanged")
-            override fun onResponse(call: Call<CategoryResponse>, response: Response<CategoryResponse>) {
-               Logger.d("Category", response.body().toString())
+            override fun onResponse(
+                call: Call<CategoryResponse>,
+                response: Response<CategoryResponse>
+            ) {
+                Logger.d("Category", response.body().toString())
                 response.body()?.data?.let { refreshCategoryAdapter(it) }
-                binding.llMainHome.visibility =View.VISIBLE
+                binding.llMainHome.visibility = View.VISIBLE
                 binding.progressBar.visibility = View.GONE
             }
+
             override fun onFailure(call: Call<CategoryResponse>, t: Throwable) {
                 t.message?.let { Logger.d("Category", it) }
                 //progressBar!!.visibility = View.GONE
@@ -143,104 +147,126 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
         })
 
     }
-    fun getAllPosts(): ArrayList<Post> {
-        val feeds: ArrayList<Post> = ArrayList<Post>()
-        feeds.add(
-            Post(
-                R.drawable.house_1,
-                "Test",
-                "1",
-                "1",
-                "1",
-                1,
-                "1000",
-                "Rent",
-                "Villa",
-                "month",
-                null,
-                null,
-                "Andijan",
-                3.4,
-                1
-            )
-        )
-        feeds.add(
-            Post(
-                R.drawable.house_1,
-                "Test",
-                "1",
-                "1",
-                "1",
-                1,
-                "1000",
-                "Rent",
-                "Villa",
-                "month",
-                null,
-                null,
-                "Andijan",
-                3.4,
-                1
-            )
-        )
-        feeds.add(
-            Post(
-                R.drawable.house_1,
-                "Test",
-                "1",
-                "1",
-                "1",
-                1,
-                "1000",
-                "Rent",
-                "Villa",
-                "month",
-                null,
-                null,
-                "Andijan",
-                3.4,
-                1
-            )
-        )
-        feeds.add(
-            Post(
-                R.drawable.house_1,
-                "Test",
-                "1",
-                "1",
-                "1",
-                1,
-                "1000",
-                "Rent",
-                "Villa",
-                "month",
-                null,
-                null,
-                "Andijan",
-                3.4,
-                1
-            )
-        )
-        feeds.add(
-            Post(
-                R.drawable.house_1,
-                "Test",
-                "1",
-                "1",
-                "1",
-                1,
-                "1000",
-                "Rent",
-                "Villa",
-                "month",
-                null,
-                null,
-                "Andijan",
-                3.4,
-                0
-            )
-        )
-        return feeds
+
+    //    fun getAllPosts(): ArrayList<Post> {
+//        val feeds: ArrayList<Post> = ArrayList<Post>()
+//        feeds.add(
+//            Post(
+//                R.drawable.house_1,
+//                "Test",
+//                "1",
+//                "1",
+//                "1",
+//                1,
+//                "1000",
+//                "Rent",
+//                "Villa",
+//                "month",
+//                null,
+//                null,
+//                "Andijan",
+//                3.4,
+//                1
+//            )
+//        )
+//        feeds.add(
+//            Post(
+//                R.drawable.house_1,
+//                "Test",
+//                "1",
+//                "1",
+//                "1",
+//                1,
+//                "1000",
+//                "Rent",
+//                "Villa",
+//                "month",
+//                null,
+//                null,
+//                "Andijan",
+//                3.4,
+//                1
+//            )
+//        )
+//        feeds.add(
+//            Post(
+//                R.drawable.house_1,
+//                "Test",
+//                "1",
+//                "1",
+//                "1",
+//                1,
+//                "1000",
+//                "Rent",
+//                "Villa",
+//                "month",
+//                null,
+//                null,
+//                "Andijan",
+//                3.4,
+//                1
+//            )
+//        )
+//        feeds.add(
+//            Post(
+//                R.drawable.house_1,
+//                "Test",
+//                "1",
+//                "1",
+//                "1",
+//                1,
+//                "1000",
+//                "Rent",
+//                "Villa",
+//                "month",
+//                null,
+//                null,
+//                "Andijan",
+//                3.4,
+//                1
+//            )
+//        )
+//        feeds.add(
+//            Post(
+//                R.drawable.house_1,
+//                "Test",
+//                "1",
+//                "1",
+//                "1",
+//                1,
+//                "1000",
+//                "Rent",
+//                "Villa",
+//                "month",
+//                null,
+//                null,
+//                "Andijan",
+//                3.4,
+//                0
+//            )
+//        )
+//        return feeds
+//    }
+    private fun getAllPosts() {
+        dataService!!.getAllPosts()
+            .enqueue(object : Callback<GetPostResponse> {
+                @SuppressLint("NotifyDataSetChanged")
+                override fun onResponse(
+                    call: Call<GetPostResponse>,
+                    response: Response<GetPostResponse>
+                ) {
+                    Logger.d(TAG, response.body().toString())
+                    response.body()?.data?.let { refreshPopularAdapter(it) }
+//                binding.rvSellType.visibility = View.VISIBLE
+//                binding.progressBar.visibility = View.GONE
+                }
+
+                override fun onFailure(call: Call<GetPostResponse>, t: Throwable) {
+                    t.message?.let { Logger.d(TAG, it) }
+                    //progressBar!!.visibility = View.GONE
+                }
+            })
+
     }
 
     override fun onItemClickListener(id: String) {
@@ -252,8 +278,6 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
     override fun onCategoryItemClickListener(name: String) {
         Toast.makeText(requireContext(), name, Toast.LENGTH_SHORT).show()
     }
-
-
 
 
     override fun onAttach(context: Context) {
@@ -278,10 +302,9 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
     }
 
 
-
     private fun callViewAllActivity(name: String) {
         val intent = Intent(requireContext(), ViewAllActivity::class.java)
-        intent.putExtra("category_name",name)
+        intent.putExtra("category_name", name)
         startActivity(intent)
     }
 

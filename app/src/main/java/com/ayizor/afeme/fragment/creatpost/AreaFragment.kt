@@ -34,14 +34,12 @@ class AreaFragment : Fragment() {
             fragmentNumber
         binding.btnNext.setOnClickListener {
             if (validTotalArea() && validLivingArea() && validKitchenArea()) {
-                val areaList: ArrayList<Area> = ArrayList()
                 val area = Area(
                     binding.etTotalArea.editText?.text.toString(),
                     binding.etLivingSpace.editText?.text.toString(),
                     binding.etKitchenArea.editText?.text.toString()
                 )
-                areaList.add(area)
-                PostPrefsManager(requireContext()).storeArea(areaList)
+                PostPrefsManager(requireContext()).storeArea(area)
                 parentFragmentManager.beginTransaction()
                     .setCustomAnimations(
                         R.anim.enter_from_right,

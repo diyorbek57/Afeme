@@ -35,7 +35,7 @@ class RoomsFragment : Fragment() {
         binding.btnNext.setOnClickListener {
 
             if (validEditText()) {
-                PostPrefsManager(requireContext()).storeLatitude(binding.etRooms.editText?.text.toString())
+                PostPrefsManager(requireContext()).storeRooms(binding.etRooms.editText?.text.toString())
                 parentFragmentManager.beginTransaction()
                     .setCustomAnimations(
                         R.anim.enter_from_right,
