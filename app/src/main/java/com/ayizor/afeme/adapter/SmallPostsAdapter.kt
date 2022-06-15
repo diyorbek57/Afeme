@@ -40,13 +40,13 @@ class SmallPostsAdapter(
                 binding.tvTypePostSmall.text = post_building_type.toString()
                 // binding.tvPeriodPostSmall.text = "/$post_period"
                 binding.tvRatingPostSmall.text = "3.6"
-                Glide.with(holder.itemView.context)
-                    .load(post_images)
+                Glide.with(context)
+                    .load(post_images?.get(0))
                     .into(binding.ivImagePostSmall)
 
                 binding.rlImagePostSmall.setOnClickListener {
                     if (post_id != null) {
-                        onItemClickListener.onItemClickListener(post_id)
+                        onItemClickListener.onItemClickListener(post_id.toString())
                     }
                 }
                 binding.ivLikePostSmall.setOnClickListener {

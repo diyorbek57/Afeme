@@ -45,7 +45,7 @@ class ViewAllAdapter(
 
                 binding.rlImagePostLarge.setOnClickListener {
                     if (post_id != null) {
-                        onViewAllItemClickListener.onViewAllItemClickListener(post_id)
+                        onViewAllItemClickListener.onViewAllItemClickListener(post_id.toString())
                     }
                 }
 //                binding.ivLikePostSmall.setOnClickListener {

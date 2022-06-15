@@ -2,24 +2,13 @@ package com.ayizor.afeme.activity.authentication
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.EditText
-import android.widget.Toast
-import androidx.core.content.ContextCompat
-import com.ayizor.afeme.R
 import com.ayizor.afeme.activity.BaseActivity
-import com.ayizor.afeme.activity.CreatePostActivity
-import com.ayizor.afeme.activity.MainActivity
-import com.ayizor.afeme.databinding.ActivityMainBinding
 import com.ayizor.afeme.databinding.ActivitySignUpBinding
 import com.ayizor.afeme.utils.Logger
 import com.ayizor.afeme.utils.Utils
-import com.skydoves.powerspinner.SpinnerAnimation
-import com.skydoves.powerspinner.SpinnerGravity
-import com.skydoves.powerspinner.createPowerSpinnerView
 
 class SignUpActivity : BaseActivity() {
     lateinit var binding: ActivitySignUpBinding

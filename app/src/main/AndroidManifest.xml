@@ -12,6 +12,9 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.MANAGE_DOCUMENTS"
+        tools:ignore="ProtectedPermissions" />
 
     <permission
         android:name="com.example.permission.MAPS_RECEIVE"
@@ -31,18 +34,23 @@
         android:theme="@style/Theme.Afeme"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
+
+        <activity
+            android:name=".activity.ViewCategoryActivity"
+            android:exported="true" />
         <activity
             android:name=".activity.PreviewCreatedPostActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activity.FilterActivity"
             android:exported="false" />
         <activity
             android:name=".activity.authentication.LocationActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".activity.authentication.OtherInformationActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".activity.authentication.CodeConfirmActivity"
             android:exported="false" />
@@ -89,7 +97,9 @@
             android:exported="true" />
         <activity
             android:name=".activity.authentication.SignUpActivity"
-            android:exported="true" />
+            android:exported="true" >
+
+        </activity>
         <activity
             android:name=".activity.BaseActivity"
             android:exported="true" />

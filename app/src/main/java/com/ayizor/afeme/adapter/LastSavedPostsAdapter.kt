@@ -85,6 +85,6 @@ inner class SmallPostsViewHolder : RecyclerView.ViewHolder {
 }
 
 interface OnItemClickListener {
-    fun onItemClickListener(id: String)
+    fun onItemClickListener(id: Int)
 }
 }

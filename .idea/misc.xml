@@ -89,7 +89,7 @@
         <entry key="app/src/main/res/drawable/item_profile_gradient.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/item_search_view_background.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/item_tab_indicator_details.xml" value="0.1255" />
-        <entry key="app/src/main/res/layout/activity_code_confirm.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/activity_code_confirm.xml" value="0.13504823151125403" />
         <entry key="app/src/main/res/layout/activity_create_post.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_details.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_filter.xml" value="0.29583333333333334" />
@@ -99,6 +99,7 @@
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_view_all.xml" value="0.2557291666666667" />
+        <entry key="app/src/main/res/layout/activity_view_category.xml" value="0.1361111111111111" />
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.18518518518518517" />
         <entry key="app/src/main/res/layout/fragment_area.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_buildning_type.xml" value="0.3098958333333333" />

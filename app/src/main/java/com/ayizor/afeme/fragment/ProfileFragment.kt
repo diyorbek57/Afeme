@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ayizor.afeme.R
 import com.ayizor.afeme.adapter.ProfileViewPagerAdapter
-import com.ayizor.afeme.api.main.Api
 import com.ayizor.afeme.api.main.ApiInterface
 import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.FragmentProfileBinding

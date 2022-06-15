@@ -11,13 +11,16 @@ import retrofit2.http.*
 interface ApiInterface {
     //Post Interface
     @GET("post/{id}")
-    fun getSinglePost(@Path("id") id: String): Call<Post>
+    fun getSinglePost(@Path("id") id: Int): Call<Post>
+    @POST("filter")
+    fun getPostsByCategory(@Query("htype_id") id: Int): Call<GetPostResponse>
 
     @GET("post")
     fun getAllPosts(): Call<GetPostResponse>
 
+
     @POST("post")
-    fun createPost(@Body post: Post): Call<PostResponse>
+    fun createPost(@Body post:Post): Call<PostResponse>
 
     @PUT("post/{id}")
     fun updatePost(@Path("id") id: String): Call<List<Post>>
@@ -28,7 +31,7 @@ interface ApiInterface {
     //
     //auth
     @POST("register")
-    fun register(@Body user: User): Call<User>
+    fun register(@Body user: User): Call<UserResponse>
 
     @POST("login")
     fun login(): Call<User>
@@ -62,4 +65,8 @@ interface ApiInterface {
     //building materials
     @GET("materials")
     fun getAllBuildingMaterials(): Call<BuildingMaterialResponse>
+
+
+//filter
+
 }

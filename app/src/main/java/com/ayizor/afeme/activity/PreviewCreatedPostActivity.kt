@@ -4,7 +4,7 @@ package com.ayizor.afeme.activity
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.os.Environment
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,21 +16,24 @@ import com.ayizor.afeme.api.main.ApiInterface
 import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.ActivityPreviewCreatedPostBinding
 import com.ayizor.afeme.manager.PostPrefsManager
-import com.ayizor.afeme.model.BuildingMaterial
-import com.ayizor.afeme.model.Image
-import com.ayizor.afeme.model.Post
+import com.ayizor.afeme.model.*
 import com.ayizor.afeme.model.response.BuildingMaterialResponse
+import com.ayizor.afeme.model.response.GetPostResponse
 import com.ayizor.afeme.model.response.PostResponse
 import com.ayizor.afeme.utils.Logger
-import com.google.android.gms.tasks.Task
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.UploadTask
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
+import retrofit2.http.POST
+import java.io.File
+import java.io.FileOutputStream
 
 
 class PreviewCreatedPostActivity : AppCompatActivity() {
@@ -39,6 +42,7 @@ class PreviewCreatedPostActivity : AppCompatActivity() {
     var dataService: ApiInterface? = null
     val TAG: String = PreviewCreatedPostActivity::class.java.simpleName
     val imagesUrls: ArrayList<Image> = ArrayList()
+    private val storageReference = FirebaseStorage.getInstance().reference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPreviewCreatedPostBinding.inflate(layoutInflater)
@@ -62,68 +66,111 @@ class PreviewCreatedPostActivity : AppCompatActivity() {
                 .show()
         }
         binding.btnPublish.setOnClickListener {
-            uploadPost()
+
+            uploadPost(convertToFile())
         }
 
     }
 
-    private fun uploadPost() {
+    private fun convertToFile(): ArrayList<ImagePost> {
+        val imagesList = PostPrefsManager(this).loadImages()
+        val postImagesList: ArrayList<ImagePost> = ArrayList()
+        for (i in 0 until imagesList.size) {
+            postImagesList.add(ImagePost(null, null, getFile(Uri.parse(imagesList[i].image_url))))
+        }
+        return postImagesList
+    }
+
+    private fun uploadPost(imageUrls: ArrayList<ImagePost>) {
+        val requestBodyList: ArrayList<RequestBody> = ArrayList()
+        val builder: MultipartBody.Builder = MultipartBody.Builder()
+        builder.setType(MultipartBody.FORM)
+        for (i in 0 until imageUrls.size) {
+            if (imageUrls[i].image_url?.length()!! > 0) {
+                imageUrls[i].image_url?.asRequestBody("image/jpeg".toMediaTypeOrNull())?.let {
+                    builder.addFormDataPart(
+                        "file",
+                        imageUrls[i].image_url?.name,
+                        it
+                    )
+                }
+                builder.addFormDataPart("sub_id", "something")
+
+                val body = builder.build()
+                Logger.d(TAG, "post:${body.parts}")
+                requestBodyList.add(body)
+            }
+        }
         val price = binding.etPrice.editText?.text.toString()
         val type = PostPrefsManager(this).loadPostType()
         val building_type = PostPrefsManager(this).loadBuildingType()
         val built_year = binding.etBuiltYear.editText?.text.toString()
+        val description = binding.tvDescriptionDetails.text.toString()
         val latitude = PostPrefsManager(this).loadLatitude()
         val longitude = PostPrefsManager(this).loadLongitude()
         val floor = PostPrefsManager(this).loadFloor().house_floor
         val flat = PostPrefsManager(this).loadFloor().apartment_floor
         val area = PostPrefsManager(this).loadArea()
         val rooms = binding.etRooms.editText?.text.toString()
-        val post = Post(
+        val material = Material(null, "Beton", null, null)
+        val post: ArrayList<Post> =ArrayList()
+
+       val post_values= Post(
             null,
+            null,//r
             null,
-            null,
-            null,
-            null,
-            null,
-            null,
+            null,//r
+            building_type.toString(),//r
+            type,//r
+            latitude,//r
+            longitude,//r
             price,
-            type,
-            building_type.toString(),
             null,
-            built_year,
-            latitude,
-            longitude,
-            33,
-            10,
-            null,
-            rooms,
-            null,
+            area,
+            built_year,//r
+            rooms,//r
+            "1",//r
+            "5",//r
+            description,
+            material,//r
+            "12",//r
+            "23",//r
+            "1",//r
+            "1",//r
             floor,
             flat,
-            area,
+            false,
             null,
-
-
-
+            null
         )
-        dataService!!.createPost(post)
+        post.add(post_values)
+    //    Logger.d(TAG, "data: "+dataService!!.createPost(post).request().body)
+
+        dataService!!.createPost(post_values)
             .enqueue(object : Callback<PostResponse> {
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onResponse(
                     call: Call<PostResponse>,
                     response: Response<PostResponse>
                 ) {
-                    Logger.d(TAG, response.body().toString())
-                    response.body()?.status.toString()
+                    Logger.d(TAG, "status:" + response.body()?.status.toString())
+                    Logger.d(TAG, "message:" + response.body()?.message.toString())
+                    Logger.d(TAG, "data:" + response.body()?.data.toString())
+                    Logger.d(TAG, "response message:" + response.message())
+                    Logger.d(TAG, "response isSuccessful:" + response.isSuccessful)
+                    Logger.d(TAG, "response message:$response")
+                    Logger.d(TAG, "response isSuccessful:" + response.errorBody().toString())
+                    ///  response.body()?.status.toString()
 //                binding.rvSellType.visibility = View.VISIBLE
 //                binding.progressBar.visibility = View.GONE
                 }
 
                 override fun onFailure(call: Call<PostResponse>, t: Throwable) {
-                    t.message?.let { Logger.d(TAG, it) }
+                    "message:" + t.message?.let { Logger.d(TAG, it) }
                     //progressBar!!.visibility = View.GONE
                 }
             })
+
     }
 
     private fun displaySavedDatas() {
@@ -135,7 +182,9 @@ class PreviewCreatedPostActivity : AppCompatActivity() {
         binding.etLivingSpace.editText?.setText(area.living_area)
         binding.etPrice.editText?.setText(PostPrefsManager(this).loadPrice().toString())
         binding.etFloorsInTheHouse.editText?.setText(floor.house_floor)
-        binding.tvDescriptionDetails.setText(PostPrefsManager(this).loadDescription().toString())
+        binding.tvDescriptionDetails.setText(
+            PostPrefsManager(this).loadDescription().toString()
+        )
 //
     }
 
@@ -195,6 +244,20 @@ class PreviewCreatedPostActivity : AppCompatActivity() {
 
     }
 
+    private fun getFile(uri: Uri): File {
+        val ins = this.contentResolver.openInputStream(uri)
+        val file = File.createTempFile(
+            "file",
+            ".jpg",
+            this.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        )
+        val fileOutputStream = FileOutputStream(file)
+        ins?.copyTo(fileOutputStream)
+        ins?.close()
+        fileOutputStream.close()
+        return file
+    }
+
     private fun getAllBuildingMaterials() {
         dataService!!.getAllBuildingMaterials()
             .enqueue(object : Callback<BuildingMaterialResponse> {
@@ -214,37 +277,6 @@ class PreviewCreatedPostActivity : AppCompatActivity() {
                     //progressBar!!.visibility = View.GONE
                 }
             })
-
-    }
-
-    @SuppressLint("SetTextI18n")
-    fun uploadImageToFirebase() {
-        val urlList: ArrayList<String> = ArrayList()
-        val storageReference = FirebaseStorage.getInstance().reference
-        val images = PostPrefsManager(this).loadImages()
-        for (i in 0 until images.size) {
-            storageReference.putFile(Uri.parse(images[i].image_url))
-                .addOnSuccessListener { taskSnapshot: UploadTask.TaskSnapshot? ->
-                    storageReference.downloadUrl.addOnCompleteListener { task: Task<Uri?> ->
-                        val url: String = Objects.requireNonNull(task.result).toString()
-                        urlList.add(url)
-                        //if same size so all image is uploaded, then sent list of url to to some method
-                        if (urlList.size == images.size) {
-                            uploadPost()
-                        } else {
-                            uploadImageToFirebase()
-                        }
-                    }
-                }
-                .addOnFailureListener { e: Exception ->
-                    Objects.requireNonNull(e.message)?.let {
-                        Log.e(
-                            "OnFailureImageListener", it
-                        )
-                    }
-                }
-        }
-
 
     }
 

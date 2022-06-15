@@ -7,12 +7,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ayizor.afeme.activity.DetailsActivity
 import com.ayizor.afeme.activity.NotificationActivity
 import com.ayizor.afeme.activity.ViewAllActivity
+import com.ayizor.afeme.activity.ViewCategoryActivity
 import com.ayizor.afeme.adapter.CategoryAdapter
 import com.ayizor.afeme.adapter.SmallPostsAdapter
 import com.ayizor.afeme.api.main.ApiInterface
@@ -73,7 +73,8 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
             false
         )
         getAllPosts()
-//        refreshPopularAdapter(getAllPosts())
+
+
 //        refreshNearbyAdapter(getAllPosts())
 //        refreshCheapAdapter(getAllPosts())
         getAllCategory()
@@ -148,105 +149,18 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
 
     }
 
-    //    fun getAllPosts(): ArrayList<Post> {
-//        val feeds: ArrayList<Post> = ArrayList<Post>()
-//        feeds.add(
-//            Post(
-//                R.drawable.house_1,
-//                "Test",
-//                "1",
-//                "1",
-//                "1",
-//                1,
-//                "1000",
-//                "Rent",
-//                "Villa",
-//                "month",
-//                null,
-//                null,
-//                "Andijan",
-//                3.4,
-//                1
-//            )
-//        )
-//        feeds.add(
-//            Post(
-//                R.drawable.house_1,
-//                "Test",
-//                "1",
-//                "1",
-//                "1",
-//                1,
-//                "1000",
-//                "Rent",
-//                "Villa",
-//                "month",
-//                null,
-//                null,
-//                "Andijan",
-//                3.4,
-//                1
-//            )
-//        )
-//        feeds.add(
-//            Post(
-//                R.drawable.house_1,
-//                "Test",
-//                "1",
-//                "1",
-//                "1",
-//                1,
-//                "1000",
-//                "Rent",
-//                "Villa",
-//                "month",
-//                null,
-//                null,
-//                "Andijan",
-//                3.4,
-//                1
-//            )
-//        )
-//        feeds.add(
-//            Post(
-//                R.drawable.house_1,
-//                "Test",
-//                "1",
-//                "1",
-//                "1",
-//                1,
-//                "1000",
-//                "Rent",
-//                "Villa",
-//                "month",
-//                null,
-//                null,
-//                "Andijan",
-//                3.4,
-//                1
-//            )
-//        )
-//        feeds.add(
-//            Post(
-//                R.drawable.house_1,
-//                "Test",
-//                "1",
-//                "1",
-//                "1",
-//                1,
-//                "1000",
-//                "Rent",
-//                "Villa",
-//                "month",
-//                null,
-//                null,
-//                "Andijan",
-//                3.4,
-//                0
-//            )
-//        )
-//        return feeds
-//    }
+    fun sortPosts(filters: ArrayList<Post>?) {
+        val feeds: ArrayList<Post> = ArrayList<Post>()
+        if (filters != null) {
+            for (i in 0 until filters.size) {
+                if (i <= 5) {
+                    feeds.add(filters[i])
+                }
+            }
+        }
+        refreshPopularAdapter(feeds)
+    }
+
     private fun getAllPosts() {
         dataService!!.getAllPosts()
             .enqueue(object : Callback<GetPostResponse> {
@@ -256,7 +170,7 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
                     response: Response<GetPostResponse>
                 ) {
                     Logger.d(TAG, response.body().toString())
-                    response.body()?.data?.let { refreshPopularAdapter(it) }
+                    response.body()?.data?.let { sortPosts(it) }
 //                binding.rvSellType.visibility = View.VISIBLE
 //                binding.progressBar.visibility = View.GONE
                 }
@@ -275,8 +189,11 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
         startActivity(intent)
     }
 
-    override fun onCategoryItemClickListener(name: String) {
-        Toast.makeText(requireContext(), name, Toast.LENGTH_SHORT).show()
+    override fun onCategoryItemClickListener(id: Int, name: String) {
+        val intent = Intent(requireContext(), ViewCategoryActivity::class.java)
+        intent.putExtra("category_id", id)
+        intent.putExtra("category_name", name)
+        startActivity(intent)
     }
 
 

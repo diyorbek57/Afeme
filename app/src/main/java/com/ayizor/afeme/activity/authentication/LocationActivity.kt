@@ -123,8 +123,10 @@ class LocationActivity : AppCompatActivity(), OnMapReadyCallback {
     // If current location could not be located, use last location
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
-            val mLastLocation: Location = locationResult.lastLocation
-            currentLocation = LatLng(mLastLocation.latitude, mLastLocation.longitude)
+            val mLastLocation: Location? = locationResult.lastLocation
+            if (mLastLocation != null) {
+                currentLocation = LatLng(mLastLocation.latitude, mLastLocation.longitude)
+            }
         }
     }
 

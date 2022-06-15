@@ -65,21 +65,30 @@
         </LinearLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_confirmation_code"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+        <com.chaos.view.PinView
+            android:id="@+id/pin_view"
+            style="@style/PinWidget.PinView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:boxStrokeColor="@color/bright_blue"
-            app:errorEnabled="true">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/confirmation_code"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
+            android:layout_gravity="center_horizontal"
+            android:cursorVisible="true"
+            android:fontFamily="@font/source_sans_pro_semibold"
+            android:inputType="numberPassword"
+            android:itemBackground="@color/white"
+            android:padding="10dp"
+            android:textColor="@color/bright_blue"
+            android:textSize="18sp"
+            app:cursorColor="@color/bright_blue"
+            app:cursorWidth="2dp"
+            app:hideLineWhenFilled="true"
+            app:itemCount="6"
+            app:itemHeight="45dp"
+            app:itemRadius="4dp"
+            app:itemSpacing="5dp"
+            app:itemWidth="45dp"
+            app:lineColor="@color/bright_blue"
+            app:lineWidth="1dp"
+            app:viewType="rectangle" />
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -25,7 +25,9 @@ import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.ActivityOtherInformationBinding
 import com.ayizor.afeme.manager.PrefsManager
 import com.ayizor.afeme.model.User
+import com.ayizor.afeme.model.response.UserResponse
 import com.ayizor.afeme.utils.Logger
+import com.ayizor.afeme.utils.Utils
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.LatLng
 import com.sucho.placepicker.AddressData
@@ -55,10 +57,12 @@ class OtherInformationActivity : BaseActivity() {
     lateinit var user_confirmation_code: String
     lateinit var user_latitude: String
     lateinit var user_longitude: String
-    lateinit var user_address: String
+    lateinit var user_region: String
     lateinit var user_passport_number: String
     lateinit var user_first_name: String
     lateinit var user_last_name: String
+    var user_device_id: String = Utils.getDeviceID(this)
+
     var firstnameDone: Boolean = false
     var lastnameDone: Boolean = false
     var passportDone: Boolean = false
@@ -106,7 +110,7 @@ class OtherInformationActivity : BaseActivity() {
             user_first_name = binding.etNameInformations.editText?.text.toString()
             user_last_name = binding.etLastNameInformations.editText?.text.toString()
             if (checkPassportNumber(user_passport_number))
-                if (!user_latitude.isNullOrEmpty() && !user_longitude.isNullOrEmpty() && !user_address.isNullOrEmpty()) {
+                if (!user_latitude.isNullOrEmpty() && !user_longitude.isNullOrEmpty() && !user_region.isNullOrEmpty()) {
 
 //                i.putExtra("user_phone_number", user_phone_number)
 //                i.putExtra("user_account_type", user_account_type)
@@ -117,7 +121,25 @@ class OtherInformationActivity : BaseActivity() {
 //                i.putExtra("user_full_name", user_full_name)
 //                i.putExtra("user_passport_number", user_passport_number)
 
-                    val user = User(null, user_first_name, user_last_name)
+                    val user = User(
+                        null,
+                        user_first_name,
+                        user_last_name,
+                        null,
+                        user_phone_number,
+                        null,
+                        user_passport_number,
+                        user_account_type, user_device_id,
+                        "Android",
+                        null,
+                        user_region,
+                        user_longitude,
+                        user_latitude,
+                        null,
+                        null,
+                        null,
+                        null
+                    )
                     createUser(user)
 
                 }
@@ -167,7 +189,7 @@ class OtherInformationActivity : BaseActivity() {
         binding.tvSelectFromMap.text = "$state, $city"
         user_latitude = latitude.toString()
         user_longitude = longitude.toString()
-        user_address = "$state, $city"
+        user_region = "$state, $city"
     }
 
     // Get current location, if shifted
@@ -192,8 +214,10 @@ class OtherInformationActivity : BaseActivity() {
     // If current location could not be located, use last location
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
-            val mLastLocation: Location = locationResult.lastLocation
-            currentLocation = LatLng(mLastLocation.latitude, mLastLocation.longitude)
+            val mLastLocation: Location? = locationResult.lastLocation
+            if (mLastLocation != null) {
+                currentLocation = LatLng(mLastLocation.latitude, mLastLocation.longitude)
+            }
         }
     }
 
@@ -351,9 +375,9 @@ class OtherInformationActivity : BaseActivity() {
     }
 
     private fun createUser(user: User) {
-        dataService!!.register(user).enqueue(object : Callback<User> {
+        dataService!!.register(user).enqueue(object : Callback<UserResponse> {
             @SuppressLint("NotifyDataSetChanged")
-            override fun onResponse(call: Call<User>, response: Response<User>) {
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 Logger.d("Register", "User created")
                 if (response.isSuccessful) {
                     val i = Intent(this@OtherInformationActivity, MainActivity::class.java)
@@ -365,7 +389,7 @@ class OtherInformationActivity : BaseActivity() {
                 //progressBar!!.visibility = View.GONE
             }
 
-            override fun onFailure(call: Call<User>, t: Throwable) {
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 t.message?.let { Logger.d("Register", it) }
                 //progressBar!!.visibility = View.GONE
             }

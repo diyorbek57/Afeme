@@ -48,7 +48,7 @@ class SavedPostsAdapter(
 
                 binding.rlImagePostSmall.setOnClickListener {
                     if (post_id != null) {
-                        onItemClickListener.onItemClickListener(post_id)
+                        onItemClickListener.onItemClickListener(post_id.toString())
                     }
                 }
                 binding.ivLikePostSmall.setOnClickListener {

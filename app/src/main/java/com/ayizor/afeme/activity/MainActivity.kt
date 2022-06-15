@@ -4,11 +4,7 @@ package com.ayizor.afeme.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.add
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import com.ayizor.afeme.R
 import com.ayizor.afeme.databinding.ActivityMainBinding
 import com.ayizor.afeme.fragment.ChatFragment
@@ -17,6 +13,10 @@ import com.ayizor.afeme.fragment.ProfileFragment
 import com.ayizor.afeme.fragment.SearchFragment
 import com.ayizor.afeme.utils.Logger
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 
 
@@ -44,6 +44,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun inits() {
+        signInAnonymously()
 setupNavigationBar()
         binding.bottomBar.itemIconTintList = null
 
@@ -58,7 +59,7 @@ setupNavigationBar()
         fragmentManager.beginTransaction().apply {
             add(R.id.fragment_container, profileFragment).hide(profileFragment)
             add(R.id.fragment_container, searchFragment).hide(searchFragment)
-            add(R.id.fragment_container, chatFragment, ).hide(chatFragment)
+            add(R.id.fragment_container, chatFragment).hide(chatFragment)
             add(R.id.fragment_container, homeFragment )
         }.commit()
 
@@ -116,6 +117,21 @@ setupNavigationBar()
             val token = task.result
             Logger.d(TAG+"Token", token.toString())
         })
+    }
+
+    private fun signInAnonymously() {
+        val mAuth = FirebaseAuth.getInstance()
+        mAuth.signInAnonymously().addOnSuccessListener(this) {
+            // do your stuff
+        }
+            .addOnFailureListener(this
+            ) { exception ->
+                Log.e(
+                    TAG,
+                    "signInAnonymously:FAILURE",
+                    exception
+                )
+            }
     }
 }
 

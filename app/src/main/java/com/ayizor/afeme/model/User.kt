@@ -13,9 +13,9 @@ data class User(
     val user_email: String? = "",
     @SerializedName("phone")
     val user_phone_number: String? = "",
-    @SerializedName("photo")
+    @SerializedName("image")
     val user_photo: String? = "",
-    @SerializedName("passport")
+    @SerializedName("pasport")
     val user_passport_number: String? = "",
     @SerializedName("user_type")
     val user_type: String? = "",
@@ -27,12 +27,14 @@ data class User(
     val user_password: String? = "",
     @SerializedName("region_id")
     val user_region: String? = "",
-    @SerializedName("city_id")
-    val user_city: String? = "",
     @SerializedName("longitude")
     val user_longitude: String? = "",
     @SerializedName("latitude")
     val user_latitude: String? = "",
+    @SerializedName("posts")
+    val user_posts: ArrayList<Post>? = null,
+    @SerializedName("favorites")
+    val user_favorites: ArrayList<Post>? = null,
     @SerializedName("created_at")
     val user_created_at: String? = "",
     @SerializedName("updated_at")
