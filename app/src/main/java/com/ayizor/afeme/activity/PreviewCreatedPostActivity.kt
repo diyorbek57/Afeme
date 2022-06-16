@@ -18,6 +18,8 @@ import com.ayizor.afeme.databinding.ActivityPreviewCreatedPostBinding
 import com.ayizor.afeme.manager.PostPrefsManager
 import com.ayizor.afeme.model.*
 import com.ayizor.afeme.model.response.BuildingMaterialResponse
+import com.ayizor.afeme.model.response.GetPostResponse
+import com.ayizor.afeme.model.response.SellResponse
 import com.ayizor.afeme.utils.Logger
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
@@ -116,7 +118,7 @@ class PreviewCreatedPostActivity : AppCompatActivity() {
 
         val post_values = Post(
             null,
-            null,//r
+            requestBodyList,//r
             null,
             null,//r
             building_type.toString(),//r
@@ -144,15 +146,24 @@ class PreviewCreatedPostActivity : AppCompatActivity() {
         )
         post.add(post_values)
         //    Logger.d(TAG, "data: "+dataService!!.createPost(post).request().body)
-        try {
-            dataService!!.createPost(post)
 
+            dataService!!.createPost(post).enqueue(object : Callback<GetPostResponse> {
+                @SuppressLint("NotifyDataSetChanged")
+                override fun onResponse(
+                    call: Call<GetPostResponse>,
+                    response: Response<GetPostResponse>
+                 ) {
+
+                    Logger.d(TAG, "data: "+dataService!!.createPost(post).request().body)
+                }
+
+                override fun onFailure(call: Call<GetPostResponse>, t: Throwable) {
+                    t.message?.let { Logger.d(TAG, it) }
+                    //progressBar!!.visibility = View.GONE
+                }
+
+            })
             Logger.e(TAG, dataService!!.createPost(post).request().body.toString())
-        } catch (e: IOException) {
-            Logger.e(TAG, "IOException:$e")
-        } catch (e: HttpException) {
-            Logger.e(TAG, "HttpException:$e")
-        }
 
 
     }

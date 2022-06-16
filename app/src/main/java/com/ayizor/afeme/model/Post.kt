@@ -1,12 +1,14 @@
 package com.ayizor.afeme.model
 
 import com.google.gson.annotations.SerializedName
+import okhttp3.RequestBody
+import retrofit2.http.Multipart
 
 data class Post(
     @SerializedName("id")
     val post_id: Int? = null,
     @SerializedName("images")
-    val post_images: ArrayList<Image>? = null,
+    val post_images: ArrayList<RequestBody>? = null,
     @SerializedName("user_id")
     val user_id: String? = "",
     @SerializedName("videos")
