@@ -12,12 +12,11 @@ class Client {
         private var retrofit: Retrofit? = null
         fun getClient(): Retrofit? {
             if (retrofit == null) {
-                val gson = GsonBuilder().setLenient().create()
                 val client = OkHttpClient.Builder().addInterceptor(HeaderInterceptor(Api.ACCESS_KEY)).build()
                 retrofit = Retrofit.Builder()
                     .baseUrl(Api.BASE_URL).client(client)
                     .addConverterFactory(ScalarsConverterFactory.create())
-                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .addConverterFactory(GsonConverterFactory.create())
                     .build()
             }
             return retrofit

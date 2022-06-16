@@ -18,8 +18,6 @@ import com.ayizor.afeme.databinding.ActivityPreviewCreatedPostBinding
 import com.ayizor.afeme.manager.PostPrefsManager
 import com.ayizor.afeme.model.*
 import com.ayizor.afeme.model.response.BuildingMaterialResponse
-import com.ayizor.afeme.model.response.GetPostResponse
-import com.ayizor.afeme.model.response.PostResponse
 import com.ayizor.afeme.utils.Logger
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
@@ -30,10 +28,11 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.HttpException
 import retrofit2.Response
-import retrofit2.http.POST
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
 
 
 class PreviewCreatedPostActivity : AppCompatActivity() {
@@ -113,9 +112,9 @@ class PreviewCreatedPostActivity : AppCompatActivity() {
         val area = PostPrefsManager(this).loadArea()
         val rooms = binding.etRooms.editText?.text.toString()
         val material = Material(null, "Beton", null, null)
-        val post: ArrayList<Post> =ArrayList()
+        val post: ArrayList<Post> = ArrayList()
 
-       val post_values= Post(
+        val post_values = Post(
             null,
             null,//r
             null,
@@ -144,32 +143,17 @@ class PreviewCreatedPostActivity : AppCompatActivity() {
             null
         )
         post.add(post_values)
-    //    Logger.d(TAG, "data: "+dataService!!.createPost(post).request().body)
+        //    Logger.d(TAG, "data: "+dataService!!.createPost(post).request().body)
+        try {
+            dataService!!.createPost(post)
 
-        dataService!!.createPost(post_values)
-            .enqueue(object : Callback<PostResponse> {
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onResponse(
-                    call: Call<PostResponse>,
-                    response: Response<PostResponse>
-                ) {
-                    Logger.d(TAG, "status:" + response.body()?.status.toString())
-                    Logger.d(TAG, "message:" + response.body()?.message.toString())
-                    Logger.d(TAG, "data:" + response.body()?.data.toString())
-                    Logger.d(TAG, "response message:" + response.message())
-                    Logger.d(TAG, "response isSuccessful:" + response.isSuccessful)
-                    Logger.d(TAG, "response message:$response")
-                    Logger.d(TAG, "response isSuccessful:" + response.errorBody().toString())
-                    ///  response.body()?.status.toString()
-//                binding.rvSellType.visibility = View.VISIBLE
-//                binding.progressBar.visibility = View.GONE
-                }
+            Logger.e(TAG, dataService!!.createPost(post).request().body.toString())
+        } catch (e: IOException) {
+            Logger.e(TAG, "IOException:$e")
+        } catch (e: HttpException) {
+            Logger.e(TAG, "HttpException:$e")
+        }
 
-                override fun onFailure(call: Call<PostResponse>, t: Throwable) {
-                    "message:" + t.message?.let { Logger.d(TAG, it) }
-                    //progressBar!!.visibility = View.GONE
-                }
-            })
 
     }
 
@@ -185,7 +169,6 @@ class PreviewCreatedPostActivity : AppCompatActivity() {
         binding.tvDescriptionDetails.setText(
             PostPrefsManager(this).loadDescription().toString()
         )
-//
     }
 
     private fun refreshViewPagerAdapter() {

@@ -20,7 +20,7 @@ interface ApiInterface {
 
 
     @POST("post")
-    fun createPost(@Body post:Post): Call<PostResponse>
+    fun createPost(@Body post:List<Post>): Call<GetPostResponse>
 
     @PUT("post/{id}")
     fun updatePost(@Path("id") id: String): Call<List<Post>>

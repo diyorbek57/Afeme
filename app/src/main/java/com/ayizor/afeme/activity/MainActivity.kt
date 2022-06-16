@@ -92,7 +92,7 @@ setupNavigationBar()
 
 
     private fun callCreatePostActivity() {
-        val i = Intent(this, CreatePostActivity::class.java)
+        val i = Intent(this, PreviewCreatedPostActivity::class.java)
         startActivityForResult(i, LAUNCH_SECOND_ACTIVITY)
     }
 

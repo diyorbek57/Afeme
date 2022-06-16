@@ -3,12 +3,10 @@ package com.ayizor.afeme.model
 import com.google.gson.annotations.SerializedName
 
 data class Post(
-    //null
     @SerializedName("id")
     val post_id: Int? = null,
     @SerializedName("images")
     val post_images: ArrayList<Image>? = null,
-    //null
     @SerializedName("user_id")
     val user_id: String? = "",
     @SerializedName("videos")
@@ -57,10 +55,5 @@ data class Post(
     val post_created_at: String? = "",
     @SerializedName("updated_at")
     val post_updated_at: String? = ""
-    //null
-//    @SerializedName("")
-//    val post_rating: Double? = null,
-    //null
-//    @SerializedName("")
-//    val post_views: Int? = null,
+
 )
