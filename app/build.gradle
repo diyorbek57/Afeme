@@ -68,10 +68,8 @@ dependencies {
     implementation "androidx.room:room-paging:2.5.0-alpha02"
     //image slider
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
-    //eventBus
-    implementation("org.greenrobot:eventbus:3.3.1")
-//    //Neumorphism
-//    implementation 'com.github.fornewid:neumorphism:{latest_version}'
+//snackbar
+    implementation 'com.irozon.sneaker:sneaker:2.0.0'
     //ccp
     implementation 'com.hbb20:ccp:2.6.0'
     //lottie animation
@@ -107,12 +105,6 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.0.1')
     //firebase analitics
     implementation 'com.google.firebase:firebase-analytics'
-    // firebase cloud messaging
-    implementation 'com.google.firebase:firebase-messaging-ktx'
-    // firebase auth
-    implementation 'com.google.firebase:firebase-auth-ktx'
-    //storage
-    implementation 'com.google.firebase:firebase-storage-ktx:20.0.1'
 //
     //
     //noinspection GradleDependency

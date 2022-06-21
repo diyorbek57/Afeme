@@ -45,9 +45,9 @@ class SmallPostsAdapter(
                     .into(binding.ivImagePostSmall)
 
                 binding.rlImagePostSmall.setOnClickListener {
-                    if (post_id != null) {
-                        onItemClickListener.onItemClickListener(post_id.toString())
-                    }
+//                    if (post_id != null) {
+//                        onItemClickListener.onItemClickListener(post_id.toString())
+//                    }
                 }
                 binding.ivLikePostSmall.setOnClickListener {
                     heartAnimation(binding.ivHeartAnim)

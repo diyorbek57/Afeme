@@ -13,9 +13,6 @@ import com.ayizor.afeme.fragment.ProfileFragment
 import com.ayizor.afeme.fragment.SearchFragment
 import com.ayizor.afeme.utils.Logger
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 
@@ -45,7 +42,7 @@ class MainActivity : BaseActivity() {
 
     private fun inits() {
         signInAnonymously()
-setupNavigationBar()
+        setupNavigationBar()
         binding.bottomBar.itemIconTintList = null
 
         binding.ivAdd.setOnClickListener {
@@ -60,28 +57,32 @@ setupNavigationBar()
             add(R.id.fragment_container, profileFragment).hide(profileFragment)
             add(R.id.fragment_container, searchFragment).hide(searchFragment)
             add(R.id.fragment_container, chatFragment).hide(chatFragment)
-            add(R.id.fragment_container, homeFragment )
+            add(R.id.fragment_container, homeFragment)
         }.commit()
 
         binding.bottomBar.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.nav_home-> {
-                    fragmentManager.beginTransaction().hide(activeFragment).show(homeFragment).commit()
+                R.id.nav_home -> {
+                    fragmentManager.beginTransaction().hide(activeFragment).show(homeFragment)
+                        .commit()
                     activeFragment = homeFragment
                     true
                 }
-                R.id.nav_search-> {
-                    fragmentManager.beginTransaction().hide(activeFragment).show(searchFragment).commit()
+                R.id.nav_search -> {
+                    fragmentManager.beginTransaction().hide(activeFragment).show(searchFragment)
+                        .commit()
                     activeFragment = searchFragment
                     true
                 }
                 R.id.nav_chat -> {
-                    fragmentManager.beginTransaction().hide(activeFragment).show(chatFragment).commit()
+                    fragmentManager.beginTransaction().hide(activeFragment).show(chatFragment)
+                        .commit()
                     activeFragment = chatFragment
                     true
                 }
                 R.id.nav_profile -> {
-                    fragmentManager.beginTransaction().hide(activeFragment).show(profileFragment).commit()
+                    fragmentManager.beginTransaction().hide(activeFragment).show(profileFragment)
+                        .commit()
                     activeFragment = profileFragment
                     true
                 }
@@ -92,7 +93,10 @@ setupNavigationBar()
 
 
     private fun callCreatePostActivity() {
-        val i = Intent(this, PreviewCreatedPostActivity::class.java)
+        val i = Intent(
+            this,
+            PreviewCreatedPostActivity::class.java
+        )
         startActivityForResult(i, LAUNCH_SECOND_ACTIVITY)
     }
 
@@ -108,14 +112,15 @@ setupNavigationBar()
         super.onStart()
         Logger.d(TAG, "onStart")
     }
+
     private fun loadFCMToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
-                Logger.d(TAG+"Token", "Fetching FCM registration token failed")
+                Logger.d(TAG + "Token", "Fetching FCM registration token failed")
                 return@OnCompleteListener
             }
             val token = task.result
-            Logger.d(TAG+"Token", token.toString())
+            Logger.d(TAG + "Token", token.toString())
         })
     }
 
@@ -124,7 +129,8 @@ setupNavigationBar()
         mAuth.signInAnonymously().addOnSuccessListener(this) {
             // do your stuff
         }
-            .addOnFailureListener(this
+            .addOnFailureListener(
+                this
             ) { exception ->
                 Log.e(
                     TAG,

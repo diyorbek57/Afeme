@@ -48,13 +48,11 @@
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_code_confirm.xml" value="0.2359375" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_create_post.xml" value="0.25" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_details.xml" value="0.2029598308668076" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_filter.xml" value="0.2175925925925926" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_location.xml" value="0.25" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_main.xml" value="0.18888888888888888" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_notification.xml" value="0.25" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_on_boarding.xml" value="0.2" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_other_information.xml" value="0.25" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_search.xml" value="0.3111111111111111" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/activity_view_all.xml" value="0.25" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/fragment_area_and_lot.xml" value="0.2359375" />
@@ -75,6 +73,7 @@
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/item_post_small.xml" value="0.4" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/layout/item_view_all.xml" value="0.4" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/menu/main_bottom_navigation.xml" value="0.25" />
+        <entry key="app/src/main/res/drawable-v24/item_bright_blue_stroke_white_solid_box.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable-v24/item_chip_selector.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/bright_blue_stroke_box.xml" value="0.1255" />
         <entry key="app/src/main/res/drawable/gradient_solid_rounded.xml" value="0.142" />
@@ -98,12 +97,15 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2537037037037037" />
         <entry key="app/src/main/res/layout/activity_other_information.xml" value="0.253125" />
         <entry key="app/src/main/res/layout/activity_preview_created_post.xml" value="0.25916900634765627" />
+        <entry key="app/src/main/res/layout/activity_search.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/activity_second_profile.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_view_all.xml" value="0.2557291666666667" />
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.18518518518518517" />
         <entry key="app/src/main/res/layout/fragment_area.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_buildning_type.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_created_posts.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_description.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_floor.xml" value="0.3098958333333333" />
@@ -137,7 +139,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

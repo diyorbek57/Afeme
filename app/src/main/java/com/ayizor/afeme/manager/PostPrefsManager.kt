@@ -2,7 +2,7 @@ package com.ayizor.afeme.manager
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.net.Uri
+
 import com.ayizor.afeme.model.Area
 import com.ayizor.afeme.model.Floor
 import com.ayizor.afeme.model.Image
@@ -13,7 +13,7 @@ import com.google.gson.reflect.TypeToken
 class PostPrefsManager(context: Context) {
     val postSharedPreferences: SharedPreferences?
 
-    init {
+    init{
 
         postSharedPreferences = context.getSharedPreferences("post_db", Context.MODE_PRIVATE)
     }

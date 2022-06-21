@@ -44,9 +44,9 @@ class ViewAllAdapter(
                     .into(binding.ivImagePostLarge)
 
                 binding.rlImagePostLarge.setOnClickListener {
-                    if (post_id != null) {
-                        onViewAllItemClickListener.onViewAllItemClickListener(post_id.toString())
-                    }
+//                    if (post_id != null) {
+//                        onViewAllItemClickListener.onViewAllItemClickListener(post_id.toString())
+//                    }
                 }
 //                binding.ivLikePostSmall.setOnClickListener {
 //                    heartAnimation(binding.ivHeartAnim)

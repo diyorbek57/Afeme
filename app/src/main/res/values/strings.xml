@@ -120,6 +120,9 @@
     <string name="communication_method">Communication method</string>
     <string name="publish">Publish</string>
     <string name="publish_later">Publish later</string>
+    <string name="filter">Filter</string>
+    <string name="reset">Reset</string>
+    <string name="follow">Follow</string>
     <array name="account_types">
         <item name="personal">Personal</item>
         <item name="business">Business</item>

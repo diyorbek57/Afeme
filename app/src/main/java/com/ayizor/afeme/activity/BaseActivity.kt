@@ -1,17 +1,14 @@
 package com.ayizor.afeme.activity
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.AnimationDrawable
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.widget.ImageView
+import android.view.Gravity
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDialog
-import com.ayizor.afeme.R
-import com.ayizor.afeme.activity.authentication.SignInActivity
+import com.google.android.material.snackbar.Snackbar
+
 
 open class BaseActivity : AppCompatActivity() {
     lateinit var context: Context
@@ -61,6 +58,15 @@ open class BaseActivity : AppCompatActivity() {
         val intent = Intent(context, OnBoardingActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    fun showTopSnackBar(view: View, text: String){
+//        val snack: Snackbar = Snackbar.make(view, text, Snackbar.LENGTH_LONG)
+//        val view: View = snack.view
+//        val params = view.layoutParams
+//        params. = Gravity.TOP
+//        view.setLayoutParams(params)
+//        snack.show()
     }
 
 }

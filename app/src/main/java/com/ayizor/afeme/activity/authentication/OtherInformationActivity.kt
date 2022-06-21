@@ -19,14 +19,10 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.ayizor.afeme.R
 import com.ayizor.afeme.activity.BaseActivity
-import com.ayizor.afeme.activity.MainActivity
 import com.ayizor.afeme.api.main.ApiInterface
 import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.ActivityOtherInformationBinding
-import com.ayizor.afeme.manager.PrefsManager
 import com.ayizor.afeme.model.User
-import com.ayizor.afeme.model.response.UserResponse
-import com.ayizor.afeme.utils.Logger
 import com.ayizor.afeme.utils.Utils
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.LatLng
@@ -34,9 +30,6 @@ import com.sucho.placepicker.AddressData
 import com.sucho.placepicker.Constants
 import com.sucho.placepicker.Constants.GOOGLE_API_KEY
 import com.sucho.placepicker.PlacePicker
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -47,31 +40,23 @@ class OtherInformationActivity : BaseActivity() {
     private val pERMISSION_ID = 42
     lateinit var mFusedLocationClient: FusedLocationProviderClient
     var geocoder: Geocoder? = null
-    val PLACE_PICKER_REQUEST: Int = 1
-
     // Current location is set to Uzbekistan, this will be of no use
     var currentLocation: LatLng = LatLng(20.5, 78.9)
     lateinit var addresses: List<Address>;
-    lateinit var user_phone_number: String
-    lateinit var user_account_type: String
-    lateinit var user_confirmation_code: String
     lateinit var user_latitude: String
     lateinit var user_longitude: String
     lateinit var user_region: String
     lateinit var user_passport_number: String
     lateinit var user_first_name: String
     lateinit var user_last_name: String
-    var user_device_id: String = Utils.getDeviceID(this)
-
     var firstnameDone: Boolean = false
     var lastnameDone: Boolean = false
     var passportDone: Boolean = false
-    var dataService: ApiInterface? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOtherInformationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        getEnteredDatas()
+
         inits()
     }
 
@@ -79,7 +64,7 @@ class OtherInformationActivity : BaseActivity() {
         passportNumberValid()
         firstNameValid()
         lastNameValid()
-        dataService = Client.getClient()?.create(ApiInterface::class.java)
+
         // Initializing fused location client
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         binding.tvSelectFromMap.setOnClickListener {
@@ -111,37 +96,12 @@ class OtherInformationActivity : BaseActivity() {
             user_last_name = binding.etLastNameInformations.editText?.text.toString()
             if (checkPassportNumber(user_passport_number))
                 if (!user_latitude.isNullOrEmpty() && !user_longitude.isNullOrEmpty() && !user_region.isNullOrEmpty()) {
-
-//                i.putExtra("user_phone_number", user_phone_number)
-//                i.putExtra("user_account_type", user_account_type)
-//                i.putExtra("user_confirmation_code", user_confirmation_code)
-//                i.putExtra("user_latitude", user_latitude)
-//                i.putExtra("user_longitude", user_longitude)
-//                i.putExtra("user_address", user_address)
-//                i.putExtra("user_full_name", user_full_name)
-//                i.putExtra("user_passport_number", user_passport_number)
-
-                    val user = User(
-                        null,
-                        user_first_name,
-                        user_last_name,
-                        null,
-                        user_phone_number,
-                        null,
-                        user_passport_number,
-                        user_account_type, user_device_id,
-                        "Android",
-                        null,
-                        user_region,
-                        user_longitude,
-                        user_latitude,
-                        null,
-                        null,
-                        null,
-                        null
-                    )
-                    createUser(user)
-
+                    val i = Intent(this, CodeConfirmActivity::class.java)
+                    i.putExtra("user_latitude", user_latitude)
+                    i.putExtra("user_longitude", user_longitude)
+                    i.putExtra("user_first_name", user_first_name)
+                    i.putExtra("user_last_name", user_last_name)
+                    i.putExtra("user_passport_number", user_passport_number)
                 }
         }
 
@@ -288,12 +248,6 @@ class OtherInformationActivity : BaseActivity() {
         }
     }
 
-    private fun getEnteredDatas() {
-        user_account_type = intent.getStringExtra("user_account_type").toString()
-        user_phone_number = intent.getStringExtra("user_phone_number").toString()
-        user_confirmation_code = intent.getStringExtra("user_confirmation_code").toString()
-    }
-
 
     private fun firstNameValid() {
         binding.etNameInformations.editText?.addTextChangedListener(object : TextWatcher {
@@ -374,28 +328,6 @@ class OtherInformationActivity : BaseActivity() {
         })
     }
 
-    private fun createUser(user: User) {
-        dataService!!.register(user).enqueue(object : Callback<UserResponse> {
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
-                Logger.d("Register", "User created")
-                if (response.isSuccessful) {
-                    val i = Intent(this@OtherInformationActivity, MainActivity::class.java)
-                    startActivity(i)
-                    PrefsManager(this@OtherInformationActivity).storeUserRegistered(true)
-
-                }
-                //response.body()?.let { adapter?.addPhotos(it) }
-                //progressBar!!.visibility = View.GONE
-            }
-
-            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                t.message?.let { Logger.d("Register", it) }
-                //progressBar!!.visibility = View.GONE
-            }
-        })
-
-    }
 
     fun checkPassportNumber(number: String): Boolean {
         val pattern: Pattern = Pattern.compile("[A-Z]{2}[0-9]{7}");

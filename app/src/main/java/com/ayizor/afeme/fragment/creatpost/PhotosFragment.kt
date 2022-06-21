@@ -61,6 +61,8 @@ class PhotosFragment : Fragment(), ChoosePhotoAdapter.OnChoosePhotoItemClickList
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
                 intent.addCategory(Intent.CATEGORY_OPENABLE)
                 intent.type = "image/*"
+                val mimeTypes = arrayOf("image/jpeg", "image/png")
+                intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
                 startActivityForResult(intent, REQUEST_CODE);
             } else {
                 PostPrefsManager(requireContext()).storeImages(mArrayUri)

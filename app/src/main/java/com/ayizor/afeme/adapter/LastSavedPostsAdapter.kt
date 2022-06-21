@@ -48,9 +48,9 @@ override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
                 .into(binding.ivImagePostSmall)
 
             binding.rlImagePostSmall.setOnClickListener {
-                if (post_id != null) {
-                    onItemClickListener.onItemClickListener(post_id)
-                }
+//                if (post_id != null) {
+//                    onItemClickListener.onItemClickListener(post_id)
+//                }
             }
             binding.ivLikePostSmall.setOnClickListener {
                 heartAnimation(binding.ivHeartAnim)

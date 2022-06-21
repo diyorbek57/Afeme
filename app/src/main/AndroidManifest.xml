@@ -35,7 +35,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".SearchActivity"
+            android:name=".SecondProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SearchActivity"
             android:exported="false" />
         <activity
             android:name=".activity.ViewCategoryActivity"
@@ -98,7 +101,7 @@
             android:exported="true" />
         <activity
             android:name=".activity.authentication.SignUpActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".activity.BaseActivity"
             android:exported="true" />
