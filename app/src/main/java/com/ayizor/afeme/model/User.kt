@@ -3,6 +3,8 @@ package com.ayizor.afeme.model
 import com.google.gson.annotations.SerializedName
 
 data class User(
+    @SerializedName("code")
+    val user_code: String? = "",
     @SerializedName("id")
     val user_id: String? = "",
     @SerializedName("name")
@@ -15,7 +17,7 @@ data class User(
     val user_email: String? = "",
     @SerializedName("phone")
     val user_phone_number: String? = "",
-    @SerializedName("pasport")
+    @SerializedName("passport")
     val user_passport_number: String? = "",
     @SerializedName("user_type")
     val user_type: String? = "",

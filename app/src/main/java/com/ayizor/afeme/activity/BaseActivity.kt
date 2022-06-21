@@ -5,8 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDialog
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -60,13 +62,17 @@ open class BaseActivity : AppCompatActivity() {
         finish()
     }
 
-    fun showTopSnackBar(view: View, text: String){
-//        val snack: Snackbar = Snackbar.make(view, text, Snackbar.LENGTH_LONG)
-//        val view: View = snack.view
-//        val params = view.layoutParams
-//        params. = Gravity.TOP
-//        view.setLayoutParams(params)
-//        snack.show()
+    fun showTopSnackBar(layoutView: View, text: String) {
+        val snack = Snackbar.make(
+            layoutView,
+            text,
+            Snackbar.LENGTH_LONG
+        )
+        val view: View = snack.view
+        val params: CoordinatorLayout.LayoutParams = view.layoutParams as CoordinatorLayout.LayoutParams
+        params.gravity = Gravity.TOP
+        view.setLayoutParams(params)
+        snack.show()
     }
 
 }

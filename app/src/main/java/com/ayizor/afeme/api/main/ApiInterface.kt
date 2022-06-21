@@ -51,7 +51,7 @@ interface ApiInterface {
 
 
     @POST("sms")
-    fun sendPhoneNumber(@Part("phone") phone: String): Call<MainResponse>
+    fun sendPhoneNumber(@Query("phone") phone: String): Call<MainResponse>
 
     //
     //user

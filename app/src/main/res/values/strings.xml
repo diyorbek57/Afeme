@@ -123,6 +123,7 @@
     <string name="filter">Filter</string>
     <string name="reset">Reset</string>
     <string name="follow">Follow</string>
+    <string name="sign_in">Sign in</string>
     <array name="account_types">
         <item name="personal">Personal</item>
         <item name="business">Business</item>

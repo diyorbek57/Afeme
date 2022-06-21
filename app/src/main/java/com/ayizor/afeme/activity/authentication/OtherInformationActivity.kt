@@ -61,9 +61,9 @@ class OtherInformationActivity : BaseActivity() {
     }
 
     private fun inits() {
-        passportNumberValid()
-        firstNameValid()
-        lastNameValid()
+//        passportNumberValid()
+//        firstNameValid()
+//        lastNameValid()
 
         // Initializing fused location client
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -94,14 +94,15 @@ class OtherInformationActivity : BaseActivity() {
             user_passport_number = binding.etPassportNumberInformations.editText?.text.toString()
             user_first_name = binding.etNameInformations.editText?.text.toString()
             user_last_name = binding.etLastNameInformations.editText?.text.toString()
-            if (checkPassportNumber(user_passport_number))
+
                 if (!user_latitude.isNullOrEmpty() && !user_longitude.isNullOrEmpty() && !user_region.isNullOrEmpty()) {
-                    val i = Intent(this, CodeConfirmActivity::class.java)
+                    val i = Intent(this, SignUpActivity::class.java)
                     i.putExtra("user_latitude", user_latitude)
                     i.putExtra("user_longitude", user_longitude)
                     i.putExtra("user_first_name", user_first_name)
                     i.putExtra("user_last_name", user_last_name)
                     i.putExtra("user_passport_number", user_passport_number)
+                    startActivity(i)
                 }
         }
 
@@ -255,7 +256,7 @@ class OtherInformationActivity : BaseActivity() {
                 if (!s.isEmpty()) {
                     //set background and text color to button
                     firstnameDone = true
-                    if (firstnameDone && passportDone && lastnameDone) {
+                    if (lastnameDone && passportDone && firstnameDone) {
                         binding.btnNextOtherInfo.isEnabled = true
                     }
                 } else {
@@ -282,7 +283,7 @@ class OtherInformationActivity : BaseActivity() {
                 if (!s.isEmpty()) {
                     //set background and text color to button
                     lastnameDone = true
-                    if (lastnameDone && passportDone && firstnameDone) {
+                    if ( firstnameDone && passportDone && lastnameDone) {
                         binding.btnNextOtherInfo.isEnabled = true
                     }
                 } else {
@@ -308,7 +309,7 @@ class OtherInformationActivity : BaseActivity() {
                 if (!s.isEmpty() && s.length == 9) {
                     //set background and text color to button
                     passportDone = true
-                    if (passportDone && firstnameDone && lastnameDone) {
+                    if (  firstnameDone && lastnameDone && passportDone) {
                         binding.btnNextOtherInfo.isEnabled = true
                     }
                 } else {

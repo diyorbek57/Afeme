@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout_confirm_code"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="15dp"
     tools:context=".activity.authentication.CodeConfirmActivity">
 
     <LinearLayout
-        android:layout_gravity=""
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
         android:orientation="vertical">
 
         <TextView
@@ -81,7 +81,7 @@
             app:cursorColor="@color/bright_blue"
             app:cursorWidth="2dp"
             app:hideLineWhenFilled="true"
-            app:itemCount="6"
+            app:itemCount="4"
             app:itemHeight="45dp"
             app:itemRadius="4dp"
             app:itemSpacing="5dp"
@@ -89,6 +89,7 @@
             app:lineColor="@color/bright_blue"
             app:lineWidth="1dp"
             app:viewType="rectangle" />
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -117,4 +118,4 @@
                 android:visibility="gone" />
         </RelativeLayout>
     </LinearLayout>
-</ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

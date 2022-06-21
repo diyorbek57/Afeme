@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout_signup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="15dp"
     tools:context=".activity.authentication.SignUpActivity">
 
     <LinearLayout
-        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -17,16 +18,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="10dp">
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/source_sans_pro_regular"
-                android:text="@string/account_type"
                 android:layout_gravity="start"
                 android:layout_marginVertical="5dp"
+                android:fontFamily="@font/source_sans_pro_regular"
+                android:text="@string/account_type"
                 android:textColor="@color/very_dark_blue_black"
                 android:textSize="18sp" />
 
@@ -54,40 +54,33 @@
 
             <com.hbb20.CountryCodePicker
                 android:id="@+id/ccp_signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/bright_blue_stroke_box"
-                app:ccp_showFlag="false"
+                android:padding="8dp"
                 app:ccp_defaultNameCode="uz"
                 app:ccp_showArrow="true"
+                app:ccp_showFlag="false"
                 app:ccp_showFullName="true"
-                android:padding="8dp"
-                app:ccp_textSize="16dp"
+                app:ccp_textSize="16dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_number_signup"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:orientation="horizontal"
+                app:boxStrokeColor="@color/bright_blue">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_number_signup"
-        android:orientation="horizontal"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_marginVertical="10dp"
-        android:layout_height="wrap_content"
-        app:boxStrokeColor="@color/bright_blue"
-        >
-
-        <EditText
-            android:id="@+id/et_number_signup"
-            android:text="@string/_998"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/phone_number"
-            android:inputType="phone" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-
-
-
-
+                <EditText
+                    android:id="@+id/et_number_signup"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/phone_number"
+                    android:inputType="phone"
+                    android:text="@string/_998" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
             <Button
@@ -115,4 +108,4 @@
             android:textColor="@color/very_dark_blue_black"
             android:textSize="16sp" />
     </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

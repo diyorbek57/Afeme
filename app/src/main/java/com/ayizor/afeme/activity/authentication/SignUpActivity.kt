@@ -6,9 +6,15 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import com.ayizor.afeme.activity.BaseActivity
+import com.ayizor.afeme.api.main.ApiInterface
+import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.ActivitySignUpBinding
+import com.ayizor.afeme.model.response.MainResponse
 import com.ayizor.afeme.utils.Logger
 import com.ayizor.afeme.utils.Utils
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SignUpActivity : BaseActivity() {
     lateinit var binding: ActivitySignUpBinding
@@ -19,8 +25,9 @@ class SignUpActivity : BaseActivity() {
     lateinit var user_passport_number: String
     lateinit var user_first_name: String
     lateinit var user_last_name: String
+    lateinit var user_phone_number: String
     var firstNameDone: Boolean = false
-
+    var dataService: ApiInterface? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +38,9 @@ class SignUpActivity : BaseActivity() {
     }
 
     private fun inits() {
+        val user_device_id: String = Utils.getDeviceID(this)
+        Logger.e(TAG, user_device_id)
+        dataService = Client.getClient()?.create(ApiInterface::class.java)
         loadSpinner()
         loadCodePicker()
         phoneNumberValid()
@@ -43,18 +53,54 @@ class SignUpActivity : BaseActivity() {
                     "Please enter your Phone number"
                 )
             ) {
-                val i = Intent(this, CodeConfirmActivity::class.java)
-                i.putExtra("user_phone_number", binding.tilNumberSignup.editText?.text.toString())
-                i.putExtra("user_account_type", user_account_type)
-                i.putExtra("user_longitude", user_longitude)
-                i.putExtra("user_latitude", user_latitude)
-                i.putExtra("user_first_name", user_first_name)
-                i.putExtra("user_last_name", user_last_name)
-                i.putExtra("user_passport_number", user_passport_number)
-                Logger.d("User type", user_account_type)
-                startActivity(i)
+                user_phone_number = binding.tilNumberSignup.editText?.text.toString()
+                sendPhoneNumber(user_phone_number)
+
             }
         }
+    }
+
+    private fun sendPhoneNumber(userPhoneNumber: String) {
+        dataService?.sendPhoneNumber(userPhoneNumber)
+            ?.enqueue(object : Callback<MainResponse> {
+                override fun onResponse(
+                    call: Call<MainResponse>,
+                    response: Response<MainResponse>
+                ) {
+                    Logger.d(TAG, response.body()?.message.toString())
+                    Logger.d(TAG, response.body()?.status.toString())
+                    Logger.d(TAG, response.body()?.data.toString())
+                    Logger.d(TAG, response.code().toString())
+                    Logger.d(TAG, response.body()?.data.toString())
+                    if (response.body()?.status == true) {
+                        callConfirmCodeActivity()
+                    } else {
+                        showTopSnackBar(
+                            binding.mainLayoutSignup,
+                            response.body()?.message.toString()
+                        )
+                    }
+
+                }
+
+                override fun onFailure(call: Call<MainResponse>, t: Throwable) {
+
+                }
+
+            })
+    }
+
+    fun callConfirmCodeActivity() {
+        val i = Intent(this, CodeConfirmActivity::class.java)
+        i.putExtra("user_phone_number", user_phone_number)
+        i.putExtra("user_account_type", user_account_type)
+        i.putExtra("user_longitude", user_longitude)
+        i.putExtra("user_latitude", user_latitude)
+        i.putExtra("user_first_name", user_first_name)
+        i.putExtra("user_last_name", user_last_name)
+        i.putExtra("user_passport_number", user_passport_number)
+        Logger.d("User type", user_account_type)
+        startActivity(i)
     }
 
     @SuppressLint("SetTextI18n")

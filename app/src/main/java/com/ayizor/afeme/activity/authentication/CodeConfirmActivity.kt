@@ -3,12 +3,12 @@ package com.ayizor.afeme.activity.authentication
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.ayizor.afeme.R
 import com.ayizor.afeme.activity.BaseActivity
 import com.ayizor.afeme.api.main.ApiInterface
 import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.ActivityCodeConfirmBinding
+import com.ayizor.afeme.manager.PrefsManager
 import com.ayizor.afeme.model.User
 import com.ayizor.afeme.model.response.MainResponse
 import com.ayizor.afeme.utils.Logger
@@ -31,7 +31,6 @@ class CodeConfirmActivity : BaseActivity() {
     lateinit var user_last_name: String
     lateinit var user_confirmation_code: String
     var user_device_type: String = "Android"
-    var user_device_id: String = Utils.getDeviceID(this)
     var dataService: ApiInterface? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +42,7 @@ class CodeConfirmActivity : BaseActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun inits() {
+        val user_device_id: String = Utils.getDeviceID(this)
         dataService = Client.getClient()?.create(ApiInterface::class.java)
         binding.tvCodeConfirmInfo.text =
             getString(R.string.enter_the_confirmation_code_we_send_to) + " " + user_phone_number
@@ -54,15 +54,17 @@ class CodeConfirmActivity : BaseActivity() {
 
 
             if (binding.pinView.text?.isNotEmpty() == true) {
-                if (binding.pinView.text!!.length == 6) {
+                if (binding.pinView.text!!.length == 4) {
                     // progressBar.setVisibility(View.VISIBLE)
+                    user_confirmation_code = binding.pinView.text.toString()
 
                     val user = User(
+                        user_confirmation_code,
                         null,
                         user_first_name,
                         user_last_name,
                         null,
-                        user_phone_number,
+                        null,
                         user_phone_number,
                         user_passport_number,
                         user_account_type,
@@ -76,7 +78,7 @@ class CodeConfirmActivity : BaseActivity() {
                         null,
                         null
                     )
-
+                    Logger.d(TAG, user.toString())
                     createUser(user)
                 }
             } else {
@@ -92,7 +94,31 @@ class CodeConfirmActivity : BaseActivity() {
     private fun createUser(user: User) {
         dataService?.register(user)
             ?.enqueue(object : Callback<MainResponse> {
-                override fun onResponse(call: Call<MainResponse>, response: Response<MainResponse>) {
+                override fun onResponse(
+                    call: Call<MainResponse>,
+                    response: Response<MainResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        Logger.d(TAG, response.body()?.message.toString())
+                        Logger.d(TAG, response.body()?.data.toString())
+                        Logger.d(TAG, response.body()?.status.toString())
+                        if (response.body()?.status == true) {
+                            PrefsManager(this@CodeConfirmActivity).storeUserRegisteredToken(response.body()?.data.toString())
+                            PrefsManager(this@CodeConfirmActivity).storeUserRegistered(response.body()?.status!!)
+
+                            callMainActivity(this@CodeConfirmActivity)
+                        } else {
+                            showTopSnackBar(
+                                binding.mainLayoutConfirmCode,
+                                getString(R.string.incorrect_code_entered)
+                            )
+                        }
+                    } else {
+                        Logger.d(TAG, response.code().toString())
+                        Logger.d(TAG, response.body()?.message.toString())
+                        Logger.d(TAG, response.body()?.data.toString())
+                        Logger.d(TAG, response.body()?.status.toString())
+                    }
 
 
                 }
