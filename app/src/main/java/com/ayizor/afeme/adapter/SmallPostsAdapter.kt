@@ -4,17 +4,22 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Animatable
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.ayizor.afeme.databinding.ItemPostSmallBinding
 import com.ayizor.afeme.databinding.ItemViewAllBinding
-import com.ayizor.afeme.model.Post
+import com.ayizor.afeme.model.post.GetPost
+import com.ayizor.afeme.utils.Utils
 import com.bumptech.glide.Glide
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.*
 
 class SmallPostsAdapter(
     var context: Context,
-    var postsList: ArrayList<Post>,
+    var postsList: ArrayList<GetPost>,
     val onItemClickListener: OnItemClickListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -34,20 +39,44 @@ class SmallPostsAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         with(holder.itemViewType) {
             with(postsList[position]) {
-                 binding.tvNamePostSmall.text = post_built_year
-                //  binding.tvLocationPostSmall.text = post_location
-                binding.tvPricePostSmall.text = "$$post_price_usd"
-                binding.tvTypePostSmall.text = post_building_type.toString()
-                // binding.tvPeriodPostSmall.text = "/$post_period"
-                binding.tvRatingPostSmall.text = "3.6"
+
+                binding.tvNamePostSmall.text = post_built_year
+                val formatter: NumberFormat = DecimalFormat("#.###")
+
+                val formattedNumber = formatter.format(post_price_usd?.toDouble())
+
+
+                val locationName = post_latitude?.let {
+                    post_longitude?.let { it1 ->
+                        Utils.getCoordinateName(
+                            context,
+                            it.toDouble(),
+                            it1.toDouble()
+                        )
+                    }
+                }
+
+                if (locationName != null) {
+                    binding.tvLocationPostSmall.text = locationName.state + locationName.city
+                }
+
+                binding.tvPricePostSmall.text =formattedNumber
+                    binding.tvTypePostSmall.text = post_building_type.toString()
+                binding.tvPeriodPostSmall.visibility = View.GONE
+                if (post_rating != null) {
+                    binding.tvRatingPostSmall.text = post_rating.toString()
+                } else {
+                    binding.cvRatingPostSmall.visibility = View.GONE
+                }
+
                 Glide.with(context)
                     .load(post_images?.get(0))
                     .into(binding.ivImagePostSmall)
 
                 binding.rlImagePostSmall.setOnClickListener {
-//                    if (post_id != null) {
-//                        onItemClickListener.onItemClickListener(post_id.toString())
-//                    }
+                    if (post_id != null) {
+                        onItemClickListener.onItemClickListener(post_id.toString())
+                    }
                 }
                 binding.ivLikePostSmall.setOnClickListener {
                     heartAnimation(binding.ivHeartAnim)

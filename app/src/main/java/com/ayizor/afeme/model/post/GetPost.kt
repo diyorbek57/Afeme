@@ -1,5 +1,7 @@
-package com.ayizor.afeme.model
+package com.ayizor.afeme.model.post
 
+import com.ayizor.afeme.model.Category
+import com.ayizor.afeme.model.inmodels.*
 import com.google.gson.annotations.SerializedName
 
 data class GetPost(
@@ -12,9 +14,9 @@ data class GetPost(
     @SerializedName("videos")
     val post_videos: ArrayList<Video>? = null,
     @SerializedName("htype_id")
-    val post_building_type: String? = null,
+    val post_building_type: Category? = null,
     @SerializedName("sale_id")
-    val post_type: Int? = null,
+    val post_type: PostType? = null,
     @SerializedName("latitude")
     val post_latitude: String? = "",
     @SerializedName("longitude")
@@ -30,7 +32,7 @@ data class GetPost(
     @SerializedName("room")
     val post_rooms: String? = "",
     @SerializedName("repair_id")
-    val post_repair: String? = "",
+    val post_repair: Repair? = null,
     @SerializedName("documents")
     val post_documents: String? = null,
     @SerializedName("description")
@@ -38,9 +40,9 @@ data class GetPost(
     @SerializedName("material_id")
     val post_material: Material? = null,
     @SerializedName("region_id")
-    val post_region_id: String? = null,
+    val post_region_id: Region? = null,
     @SerializedName("city_id")
-    val post_city_id: String? = null,
+    val post_city_id: Region? = null,
     @SerializedName("street")
     val post_street: String? = "",
     @SerializedName("house")
@@ -50,7 +52,19 @@ data class GetPost(
     @SerializedName("flat")
     val post_flat: String? = "",
     @SerializedName("like")
-    val post_liked: Boolean? = null,
+    val post_isLiked: Boolean? = null,
+    @SerializedName("reyting")
+    val post_rating: Double? = null,
+    @SerializedName("fullreyting")
+    val post_rates: ArrayList<Rating>? = null,
+    @SerializedName("ipoteka")
+    val post_isIpoteka: Boolean? = false,
+    @SerializedName("trade")
+    val post_isTradable: Boolean? = false,
+    @SerializedName("view")
+    val post_views: String? = "",
+    @SerializedName("likecount")
+    val post_like_count: Int? = null,
     @SerializedName("created_at")
     val post_created_at: String? = "",
     @SerializedName("updated_at")

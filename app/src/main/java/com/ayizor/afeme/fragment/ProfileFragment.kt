@@ -40,7 +40,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun inits() {
-        dataService = Client.getClient()?.create(ApiInterface::class.java)
+        dataService = Client.getClient(requireContext())?.create(ApiInterface::class.java)
         setupFeaturesViewPager()
         getUserDatas()
 

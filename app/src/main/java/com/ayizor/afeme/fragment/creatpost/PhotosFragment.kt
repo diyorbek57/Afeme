@@ -17,9 +17,8 @@ import com.ayizor.afeme.R
 import com.ayizor.afeme.adapter.createpostadapters.ChoosePhotoAdapter
 import com.ayizor.afeme.databinding.FragmentPhotosBinding
 import com.ayizor.afeme.manager.PostPrefsManager
-import com.ayizor.afeme.model.Image
+import com.ayizor.afeme.model.inmodels.Image
 import com.ayizor.afeme.model.ImageDetails
-import java.io.File
 
 
 class PhotosFragment : Fragment(), ChoosePhotoAdapter.OnChoosePhotoItemClickListener {

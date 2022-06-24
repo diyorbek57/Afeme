@@ -8,10 +8,8 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import com.ayizor.afeme.R
 import com.ayizor.afeme.databinding.FragmentAreaBinding
-import com.ayizor.afeme.databinding.FragmentRoomsBinding
-import com.ayizor.afeme.fragment.creatpost.apartment.RoomsFragment
 import com.ayizor.afeme.manager.PostPrefsManager
-import com.ayizor.afeme.model.Area
+import com.ayizor.afeme.model.inmodels.Area
 
 
 class AreaFragment : Fragment() {

@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:paddingVertical="25dp"
-        android:background="@drawable/solid_rounded"
+        android:background="@drawable/item_white_solid_rounded"
         android:gravity="center_horizontal"
         android:layout_alignParentBottom="true"
         android:orientation="vertical">

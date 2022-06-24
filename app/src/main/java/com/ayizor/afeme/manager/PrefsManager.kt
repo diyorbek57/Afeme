@@ -2,6 +2,10 @@ package com.ayizor.afeme.manager
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.ayizor.afeme.model.User
+import com.google.android.gms.maps.model.LatLng
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class PrefsManager(context: Context) {
     val sharedPreferences: SharedPreferences?
@@ -55,6 +59,7 @@ class PrefsManager(context: Context) {
         return sharedPreferences!!.getBoolean("user_registered", false)
     }
 
+
     fun storeUserRegisteredToken(token: String) {
         val prefsEditor = sharedPreferences!!.edit()
         prefsEditor.putString("user_registered_token", token)
@@ -64,6 +69,18 @@ class PrefsManager(context: Context) {
     fun loadUserRegisteredToken(): String? {
         return sharedPreferences!!.getString("user_registered_token", "")
     }
-
+    fun storeUserCurrentLocation(location: LatLng) {
+        val gson = Gson()
+        val json = gson.toJson(location)
+        val prefsEditor = sharedPreferences!!.edit()
+        prefsEditor.putString("current_location", json)
+        prefsEditor.apply()
+    }
+    fun loadUserCurrentLocation(): LatLng {
+        val gson = Gson()
+        val json: String? = sharedPreferences?.getString("current_location", null)
+        val type = object : TypeToken<LatLng>() {}.type
+        return gson.fromJson(json, type)
+    }
 
 }

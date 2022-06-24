@@ -1,6 +1,7 @@
 package com.ayizor.afeme.api.main
 
-import com.ayizor.afeme.model.Post
+import android.content.Context
+import com.ayizor.afeme.model.post.Post
 import com.ayizor.afeme.model.User
 import com.ayizor.afeme.model.response.*
 import okhttp3.MultipartBody
@@ -17,7 +18,7 @@ interface ApiInterface {
     @POST("filter")
     fun getPostsByCategory(@Query("htype_id") id: Int): Call<GetPostResponse>
 
-    @GET("getpost")
+    @GET("post")
     fun getAllPosts(): Call<GetPostResponse>
 
 

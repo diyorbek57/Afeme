@@ -33,8 +33,8 @@ class CreatePostBuildingTypeAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         with(holder.itemViewType) {
             with(categoryList[position]) {
-                binding.tvBuildingTypeName.text = category_name
-                if (category_name != null) {
+                binding.tvBuildingTypeName.text = category_name_uz
+                if (category_name_uz != null) {
                     Glide.with(context)
                         .load(Api.CATEGORY_IMAGE_URL + category_icon)
                         .into(binding.ivBuildingTypeIcon)

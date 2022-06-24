@@ -1,5 +1,6 @@
 package com.ayizor.afeme.model
 
+import com.ayizor.afeme.model.post.Post
 import com.google.gson.annotations.SerializedName
 
 data class User(

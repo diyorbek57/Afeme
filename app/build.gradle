@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+
 }
 
 android {
@@ -66,8 +67,12 @@ dependencies {
     testImplementation "androidx.room:room-testing:$room_version"
     // optional - Paging 3 Integration
     implementation "androidx.room:room-paging:2.5.0-alpha02"
+    //splash screen
+    implementation 'androidx.core:core-splashscreen:1.0.0-rc01'
     //image slider
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
+    //shimmer
+    implementation 'com.facebook.shimmer:shimmer:0.1.0'
     //ccp
     implementation 'com.hbb20:ccp:2.6.0'
     //lottie animation

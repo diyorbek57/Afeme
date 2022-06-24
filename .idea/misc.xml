@@ -80,9 +80,12 @@
         <entry key="app/src/main/res/drawable/ic_cancel.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_cancel_circle.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_close.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_current_location.xml" value="0.185" />
+        <entry key="app/src/main/res/drawable/ic_home_marker.xml" value="0.185" />
         <entry key="app/src/main/res/drawable/ic_il_welcome_cats.xml" value="0.1155" />
         <entry key="app/src/main/res/drawable/ic_notification_warning.xml" value="0.1195" />
         <entry key="app/src/main/res/drawable/ic_square_metr.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/item_bright_blue_stroke_white_solid_box.xml" value="0.108" />
         <entry key="app/src/main/res/drawable/item_button_selector.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/item_cardview_selector.xml" value="0.1775" />
         <entry key="app/src/main/res/drawable/item_disabled_background.xml" value="0.142" />
@@ -91,6 +94,7 @@
         <entry key="app/src/main/res/drawable/item_profile_gradient.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/item_search_view_background.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/item_tab_indicator_details.xml" value="0.1255" />
+        <entry key="app/src/main/res/drawable/solid_rounded.xml" value="0.158" />
         <entry key="app/src/main/res/layout/activity_code_confirm.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_create_post.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_details.xml" value="0.3098958333333333" />
@@ -98,6 +102,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2537037037037037" />
         <entry key="app/src/main/res/layout/activity_other_information.xml" value="0.253125" />
         <entry key="app/src/main/res/layout/activity_preview_created_post.xml" value="0.25916900634765627" />
+        <entry key="app/src/main/res/layout/activity_rating.xml" value="0.29583333333333334" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_second_profile.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.2006340579710145" />
@@ -121,6 +126,7 @@
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_add_photo.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_added_photo.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/item_bottom_sheet_create_post.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_bottom_sheet_search.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_create_post_building_type.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_create_post_selecting_cards.xml" value="0.30885416666666665" />
@@ -131,7 +137,10 @@
         <entry key="app/src/main/res/layout/item_notification_info.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_notification_success.xml" value="0.3049611409505208" />
         <entry key="app/src/main/res/layout/item_notification_warning.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/item_onboarding.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/item_post_large.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_post_small.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/item_shimmer_post_small.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_sorted_saved_posts.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/layout/item_view_pager_preview.xml" value="0.1" />
         <entry key="app/src/main/res/menu/example_menu.xml" value="0.3098958333333333" />

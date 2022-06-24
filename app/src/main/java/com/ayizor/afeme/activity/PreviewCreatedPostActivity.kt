@@ -1,7 +1,6 @@
 package com.ayizor.afeme.activity
 
 
-import android.R.attr.password
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -20,9 +19,9 @@ import com.ayizor.afeme.api.main.ApiInterface
 import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.ActivityPreviewCreatedPostBinding
 import com.ayizor.afeme.manager.PostPrefsManager
-import com.ayizor.afeme.model.BuildingMaterial
-import com.ayizor.afeme.model.Image
-import com.ayizor.afeme.model.Post
+import com.ayizor.afeme.model.inmodels.BuildingMaterial
+import com.ayizor.afeme.model.inmodels.Image
+import com.ayizor.afeme.model.post.Post
 import com.ayizor.afeme.model.response.BuildingMaterialResponse
 import com.ayizor.afeme.model.response.MainResponse
 import com.ayizor.afeme.utils.Logger
@@ -51,13 +50,13 @@ class PreviewCreatedPostActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPreviewCreatedPostBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        uriList = PostPrefsManager(this).loadImages()
+        uriList = PostPrefsManager(this).loadImages()!!
         inits()
     }
 
     @SuppressLint("ResourceType")
     private fun inits() {
-        dataService = Client.getClient()?.create(ApiInterface::class.java)
+        dataService = Client.getClient(this)?.create(ApiInterface::class.java)
         refreshViewPagerAdapter()
         displaySavedDatas()
         getAllBuildingMaterials()
@@ -191,7 +190,7 @@ if (response.isSuccessful){
     }
 
     private fun refreshViewPagerAdapter() {
-        val adapter = PreviewViewPagerAdapter(this, PostPrefsManager(this).loadImages())
+        val adapter = PostPrefsManager(this).loadImages()?.let { PreviewViewPagerAdapter(this, it) }
         binding.viewpager.adapter = adapter
         binding.viewpager.clipToPadding = false
         binding.viewpager.clipChildren = false
@@ -204,7 +203,7 @@ if (response.isSuccessful){
 //            page.scaleY = 0.8f + v * 0.2f
 //        }
         binding.viewpager.setPageTransformer(transformer)
-        binding.viewpager.offscreenPageLimit = PostPrefsManager(this).loadImages().size
+        binding.viewpager.offscreenPageLimit = PostPrefsManager(this).loadImages()?.size!!
     }
 
     @SuppressLint("ResourceAsColor")

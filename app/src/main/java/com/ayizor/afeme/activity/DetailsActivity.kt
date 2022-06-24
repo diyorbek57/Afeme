@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.text.SpannableString
@@ -31,6 +32,8 @@ import com.ayizor.afeme.helper.CustomSpannable
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -46,7 +49,7 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     val TAG: String = DetailsActivity::class.java.simpleName
     lateinit var supportMapFragment: SupportMapFragment
     lateinit var adapter: DetailsViewPagerAdapter
-    private val REQUEST_CALL = 1
+
     var phoneNumber: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +60,8 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun inits() {
-        phoneNumber = "+998948461770"
+
+
         setupViewPager()
         setupFeaturesViewPager()
         //Toolbar back button

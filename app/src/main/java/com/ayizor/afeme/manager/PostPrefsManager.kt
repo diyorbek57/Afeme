@@ -2,10 +2,9 @@ package com.ayizor.afeme.manager
 
 import android.content.Context
 import android.content.SharedPreferences
-
-import com.ayizor.afeme.model.Area
-import com.ayizor.afeme.model.Floor
-import com.ayizor.afeme.model.Image
+import com.ayizor.afeme.model.inmodels.Area
+import com.ayizor.afeme.model.inmodels.Floor
+import com.ayizor.afeme.model.inmodels.Image
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -13,9 +12,13 @@ import com.google.gson.reflect.TypeToken
 class PostPrefsManager(context: Context) {
     val postSharedPreferences: SharedPreferences?
 
-    init{
+    init {
 
         postSharedPreferences = context.getSharedPreferences("post_db", Context.MODE_PRIVATE)
+    }
+
+    fun clearSavedPostDatas() {
+        postSharedPreferences?.edit()?.clear()?.commit()
     }
 
     ///////////
@@ -114,11 +117,17 @@ class PostPrefsManager(context: Context) {
         prefsEditor.apply()
     }
 
-    fun loadImages(): ArrayList<Image> {
+    fun loadImages(): ArrayList<Image>? {
         val gson = Gson()
         val json: String? = postSharedPreferences?.getString("images", null)
         val type = object : TypeToken<ArrayList<Image?>?>() {}.type
-        return gson.fromJson(json, type) as ArrayList<Image>
+        return try {
+            gson.fromJson(json, type) as ArrayList<Image>
+        } catch (e: NullPointerException) {
+            null
+        }
+
+
     }
 
 
@@ -132,6 +141,7 @@ class PostPrefsManager(context: Context) {
     fun loadPrice(): String? {
         return postSharedPreferences!!.getString("price", "")
     }
+
     ///////
     fun storeDescription(description: String) {
         val prefsEditor = postSharedPreferences!!.edit()

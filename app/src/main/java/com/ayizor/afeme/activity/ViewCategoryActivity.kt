@@ -10,7 +10,8 @@ import com.ayizor.afeme.adapter.ViewAllAdapter
 import com.ayizor.afeme.api.main.ApiInterface
 import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.ActivityViewCategoryBinding
-import com.ayizor.afeme.model.Post
+import com.ayizor.afeme.model.post.GetPost
+import com.ayizor.afeme.model.post.Post
 import com.ayizor.afeme.model.response.GetPostResponse
 import com.ayizor.afeme.utils.Logger
 import retrofit2.Call
@@ -32,7 +33,7 @@ class ViewCategoryActivity : AppCompatActivity(), ViewAllAdapter.OnViewAllItemCl
 
     private fun inits() {
         binding.progressBar.visibility = View.VISIBLE
-        dataService = Client.getClient()?.create(ApiInterface::class.java)
+        dataService = Client.getClient(this)?.create(ApiInterface::class.java)
         binding.tvTitle.text = intent.getStringExtra("category_name")
         category_id = intent.getIntExtra("category_id", 0)
         binding.ivBack.setOnClickListener {
@@ -53,7 +54,7 @@ class ViewCategoryActivity : AppCompatActivity(), ViewAllAdapter.OnViewAllItemCl
         startActivity(intent)
     }
 
-    private fun refreshPostsAdapter(filters: ArrayList<Post>) {
+    private fun refreshPostsAdapter(filters: ArrayList<GetPost>) {
         val adapter = ViewAllAdapter(this, filters, this)
         binding.rvViewAll.adapter = adapter
 

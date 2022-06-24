@@ -40,7 +40,7 @@ class SignUpActivity : BaseActivity() {
     private fun inits() {
         val user_device_id: String = Utils.getDeviceID(this)
         Logger.e(TAG, user_device_id)
-        dataService = Client.getClient()?.create(ApiInterface::class.java)
+        dataService = Client.getClient(this)?.create(ApiInterface::class.java)
         loadSpinner()
         loadCodePicker()
         phoneNumberValid()

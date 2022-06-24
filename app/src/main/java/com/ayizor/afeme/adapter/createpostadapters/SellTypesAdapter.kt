@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ayizor.afeme.api.main.Api
 import com.ayizor.afeme.databinding.ItemCreatePostSellTypeBinding
-import com.ayizor.afeme.model.SellType
+import com.ayizor.afeme.model.inmodels.SellType
 import com.bumptech.glide.Glide
 
 class SellTypesAdapter(

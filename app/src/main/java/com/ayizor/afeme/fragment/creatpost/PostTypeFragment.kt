@@ -15,7 +15,7 @@ import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.FragmentPostTypeBinding
 import com.ayizor.afeme.fragment.HomeFragment
 import com.ayizor.afeme.manager.PostPrefsManager
-import com.ayizor.afeme.model.SellType
+import com.ayizor.afeme.model.inmodels.SellType
 import com.ayizor.afeme.model.response.SellResponse
 import com.ayizor.afeme.utils.Logger
 import retrofit2.Call
@@ -42,7 +42,7 @@ class PostTypeFragment : Fragment(), SellTypesAdapter.OnSellTypeItemClickListene
         activity?.findViewById<ProgressBar>(R.id.progress_bar_main_creat_post)?.progress =
             fragmentNumber
         binding.progressBar.visibility = View.VISIBLE
-        dataService = Client.getClient()?.create(ApiInterface::class.java)
+        dataService = Client.getClient(requireContext())?.create(ApiInterface::class.java)
         binding.rvSellType.layoutManager = GridLayoutManager(
             requireContext(), 1, GridLayoutManager.VERTICAL, false
         )

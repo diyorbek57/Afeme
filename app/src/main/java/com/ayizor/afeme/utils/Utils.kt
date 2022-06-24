@@ -5,6 +5,8 @@ import android.app.Application
 import android.app.Dialog
 import android.content.Context
 import android.content.Context.WINDOW_SERVICE
+import android.location.Geocoder
+import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -15,8 +17,11 @@ import android.view.WindowManager
 import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat.getSystemService
 import com.ayizor.afeme.R
+import com.ayizor.afeme.model.CustomLocation
 import com.ayizor.afeme.model.ScreenSize
+import java.util.*
 
 
 object Utils {
@@ -91,7 +96,7 @@ object Utils {
         dialog.show()
     }
 
-     fun validEditText(editText: EditText?,errorText:String): Boolean {
+    fun validEditText(editText: EditText?, errorText: String): Boolean {
         val fullName: String = editText?.text.toString()
         return if (fullName.isEmpty()) {
             if (editText != null) {
@@ -104,6 +109,22 @@ object Utils {
             }
             true
         }
+    }
+
+    fun getCoordinateName(context: Context, latitude: Double, longitude: Double): CustomLocation {
+        val geocoder = Geocoder(context, Locale.getDefault());
+        val addresses = geocoder.getFromLocation(latitude, longitude, 1);
+        val address =
+            addresses[0].getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+
+        val city = addresses[0].locality
+        val state = addresses[0].adminArea
+        val country = addresses[0].countryName
+        val postalCode = addresses[0].postalCode
+        val knownName = addresses[0].featureName // Only if available else return NULL
+
+        return CustomLocation(city, state, country, postalCode, knownName)
+
     }
 
 }

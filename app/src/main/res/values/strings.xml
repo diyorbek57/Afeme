@@ -47,7 +47,7 @@
     <string name="username">Username</string>
     <string name="gallery">Gallery</string>
     <string name="search">Search</string>
-    <string name="api_key">AIzaSyCd8QB-uV3aPATmNH2OSQN2fFQYRSZJnUA</string>
+    <string name="api_key">AIzaSyDy1jNxGNLB-EI5SmGHJXRISt07m6b9jcg</string>
     <string name="location">Location</string>
     <string name="features_amp_facilities"><![CDATA[Features & Facilities]]></string>
     <string name="status">Status</string>
@@ -124,6 +124,10 @@
     <string name="reset">Reset</string>
     <string name="follow">Follow</string>
     <string name="sign_in">Sign in</string>
+    <string name="continue_filling">Continue filling</string>
+    <string name="start_again">Start again</string>
+    <string name="creating_post">Creating post</string>
+    <string name="you_started_filling_out_post_but_were_interrupted_do_you_want_to_continue">You started filling out post, but were interrupted. Do you want to continue?</string>
     <array name="account_types">
         <item name="personal">Personal</item>
         <item name="business">Business</item>

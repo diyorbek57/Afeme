@@ -35,6 +35,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activity.RatingActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.SecondProfileActivity"
             android:exported="false"
             android:launchMode="singleTop" />
@@ -97,18 +100,10 @@
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activity.SplashActivity"
-            android:exported="true"
-            android:launchMode="singleTop" />
-        <activity
             android:name=".activity.MainActivity"
             android:exported="true"
             android:launchMode="singleTop">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.authentication.SignInActivity"
@@ -125,13 +120,19 @@
         <activity
             android:name=".activity.authentication.WelcomeActivity"
             android:exported="true"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop">
 
         </activity>
         <activity
             android:name=".activity.OnBoardingActivity"
             android:exported="true"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.sucho.placepicker.PlacePickerActivity"
             android:theme="@style/PlacePickerTheme" />

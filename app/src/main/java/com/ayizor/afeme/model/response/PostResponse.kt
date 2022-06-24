@@ -1,7 +1,6 @@
 package com.ayizor.afeme.model.response
 
-import com.ayizor.afeme.model.Post
-import com.ayizor.afeme.model.SellType
+import com.ayizor.afeme.model.post.Post
 
 data class PostResponse(
     val status: Boolean? = null,

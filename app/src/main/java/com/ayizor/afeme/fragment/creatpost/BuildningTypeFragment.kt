@@ -45,7 +45,7 @@ class BuildningTypeFragment : Fragment(),
             fragmentNumber
 
         binding.progressBar.visibility = View.VISIBLE
-        dataService = Client.getClient()?.create(ApiInterface::class.java)
+        dataService = Client.getClient(requireContext())?.create(ApiInterface::class.java)
         binding.rvBuildingType.layoutManager = GridLayoutManager(
             requireContext(), 2, GridLayoutManager.VERTICAL, false
         )

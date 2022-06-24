@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:layout_margin="9dp"
-    app:cardCornerRadius="25dp">
+    app:cardCornerRadius="10dp">
 
     <RelativeLayout
         android:id="@+id/rl_post_small"
@@ -32,13 +32,15 @@
                 android:layout_gravity="center"
                 android:alpha="0"
                 app:srcCompat="@drawable/avd_instagram_like" />
+
             <androidx.cardview.widget.CardView
+                android:id="@+id/cv_rating_post_small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_margin="10dp"
                 app:cardBackgroundColor="#D7FFFFFF"
-                app:cardCornerRadius="15dp">
+                app:cardCornerRadius="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"

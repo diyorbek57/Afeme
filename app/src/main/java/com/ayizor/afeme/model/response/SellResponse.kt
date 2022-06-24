@@ -1,7 +1,6 @@
 package com.ayizor.afeme.model.response
 
-import com.ayizor.afeme.model.Category
-import com.ayizor.afeme.model.SellType
+import com.ayizor.afeme.model.inmodels.SellType
 
 data class SellResponse(
     val status: Boolean? = null,

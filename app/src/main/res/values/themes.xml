@@ -30,6 +30,7 @@
     <style name="AppModalStyle" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
         <item name="backgroundColor">@color/white</item>
+        <item name="android:backgroundDimEnabled">false</item>
     </style>
 
     <style name="CustomShapeAppearanceBottomSheetDialog" parent="">

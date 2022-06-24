@@ -13,6 +13,7 @@
     <color name="very_dark_blue_black">#09101D</color>
     <color name="light_grayish_blue">#E4ECFE</color>
     <color name="light_gray">#F5F5F5</color>
+    <color name="darker_gray">#dddddd</color>
     <color name="dark_grayish_blue">#949AA1</color>
     <color name="very_dark_grayish_blue">#56616F</color>
     <color name="vivid_red">#DA1414</color>

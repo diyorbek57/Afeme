@@ -1,6 +1,6 @@
-package com.ayizor.afeme.model
+package com.ayizor.afeme.model.post
 
-import com.google.gson.annotations.Expose
+import com.ayizor.afeme.model.inmodels.Video
 import com.google.gson.annotations.SerializedName
 
 data class Post(

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.HomeFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:stateListAnimator="@null"
         android:background="@color/white"
-        android:elevation="0dp">
+        android:elevation="0dp"
+        android:stateListAnimator="@null">
 
         <androidx.appcompat.widget.Toolbar
-            android:stateListAnimator="@null"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:stateListAnimator="@null"
             app:contentInsetStart="0dp"
             app:elevation="0dp"
             app:layout_scrollFlags="scroll|enterAlways"
@@ -70,151 +70,157 @@
 
 
     <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
         android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/progress_bar"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/ic_item_light_icon_15_background"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="four_circle_loading.json"
-        app:lottie_loop="true"
-        app:lottie_speed="1.3" />
-
-        <LinearLayout
-            android:visibility="gone"
-            android:id="@+id/ll_main_home"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_home_category"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-
-                </androidx.recyclerview.widget.RecyclerView>
-            </LinearLayout>
-
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/progress_bar"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/ic_item_light_icon_15_background"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="four_circle_loading.json"
+                app:lottie_loop="true"
+                app:lottie_speed="1.3" />
 
             <LinearLayout
+                android:id="@+id/ll_main_home"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="15dp"
-                    android:paddingHorizontal="15dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/source_sans_pro_semibold"
-                        android:text="@string/popular"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tv_popular_view_all"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:fontFamily="@font/source_sans_pro_semibold"
-                        android:text="@string/view_all"
-                        android:textColor="@color/bright_blue"
-                        android:textSize="16sp" />
-                </RelativeLayout>
+                android:orientation="vertical"
+                android:visibility="gone">
 
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_home_popular"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="15dp"
-                    android:paddingHorizontal="15dp">
+                    android:orientation="vertical">
 
-                    <TextView
 
-                        android:layout_width="wrap_content"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_home_category"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/source_sans_pro_semibold"
-                        android:text="@string/nearby_your_location"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tv_nearby_view_all"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:fontFamily="@font/source_sans_pro_semibold"
-                        android:text="@string/view_all"
-                        android:textColor="@color/bright_blue"
-                        android:textSize="16sp" />
-                </RelativeLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_home_nearby"
+                    </androidx.recyclerview.widget.RecyclerView>
+                </LinearLayout>
+
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="15dp"
-                    android:paddingHorizontal="15dp">
+                    <LinearLayout
+                        android:id="@+id/ll_nearby"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                    <TextView
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="15dp"
+                            android:paddingHorizontal="15dp">
 
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/source_sans_pro_semibold"
+                                android:text="@string/popular"
+                                android:textColor="@color/black"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tv_popular_view_all"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:fontFamily="@font/source_sans_pro_semibold"
+                                android:text="@string/view_all"
+                                android:textColor="@color/bright_blue"
+                                android:textSize="16sp" />
+                        </RelativeLayout>
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_home_popular"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/source_sans_pro_semibold"
-                        android:text="The cheapest"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
+                        android:layout_marginVertical="15dp"
+                        android:paddingHorizontal="15dp">
 
-                    <TextView
-                        android:id="@+id/tv_cheap_view_all"
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/source_sans_pro_semibold"
+                            android:text="@string/nearby_your_location"
+                            android:textColor="@color/black"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_nearby_view_all"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:fontFamily="@font/source_sans_pro_semibold"
+                            android:text="@string/view_all"
+                            android:textColor="@color/bright_blue"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_home_nearby"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:fontFamily="@font/source_sans_pro_semibold"
-                        android:text="@string/view_all"
-                        android:textColor="@color/bright_blue"
-                        android:textSize="16sp" />
-                </RelativeLayout>
+                        android:layout_marginVertical="15dp"
+                        android:paddingHorizontal="15dp">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_home_cheap"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/source_sans_pro_semibold"
+                            android:text="The cheapest"
+                            android:textColor="@color/black"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_cheap_view_all"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:fontFamily="@font/source_sans_pro_semibold"
+                            android:text="@string/view_all"
+                            android:textColor="@color/bright_blue"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_home_cheap"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-</RelativeLayout>
+        </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

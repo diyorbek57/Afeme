@@ -3,11 +3,10 @@ package com.ayizor.afeme.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Html
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.Animation
-import android.widget.TextView
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.ayizor.afeme.R
 import com.ayizor.afeme.adapter.OnBoardingAdapter
@@ -22,6 +21,7 @@ class OnBoardingActivity : BaseActivity() {
     var currentPos = 0
     lateinit var binding: ActivityOnBoardingBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -30,13 +30,14 @@ class OnBoardingActivity : BaseActivity() {
         binding = ActivityOnBoardingBinding.inflate(layoutInflater)
         val view: View = binding.root
         setContentView(view)
-        inits()
+
         if (onlyOnce()) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         } else {
-
+            installSplashScreen()
+            inits()
         }
 
     }
@@ -45,7 +46,7 @@ class OnBoardingActivity : BaseActivity() {
         //Call adapter
         sliderAdapter = OnBoardingAdapter(this)
         binding.vpOnboarding.adapter = sliderAdapter
-binding.llDots.setupWithViewPager(binding.vpOnboarding)
+        binding.llDots.setupWithViewPager(binding.vpOnboarding)
         //Dots
 //        addDots(0)
         binding.vpOnboarding.addOnPageChangeListener(changeListener)
@@ -71,7 +72,7 @@ binding.llDots.setupWithViewPager(binding.vpOnboarding)
     }
 
     fun next() {
-     currentPos =  binding.vpOnboarding.currentItem
+        currentPos = binding.vpOnboarding.currentItem
         currentPos++
         if (binding.vpOnboarding.currentItem == 2) {
             val sharedpreferences = getSharedPreferences("ONLYONCE", MODE_PRIVATE)
@@ -82,7 +83,7 @@ binding.llDots.setupWithViewPager(binding.vpOnboarding)
             startActivity(intent)
             finish()
         }
-        binding.vpOnboarding.currentItem=currentPos
+        binding.vpOnboarding.currentItem = currentPos
     }
 
 //    private fun addDots(position: Int) {

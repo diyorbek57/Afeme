@@ -7,12 +7,15 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import com.ayizor.afeme.R
 import com.ayizor.afeme.databinding.ActivityMainBinding
+import com.ayizor.afeme.databinding.ItemBottomSheetCreatePostBinding
 import com.ayizor.afeme.fragment.ChatFragment
 import com.ayizor.afeme.fragment.HomeFragment
 import com.ayizor.afeme.fragment.ProfileFragment
 import com.ayizor.afeme.fragment.SearchFragment
+import com.ayizor.afeme.manager.PostPrefsManager
 import com.ayizor.afeme.utils.Logger
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 
@@ -93,20 +96,35 @@ class MainActivity : BaseActivity() {
 
 
     private fun callCreatePostActivity() {
-        val i = Intent(
-            this,
-            PreviewCreatedPostActivity::class.java
-        )
-        startActivityForResult(i, LAUNCH_SECOND_ACTIVITY)
-    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == LAUNCH_SECOND_ACTIVITY) {
-//            binding.bottomBar.menu.getItem(0).setIcon(R.drawable.nav_ic_home_selected);
-
+        if (PostPrefsManager(this).loadImages().isNullOrEmpty()) {
+            val i = Intent(this, CreatePostActivity::class.java)
+            startActivity(i)
+        } else {
+            callCratePostBottomSheet()
         }
     }
+
+    private fun callCratePostBottomSheet() {
+        val sheetDialog = BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme)
+        val bottomSheetBinding: ItemBottomSheetCreatePostBinding =
+            ItemBottomSheetCreatePostBinding.inflate(layoutInflater)
+        sheetDialog.setContentView(bottomSheetBinding.root)
+        bottomSheetBinding.btnContinue.setOnClickListener {
+            val i = Intent(this, PreviewCreatedPostActivity::class.java)
+            startActivity(i)
+        }
+        bottomSheetBinding.btnRestart.setOnClickListener {
+            PostPrefsManager(this).clearSavedPostDatas()
+            val i = Intent(this, CreatePostActivity::class.java)
+            startActivity(i)
+            sheetDialog.cancel()
+        }
+
+        sheetDialog.show();
+        sheetDialog.window?.attributes?.windowAnimations = R.style.DialogAnimaton;
+    }
+
 
     override fun onStart() {
         super.onStart()

@@ -43,7 +43,7 @@ class CodeConfirmActivity : BaseActivity() {
     @SuppressLint("SetTextI18n")
     private fun inits() {
         val user_device_id: String = Utils.getDeviceID(this)
-        dataService = Client.getClient()?.create(ApiInterface::class.java)
+        dataService = Client.getClient(this)?.create(ApiInterface::class.java)
         binding.tvCodeConfirmInfo.text =
             getString(R.string.enter_the_confirmation_code_we_send_to) + " " + user_phone_number
 
@@ -105,7 +105,7 @@ class CodeConfirmActivity : BaseActivity() {
                         if (response.body()?.status == true) {
                             PrefsManager(this@CodeConfirmActivity).storeUserRegisteredToken(response.body()?.data.toString())
                             PrefsManager(this@CodeConfirmActivity).storeUserRegistered(response.body()?.status!!)
-
+//                            PrefsManager(this@CodeConfirmActivity).storeUser(user)
                             callMainActivity(this@CodeConfirmActivity)
                         } else {
                             showTopSnackBar(

@@ -9,7 +9,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.ayizor.afeme.databinding.ItemPostSmallBinding
 import com.ayizor.afeme.databinding.ItemViewAllBinding
-import com.ayizor.afeme.model.Post
+import com.ayizor.afeme.model.post.Post
 import com.bumptech.glide.Glide
 
 class SavedPostsAdapter(

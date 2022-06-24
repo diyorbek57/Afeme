@@ -19,10 +19,8 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.ayizor.afeme.R
 import com.ayizor.afeme.activity.BaseActivity
-import com.ayizor.afeme.api.main.ApiInterface
-import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.ActivityOtherInformationBinding
-import com.ayizor.afeme.model.User
+import com.ayizor.afeme.model.CustomLocation
 import com.ayizor.afeme.utils.Utils
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.LatLng
@@ -30,7 +28,6 @@ import com.sucho.placepicker.AddressData
 import com.sucho.placepicker.Constants
 import com.sucho.placepicker.Constants.GOOGLE_API_KEY
 import com.sucho.placepicker.PlacePicker
-import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -40,6 +37,7 @@ class OtherInformationActivity : BaseActivity() {
     private val pERMISSION_ID = 42
     lateinit var mFusedLocationClient: FusedLocationProviderClient
     var geocoder: Geocoder? = null
+
     // Current location is set to Uzbekistan, this will be of no use
     var currentLocation: LatLng = LatLng(20.5, 78.9)
     lateinit var addresses: List<Address>;
@@ -61,9 +59,9 @@ class OtherInformationActivity : BaseActivity() {
     }
 
     private fun inits() {
-//        passportNumberValid()
-//        firstNameValid()
-//        lastNameValid()
+        passportNumberValid()
+        firstNameValid()
+        lastNameValid()
 
         // Initializing fused location client
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -95,15 +93,15 @@ class OtherInformationActivity : BaseActivity() {
             user_first_name = binding.etNameInformations.editText?.text.toString()
             user_last_name = binding.etLastNameInformations.editText?.text.toString()
 
-                if (!user_latitude.isNullOrEmpty() && !user_longitude.isNullOrEmpty() && !user_region.isNullOrEmpty()) {
-                    val i = Intent(this, SignUpActivity::class.java)
-                    i.putExtra("user_latitude", user_latitude)
-                    i.putExtra("user_longitude", user_longitude)
-                    i.putExtra("user_first_name", user_first_name)
-                    i.putExtra("user_last_name", user_last_name)
-                    i.putExtra("user_passport_number", user_passport_number)
-                    startActivity(i)
-                }
+            if (!user_latitude.isNullOrEmpty() && !user_longitude.isNullOrEmpty() && !user_region.isNullOrEmpty()) {
+                val i = Intent(this, SignUpActivity::class.java)
+                i.putExtra("user_latitude", user_latitude)
+                i.putExtra("user_longitude", user_longitude)
+                i.putExtra("user_first_name", user_first_name)
+                i.putExtra("user_last_name", user_last_name)
+                i.putExtra("user_passport_number", user_passport_number)
+                startActivity(i)
+            }
         }
 
     }
@@ -121,7 +119,12 @@ class OtherInformationActivity : BaseActivity() {
                         requestNewLocationData()
                     } else {
                         currentLocation = LatLng(location.latitude, location.longitude)
-                        getCoordinateName(location.latitude, location.longitude)
+                        user_latitude = location.latitude.toString()
+                        user_longitude = location.longitude.toString()
+                        val locationName =
+                            Utils.getCoordinateName(this, location.latitude, location.longitude)
+
+                        displayCordinateName(locationName)
                     }
                 }
             } else {
@@ -134,24 +137,10 @@ class OtherInformationActivity : BaseActivity() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    fun getCoordinateName(latitude: Double, longitude: Double) {
-        geocoder = Geocoder(this, Locale.getDefault());
-        addresses = geocoder!!.getFromLocation(latitude, longitude, 1);
-        val address =
-            addresses[0].getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-
-        val city = addresses[0].locality
-        val state = addresses[0].adminArea
-        val country = addresses[0].countryName
-        val postalCode = addresses[0].postalCode
-        val knownName =
-            addresses[0].featureName // Only if available else return NULL
-        binding.tvSelectFromMap.text = "$state, $city"
-        user_latitude = latitude.toString()
-        user_longitude = longitude.toString()
-        user_region = "$state, $city"
+    private fun displayCordinateName(customLocation: CustomLocation) {
+        binding.tvSelectFromMap.text = customLocation.state + customLocation.city
     }
+
 
     // Get current location, if shifted
     // from previous location
@@ -239,7 +228,7 @@ class OtherInformationActivity : BaseActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 val addressData = data?.getParcelableExtra<AddressData>(Constants.ADDRESS_INTENT)
                 if (addressData != null) {
-                    getCoordinateName(addressData.latitude, addressData.longitude)
+
                     user_latitude = addressData.latitude.toString()
                     user_longitude = addressData.longitude.toString()
                 }
@@ -283,7 +272,7 @@ class OtherInformationActivity : BaseActivity() {
                 if (!s.isEmpty()) {
                     //set background and text color to button
                     lastnameDone = true
-                    if ( firstnameDone && passportDone && lastnameDone) {
+                    if (firstnameDone && passportDone && lastnameDone) {
                         binding.btnNextOtherInfo.isEnabled = true
                     }
                 } else {
@@ -308,8 +297,9 @@ class OtherInformationActivity : BaseActivity() {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 if (!s.isEmpty() && s.length == 9) {
                     //set background and text color to button
+                    checkPassportNumber(s.toString())
                     passportDone = true
-                    if (  firstnameDone && lastnameDone && passportDone) {
+                    if (firstnameDone && lastnameDone && passportDone) {
                         binding.btnNextOtherInfo.isEnabled = true
                     }
                 } else {

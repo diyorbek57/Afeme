@@ -37,19 +37,19 @@ class CategoryAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         with(holder.itemViewType) {
             with(categoryList[position]) {
-                binding.tvCategoryName.text = category_name
-                if (category_name != null) {
+                binding.tvCategoryName.text = category_name_uz
+                if (category_name_uz != null) {
                     //setImageToCategory(category_name, binding.ivCategoryImage, context)
                     Glide.with(context)
                         .load(Api.CATEGORY_IMAGE_URL + category_icon)
                         .into(binding.ivCategoryImage)
                 }
                 binding.cvCategory.setOnClickListener {
-                    if (category_name != null) {
+                    if (category_name_uz != null) {
                         if (category_id != null) {
                             onCategoryItemClickListener.onCategoryItemClickListener(
                                 category_id,
-                                category_name
+                                category_name_uz
                             )
                         }
                     }

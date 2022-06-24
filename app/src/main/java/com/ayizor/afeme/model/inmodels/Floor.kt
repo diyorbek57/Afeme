@@ -1,4 +1,4 @@
-package com.ayizor.afeme.model
+package com.ayizor.afeme.model.inmodels
 
 import com.google.gson.annotations.SerializedName
 
