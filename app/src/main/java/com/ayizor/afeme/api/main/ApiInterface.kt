@@ -30,7 +30,8 @@ interface ApiInterface {
     @POST("service")
     fun uploadFile(
         @Part file: MultipartBody.Part,
-        @Part("sub_id") subId: String?
+        @Part("sub_id") subId: String?,
+        @Part("key") key: String?
     ): Call<MainResponse>
 
     @PUT("post/{id}")

@@ -48,16 +48,7 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
 
         binding.mapViewSearch.onCreate(savedInstanceState)
         binding.mapViewSearch.getMapAsync(this)
-        binding.mapViewSearch.setOnClickListener {
-            if (isDown) {
-                slideDown(binding.cvSearch);
-            } else {
 
-                slideUp(binding.cvSearch);
-
-            }
-            isDown = !isDown;
-        }
 
     }
 
@@ -173,7 +164,14 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
 
 
     override fun onMarkerClick(marker: Marker): Boolean {
+        if (isDown) {
+            slideDown(binding.cvSearch);
+        } else {
 
+            slideUp(binding.cvSearch);
+
+        }
+        isDown = !isDown;
         Toast.makeText(requireContext(), marker.position.toString(), Toast.LENGTH_LONG).show()
         showBottomSheet(marker)
         return false

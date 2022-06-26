@@ -151,20 +151,20 @@ class PreviewCreatedPostActivity : AppCompatActivity() {
                 call: Call<MainResponse>,
                 response: Response<MainResponse>
             ) {
-if (response.isSuccessful){
-    Logger.d(TAG, "message: " + response.body()?.message)
-    Logger.d(TAG, "status: " + response.body()?.status)
-    Logger.d(TAG, "data: " + response.body()?.data)
-    Logger.d(TAG, "data: " + response.errorBody().toString())
-    Logger.d(TAG, "data: " + response.body()?.data)
-}else{
-    Logger.d(TAG, "message: " + response.body()?.message)
-    Logger.d(TAG, "status: " + response.body()?.status)
-    Logger.d(TAG, "data: " + response.body()?.data)
-    Logger.d(TAG, "data: " + response.errorBody().toString())
-    Logger.d(TAG, "code: " + response.code())
-}
-                  }
+                if (response.isSuccessful) {
+                    Logger.d(TAG, "message: " + response.body()?.message)
+                    Logger.d(TAG, "status: " + response.body()?.status)
+                    Logger.d(TAG, "data: " + response.body()?.data)
+                    Logger.d(TAG, "data: " + response.errorBody().toString())
+                    Logger.d(TAG, "data: " + response.body()?.data)
+                } else {
+                    Logger.d(TAG, "message: " + response.body()?.message)
+                    Logger.d(TAG, "status: " + response.body()?.status)
+                    Logger.d(TAG, "data: " + response.body()?.data)
+                    Logger.d(TAG, "data: " + response.errorBody().toString())
+                    Logger.d(TAG, "code: " + response.code())
+                }
+            }
 
             override fun onFailure(call: Call<MainResponse>, t: Throwable) {
                 Logger.d(TAG, "message: " + call.isExecuted)
@@ -327,25 +327,16 @@ if (response.isSuccessful){
     }
 
     private fun getFileUrl(file: File) {
-
-
-        dataService?.uploadFile(getMultipartBody("image", file), file.name)
+        dataService?.uploadFile(getMultipartBody("file", file), file.name, "Service For C Group")
             ?.enqueue(object : Callback<MainResponse> {
-                override fun onResponse(
-                    call: Call<MainResponse>,
-                    response: Response<MainResponse>
-
-                ) {
-
+                override fun onResponse(call: Call<MainResponse>, response: Response<MainResponse>) {
                     imagesUrls.add(response.body()?.data.toString())
                     Logger.d(TAG, response.body()?.data.toString())
                     if (imagesUrls.size == uriList.size) {
                         Logger.d(TAG, "uploadPost started")
                         uploadPost(imagesUrls)
                     }
-
                 }
-
                 override fun onFailure(call: Call<MainResponse>, t: Throwable) {
 
                 }
