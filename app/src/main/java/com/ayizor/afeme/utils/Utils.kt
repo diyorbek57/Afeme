@@ -6,7 +6,6 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Context.WINDOW_SERVICE
 import android.location.Geocoder
-import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -17,7 +16,6 @@ import android.view.WindowManager
 import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat.getSystemService
 import com.ayizor.afeme.R
 import com.ayizor.afeme.model.CustomLocation
 import com.ayizor.afeme.model.ScreenSize
@@ -127,6 +125,9 @@ object Utils {
 
     }
 
+    fun replaceWords(word: String, replace: String?, newWord: String): String? {
+        return word.replace(replace!!, newWord)
+    }
 }
 
 interface DialogListener {

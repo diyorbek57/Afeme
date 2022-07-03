@@ -12,10 +12,12 @@ import com.ayizor.afeme.adapter.ProfileViewPagerAdapter
 import com.ayizor.afeme.api.main.ApiInterface
 import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.FragmentProfileBinding
+import com.ayizor.afeme.databinding.ItemBottomSheetSettingsBinding
 import com.ayizor.afeme.model.User
 import com.ayizor.afeme.model.response.UserResponse
 import com.ayizor.afeme.utils.Logger
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayout
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,6 +43,9 @@ class ProfileFragment : Fragment() {
 
     private fun inits() {
         dataService = Client.getClient(requireContext())?.create(ApiInterface::class.java)
+        binding.ivSettingProfile.setOnClickListener {
+            showSettingsBottomsheet()
+        }
         setupFeaturesViewPager()
         getUserDatas()
 
@@ -110,5 +115,29 @@ class ProfileFragment : Fragment() {
             }
         })
 
+    }
+
+    fun showSettingsBottomsheet() {
+        val sheetDialog = BottomSheetDialog(requireContext(), R.style.AppBottomSheetDialogTheme)
+        val bottomSheetBinding: ItemBottomSheetSettingsBinding =
+            ItemBottomSheetSettingsBinding.inflate(layoutInflater)
+        sheetDialog.setContentView(bottomSheetBinding.root)
+
+
+        bottomSheetBinding.tvSettings.setOnClickListener {
+
+        }
+        bottomSheetBinding.tvAddCover.setOnClickListener {
+
+        }
+        bottomSheetBinding.tvEditPublicProfile.setOnClickListener {
+
+        }
+        bottomSheetBinding.tvEditPublicProfile.setOnClickListener {
+
+        }
+
+        sheetDialog.show();
+        sheetDialog.window?.attributes?.windowAnimations = R.style.DialogAnimaton;
     }
 }

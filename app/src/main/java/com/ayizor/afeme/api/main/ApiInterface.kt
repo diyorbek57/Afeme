@@ -13,7 +13,7 @@ import retrofit2.http.*
 interface ApiInterface {
     //Post Interface
     @GET("post/{id}")
-    fun getSinglePost(@Path("id") id: Int): Call<Post>
+    fun getSinglePost(@Path("id") id: Int): Call<PostResponse>
 
     @POST("filter")
     fun getPostsByCategory(@Query("htype_id") id: Int): Call<GetPostResponse>

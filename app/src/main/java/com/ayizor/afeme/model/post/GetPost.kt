@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 data class GetPost(
     @SerializedName("id")
     val post_id: Int? = null,
-    @SerializedName("images")
+    @SerializedName("image")
     val post_images: ArrayList<Image>? = null,
     @SerializedName("user_id")
     val user_id: String? = "",

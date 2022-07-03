@@ -1,12 +1,11 @@
 package com.ayizor.afeme.activity
 
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Color
-import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.text.SpannableString
@@ -24,28 +23,40 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.ayizor.afeme.R
 import com.ayizor.afeme.adapter.DetailsViewPagerAdapter
+import com.ayizor.afeme.api.main.ApiInterface
+import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.ActivityDetailsBinding
 import com.ayizor.afeme.databinding.ItemCallBottomSheetDetailsBinding
 import com.ayizor.afeme.fragment.AreaAndLotFragment
 import com.ayizor.afeme.fragment.InteriorFragment
 import com.ayizor.afeme.helper.CustomSpannable
+import com.ayizor.afeme.model.User
+import com.ayizor.afeme.model.post.GetPost
+import com.ayizor.afeme.model.response.PostResponse
+import com.ayizor.afeme.model.response.UserResponse
+import com.ayizor.afeme.utils.Logger
+import com.ayizor.afeme.utils.Utils
 import com.denzcoskun.imageslider.constants.ScaleTypes
-import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayout
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     lateinit var binding: ActivityDetailsBinding
+    var dataService: ApiInterface? = null
     val TAG: String = DetailsActivity::class.java.simpleName
     lateinit var supportMapFragment: SupportMapFragment
     lateinit var adapter: DetailsViewPagerAdapter
@@ -57,12 +68,21 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(binding.root)
         inits()
         setSupportActionBar(binding.toolbar)
+
     }
 
     private fun inits() {
+        dataService = Client.getClient(this)?.create(ApiInterface::class.java)
+        val extras = intent.extras
+        if (extras != null) {
+            val id = extras.getInt("POST_ID")
+            Logger.d(TAG, "Post id: $id")
+            getPost(id)
+        }
 
 
-        setupViewPager()
+
+
         setupFeaturesViewPager()
         //Toolbar back button
         binding.ivBack.setOnClickListener {
@@ -79,6 +99,18 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
             showCallBottomSheet()
 
         }
+    }
+
+    private fun displayPostDatas(post: GetPost) {
+        post.user_id?.toInt()?.let { getUser(it) }
+        setupViewPager(post)
+
+        binding.tvDescriptionDetails.text = post.post_description.toString()
+        binding.tvTypeDetails.text = post.post_building_type?.category_name_uz.toString()
+    }
+
+    private fun displayUserDatas(user: User) {
+        phoneNumber = user.user_phone_number.toString()
     }
 
     private fun setupFeaturesViewPager() {
@@ -107,22 +139,78 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
 
-    private fun setupViewPager() {
+    private fun setupViewPager(post: GetPost) {
         val imageList = ArrayList<SlideModel>() // Create image list
-
+        Logger.d(TAG, "Post : $post")
 // imageList.add(SlideModel("String Url" or R.drawable)
 // imageList.add(SlideModel("String Url" or R.drawable, "title") You can add title
+        for (i in 0 until post.post_images?.size!!) {
+            imageList.add(
+                SlideModel(
+                    Utils.replaceWords(
+                        post.post_images[0].image_url.toString(),
+                        "http://ali98.uz/files/",
+                        "https://ali98.uz/files/"
+                    )
+                )
+            )
 
-        imageList.add(SlideModel("https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-1.2.1&raw_url=true&q=80&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075"))
-        imageList.add(SlideModel("https://images.unsplash.com/photo-1569420742472-06233f00cbf7?ixlib=rb-1.2.1&raw_url=true&q=80&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687"))
-        imageList.add(SlideModel("https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-1.2.1&raw_url=true&q=80&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074"))
+            Logger.d(TAG, "Post images : " + post.post_images[i].image_url.toString())
+        }
+//            imageList.add(SlideModel("https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-1.2.1&raw_url=true&q=80&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2075"))
+//        imageList.add(SlideModel("https://images.unsplash.com/photo-1569420742472-06233f00cbf7?ixlib=rb-1.2.1&raw_url=true&q=80&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687"))
+//        imageList.add(SlideModel("https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-1.2.1&raw_url=true&q=80&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074"))
         binding.isDetails.setImageList(imageList, scaleType = ScaleTypes.CENTER_CROP)
 
-        binding.isDetails.setItemClickListener(object : ItemClickListener {
-            override fun onItemSelected(position: Int) {
-                // Toast.makeText(this@DetailsActivity, imageList[position].imageUrl, Toast.LENGTH_SHORT).show()
-            }
-        })
+//        binding.isDetails.setItemClickListener(object : ItemClickListener {
+//            override fun onItemSelected(position: Int) {
+//                // Toast.makeText(this@DetailsActivity, imageList[position].imageUrl, Toast.LENGTH_SHORT).show()
+//            }
+//        })
+    }
+
+    private fun getPost(id: Int) {
+        dataService!!.getSinglePost(id)
+            .enqueue(object : Callback<PostResponse> {
+                @SuppressLint("NotifyDataSetChanged")
+                override fun onResponse(
+                    call: Call<PostResponse>,
+                    response: Response<PostResponse>
+                ) {
+                    Logger.d(TAG, response.body().toString())
+                    response.body()?.data?.let { displayPostDatas(it) }
+//                binding.rvSellType.visibility = View.VISIBLE
+//                binding.progressBar.visibility = View.GONE
+                }
+
+                override fun onFailure(call: Call<PostResponse>, t: Throwable) {
+                    t.message?.let { Logger.d(TAG, it) }
+                    //progressBar!!.visibility = View.GONE
+                }
+            })
+
+    }
+
+    private fun getUser(id: Int) {
+        dataService!!.getSingleUser(id)
+            .enqueue(object : Callback<UserResponse> {
+                @SuppressLint("NotifyDataSetChanged")
+                override fun onResponse(
+                    call: Call<UserResponse>,
+                    response: Response<UserResponse>
+                ) {
+                    Logger.d(TAG, response.body().toString())
+                    response.body()?.data?.let { displayUserDatas(it) }
+//                binding.rvSellType.visibility = View.VISIBLE
+//                binding.progressBar.visibility = View.GONE
+                }
+
+                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                    t.message?.let { Logger.d(TAG, it) }
+                    //progressBar!!.visibility = View.GONE
+                }
+            })
+
     }
 
     private fun makeTextViewResizable(
@@ -208,10 +296,6 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         marker.icon(bitmapDescriptorFromVector(this, R.drawable.ic_home_marker))
         // adding marker
         googleMap.addMarker(marker);
-        googleMap.addCircle(
-            CircleOptions().center(LatLng(latitude, longitude)).radius(100.0)
-                .strokeColor(Color.parseColor("#2972FE")).fillColor(Color.parseColor("#6499FF"))
-        )
     }
 
     private fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {

@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.RelativeLayout
 import android.widget.Toast
+import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import com.ayizor.afeme.R
 import com.ayizor.afeme.databinding.FragmentSearchBinding
-import com.ayizor.afeme.databinding.ItemBottomSheetSearchBinding
 import com.ayizor.afeme.manager.PrefsManager
 import com.ayizor.afeme.utils.Logger
 import com.ayizor.afeme.utils.Utils
@@ -22,7 +23,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 
 
 class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -30,7 +31,7 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
     lateinit var binding: FragmentSearchBinding
     val TAG: String = SearchFragment::class.java.simpleName
     var isDown = false
-
+    lateinit var bottomSheetBehavior: BottomSheetBehavior<RelativeLayout>
     private var myMarker: Marker? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +39,7 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
     ): View? {
 
         binding = FragmentSearchBinding.inflate(inflater, container, false)
-
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheetSearch)
         inits(savedInstanceState)
         return binding.root
     }
@@ -54,27 +55,37 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
 
 
     private fun showBottomSheet(marker: Marker) {
-        val sheetDialog = BottomSheetDialog(requireContext(), R.style.AppBottomSheetDialogTheme)
-        val bottomSheetBinding: ItemBottomSheetSearchBinding =
-            ItemBottomSheetSearchBinding.inflate(layoutInflater)
-        sheetDialog.setContentView(bottomSheetBinding.root)
+
         val location = Utils.getCoordinateName(
             requireContext(),
             marker.position.latitude,
             marker.position.longitude
         )
-        bottomSheetBinding.tvNamePostLargeSearch.text = "Post name"
-        bottomSheetBinding.tvLocationPostLargeSearch.text = location.state + location.city
-        sheetDialog.show()
-        sheetDialog.window?.attributes?.windowAnimations =
-            R.style.DialogAnimaton;
 
 
     }
 
 
     override fun onMapReady(googleMap: GoogleMap) {
-        val bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheetSearch)
+
+
+        bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetCallback() {
+            override fun onStateChanged(@NonNull bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+
+
+                    slideUp(binding.cvSearch);
+
+
+                } else if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                    slideDown(binding.cvSearch);
+                }
+            }
+
+            override fun onSlide(@NonNull bottomSheet: View, slideOffset: Float) {
+                // React to dragging events
+            }
+        })
         val latLngList: ArrayList<LatLng> = ArrayList()
         val latLng = LatLng(40.776570, 72.344192)
         val latLng2 = LatLng(40.778971, 72.360888)
@@ -105,25 +116,11 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
         // Changing marker icon
         // adding marker
 
-        googleMap.setOnMapClickListener {
-            bottomSheetBehavior.setPeekHeight(375)
-            bottomSheetBehavior.isHideable = false
-        }
-        googleMap.setOnMapClickListener {
-            if (isDown) {
-                slideDown(binding.cvSearch);
-            } else {
-
-                slideUp(binding.cvSearch);
-
-            }
-            isDown = !isDown;
-        }
 
     }
 
     // slide the view from below itself to the current position
-    fun slideDown(view: View) {
+    private fun slideDown(view: View) {
         view.visibility = View.VISIBLE
         val slide_down: Animation = AnimationUtils.loadAnimation(
             context,
@@ -133,7 +130,7 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
     }
 
     // slide the view from its current position to below itself
-    fun slideUp(view: View) {
+    private fun slideUp(view: View) {
         view.visibility = View.GONE
         val slide_up: Animation = AnimationUtils.loadAnimation(
             context,
@@ -164,15 +161,8 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
 
 
     override fun onMarkerClick(marker: Marker): Boolean {
-        if (isDown) {
-            slideDown(binding.cvSearch);
-        } else {
-
-            slideUp(binding.cvSearch);
-
-        }
-        isDown = !isDown;
         Toast.makeText(requireContext(), marker.position.toString(), Toast.LENGTH_LONG).show()
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         showBottomSheet(marker)
         return false
 

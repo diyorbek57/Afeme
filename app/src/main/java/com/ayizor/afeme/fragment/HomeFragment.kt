@@ -167,17 +167,17 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
 
     }
 
-    fun sortPosts(filters: ArrayList<GetPost>?) {
-        val feeds: ArrayList<GetPost> = ArrayList()
-        if (filters != null) {
-            for (i in 0 until filters.size) {
-                if (i <= 5) {
-                    feeds.add(filters[i])
-                }
-            }
-        }
-        refreshPopularAdapter(feeds)
-    }
+//    fun sortPosts(filters: ArrayList<GetPost>?) {
+//        val feeds: ArrayList<GetPost> = ArrayList()
+//        if (filters != null) {
+//            for (i in 0 until filters.size) {
+//                if (i <= 5) {
+//                    feeds.add(filters[i])
+//                }
+//            }
+//        }
+//        refreshPopularAdapter(feeds)
+//    }
 
     private fun getAllPosts() {
         dataService!!.getAllPosts()
@@ -188,7 +188,7 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
                     response: Response<GetPostResponse>
                 ) {
                     Logger.d(TAG, response.body().toString())
-                    response.body()?.data?.let { sortPosts(it) }
+                    response.body()?.data?.let { refreshPopularAdapter(it) }
 //                binding.rvSellType.visibility = View.VISIBLE
 //                binding.progressBar.visibility = View.GONE
                 }
@@ -201,9 +201,10 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
 
     }
 
-    override fun onItemClickListener(id: String) {
+    override fun onItemClickListener(id: Int) {
+
         val intent = Intent(requireContext(), DetailsActivity::class.java)
-        intent.putExtra("POST_ID", id)
+        intent.putExtra("POST_ID", 370)
         startActivity(intent)
     }
 
@@ -232,8 +233,11 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
 
 
     private fun callViewAllActivity(name: String) {
-        val intent = Intent(requireContext(), ViewAllActivity::class.java)
-        intent.putExtra("category_name", name)
+//        val intent = Intent(requireContext(), ViewAllActivity::class.java)
+//        intent.putExtra("category_name", name)
+//        startActivity(intent)
+        val intent = Intent(requireContext(), DetailsActivity::class.java)
+        intent.putExtra("POST_ID", 370)
         startActivity(intent)
     }
 

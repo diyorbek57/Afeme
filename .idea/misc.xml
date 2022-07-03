@@ -124,10 +124,12 @@
         <entry key="app/src/main/res/layout/fragment_rooms.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_saved_posts.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/include_item_settings.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/layout/item_add_photo.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_added_photo.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_bottom_sheet_create_post.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_bottom_sheet_search.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/item_bottom_sheet_settings.xml" value="0.3142898559570313" />
         <entry key="app/src/main/res/layout/item_create_post_building_type.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/item_create_post_selecting_cards.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/layout/item_create_post_sell_type.xml" value="0.3098958333333333" />

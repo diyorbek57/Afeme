@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ayizor.afeme.databinding.ItemPostSmallBinding
 import com.ayizor.afeme.databinding.ItemViewAllBinding
 import com.ayizor.afeme.model.post.GetPost
+import com.ayizor.afeme.utils.Logger
 import com.ayizor.afeme.utils.Utils
+import com.ayizor.afeme.utils.Utils.replaceWords
 import com.bumptech.glide.Glide
+import java.io.IOException
 import java.text.DecimalFormat
 import java.text.NumberFormat
-import java.util.*
 
 class SmallPostsAdapter(
     var context: Context,
@@ -24,7 +26,7 @@ class SmallPostsAdapter(
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-
+    val TAG: String = SmallPostsAdapter::class.java.simpleName
     private lateinit var binding: ItemPostSmallBinding
     private lateinit var viewAllBinding: ItemViewAllBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -37,7 +39,7 @@ class SmallPostsAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        with(holder.itemViewType) {
+        with(holder.itemView) {
             with(postsList[position]) {
 
                 binding.tvNamePostSmall.text = post_built_year
@@ -60,22 +62,30 @@ class SmallPostsAdapter(
                     binding.tvLocationPostSmall.text = locationName.state + locationName.city
                 }
 
-                binding.tvPricePostSmall.text =formattedNumber
-                    binding.tvTypePostSmall.text = post_building_type.toString()
+                binding.tvPricePostSmall.text = formattedNumber
+                binding.tvTypePostSmall.text = post_building_type?.category_name_uz
                 binding.tvPeriodPostSmall.visibility = View.GONE
                 if (post_rating != null) {
                     binding.tvRatingPostSmall.text = post_rating.toString()
                 } else {
                     binding.cvRatingPostSmall.visibility = View.GONE
                 }
+                try {
 
-                Glide.with(context)
-                    .load(post_images?.get(0))
-                    .into(binding.ivImagePostSmall)
+                    Glide.with(context)
+                        .load(replaceWords(post_images?.get(0)?.image_url.toString(),"http://ali98.uz/files/","https://ali98.uz/files/"))
+                        .into(binding.ivImagePostSmall)
+                } catch (e: IndexOutOfBoundsException) {
+                    Logger.e(TAG, "Image: " + e.message.toString())
+                } catch (e: IOException) {
+                    Logger.e(TAG, "Image: " + e.message.toString())
+                }
+
+
 
                 binding.rlImagePostSmall.setOnClickListener {
                     if (post_id != null) {
-                        onItemClickListener.onItemClickListener(post_id.toString())
+                        onItemClickListener.onItemClickListener(post_id)
                     }
                 }
                 binding.ivLikePostSmall.setOnClickListener {
@@ -106,7 +116,7 @@ class SmallPostsAdapter(
     }
 
     interface OnItemClickListener {
-        fun onItemClickListener(id: String)
+        fun onItemClickListener(id: Int)
     }
 
     interface OnItemViewAllClickListener {
