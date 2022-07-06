@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import com.ayizor.afeme.R
+import com.ayizor.afeme.activity.authentication.WelcomeActivity
 import com.ayizor.afeme.databinding.ActivityMainBinding
 import com.ayizor.afeme.databinding.ItemBottomSheetCreatePostBinding
 import com.ayizor.afeme.fragment.ChatFragment
@@ -13,7 +14,9 @@ import com.ayizor.afeme.fragment.HomeFragment
 import com.ayizor.afeme.fragment.ProfileFragment
 import com.ayizor.afeme.fragment.SearchFragment
 import com.ayizor.afeme.manager.PostPrefsManager
+import com.ayizor.afeme.manager.PrefsManager
 import com.ayizor.afeme.utils.Logger
+import com.ayizor.afeme.utils.Utils
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
@@ -49,10 +52,20 @@ class MainActivity : BaseActivity() {
         binding.bottomBar.itemIconTintList = null
 
         binding.ivAdd.setOnClickListener {
-            callCreatePostActivity()
+            if (!PrefsManager(this).loadUserRegisteredToken().isNullOrEmpty()){
+                callCreatePostActivity()
+            }
+            else{
+                callRegisterActivity()
+            }
         }
 
         loadFCMToken()
+    }
+
+    private fun callRegisterActivity() {
+        val i = Intent(this, WelcomeActivity::class.java)
+        startActivity(i)
     }
 
     private fun setupNavigationBar() {

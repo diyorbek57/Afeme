@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.os.Environment
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.exifinterface.media.ExifInterface
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -19,6 +18,7 @@ import com.ayizor.afeme.api.main.ApiInterface
 import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.ActivityPreviewCreatedPostBinding
 import com.ayizor.afeme.manager.PostPrefsManager
+import com.ayizor.afeme.manager.PrefsManager
 import com.ayizor.afeme.model.inmodels.BuildingMaterial
 import com.ayizor.afeme.model.inmodels.Image
 import com.ayizor.afeme.model.post.Post
@@ -39,7 +39,7 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 
 
-class PreviewCreatedPostActivity : AppCompatActivity() {
+class PreviewCreatedPostActivity : BaseActivity() {
 
     lateinit var binding: ActivityPreviewCreatedPostBinding
     var dataService: ApiInterface? = null
@@ -90,7 +90,7 @@ class PreviewCreatedPostActivity : AppCompatActivity() {
 
 
     private fun uploadPost(imagesUrls: ArrayList<String>) {
-
+        showLoading(this@PreviewCreatedPostActivity)
         val post_price = binding.etPrice.editText?.text.toString()
         val post_type = PostPrefsManager(this@PreviewCreatedPostActivity).loadPostType()
         val post_building_type =
@@ -122,9 +122,9 @@ class PreviewCreatedPostActivity : AppCompatActivity() {
             null,//r
             null,//r
             null,
-            null,
-            null,
-            null,//r
+            post_total_area,
+            post_kitchen_area,
+            post_living_area,//r
             post_built_year,//r//1
             post_rooms,//r//1
             "5",//r//1
@@ -152,17 +152,30 @@ class PreviewCreatedPostActivity : AppCompatActivity() {
                 response: Response<MainResponse>
             ) {
                 if (response.isSuccessful) {
-                    Logger.d(TAG, "message: " + response.body()?.message)
-                    Logger.d(TAG, "status: " + response.body()?.status)
-                    Logger.d(TAG, "data: " + response.body()?.data)
-                    Logger.d(TAG, "data: " + response.errorBody().toString())
-                    Logger.d(TAG, "data: " + response.body()?.data)
+                    Logger.d(TAG, "success message: " + response.body()?.message)
+                    Logger.d(TAG, "success status: " + response.body()?.status)
+                    Logger.d(TAG, "success data: " + response.body()?.data)
+                    Logger.d(TAG, "success data: " + response.errorBody().toString())
+                    Logger.d(TAG, "success data: " + response.body()?.data)
+                    Logger.d(
+                        TAG,
+                        "success user token: " + PrefsManager(this@PreviewCreatedPostActivity).loadUserRegisteredToken()
+                            .toString()
+                    )
+                    dismissLoading()
+
                 } else {
-                    Logger.d(TAG, "message: " + response.body()?.message)
-                    Logger.d(TAG, "status: " + response.body()?.status)
-                    Logger.d(TAG, "data: " + response.body()?.data)
-                    Logger.d(TAG, "data: " + response.errorBody().toString())
-                    Logger.d(TAG, "code: " + response.code())
+                    Logger.d(TAG, "error message: " + response.body()?.message)
+                    Logger.d(TAG, "error status: " + response.body()?.status)
+                    Logger.d(TAG, "error data: " + response.body()?.data)
+                    Logger.d(TAG, "error data: " + response.errorBody().toString())
+                    Logger.d(TAG, "error code: " + response.code())
+                    Logger.d(
+                        TAG,
+                        "success user token: " + PrefsManager(this@PreviewCreatedPostActivity).loadUserRegisteredToken()
+                            .toString()
+                    )
+                    dismissLoading()
                 }
             }
 
@@ -329,7 +342,10 @@ class PreviewCreatedPostActivity : AppCompatActivity() {
     private fun getFileUrl(file: File) {
         dataService?.uploadFile(getMultipartBody("file", file), file.name, "Service For C Group")
             ?.enqueue(object : Callback<MainResponse> {
-                override fun onResponse(call: Call<MainResponse>, response: Response<MainResponse>) {
+                override fun onResponse(
+                    call: Call<MainResponse>,
+                    response: Response<MainResponse>
+                ) {
                     imagesUrls.add(response.body()?.data.toString())
                     Logger.d(TAG, response.body()?.data.toString())
                     if (imagesUrls.size == uriList.size) {
@@ -337,6 +353,7 @@ class PreviewCreatedPostActivity : AppCompatActivity() {
                         uploadPost(imagesUrls)
                     }
                 }
+
                 override fun onFailure(call: Call<MainResponse>, t: Throwable) {
 
                 }

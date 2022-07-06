@@ -1,6 +1,7 @@
 package com.ayizor.afeme.model.post
 
 import com.ayizor.afeme.model.Category
+import com.ayizor.afeme.model.User
 import com.ayizor.afeme.model.inmodels.*
 import com.google.gson.annotations.SerializedName
 
@@ -10,7 +11,7 @@ data class GetPost(
     @SerializedName("image")
     val post_images: ArrayList<Image>? = null,
     @SerializedName("user_id")
-    val user_id: String? = "",
+    val user_id: User? = null,
     @SerializedName("videos")
     val post_videos: ArrayList<Video>? = null,
     @SerializedName("htype_id")

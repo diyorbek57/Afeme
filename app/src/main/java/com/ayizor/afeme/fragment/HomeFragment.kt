@@ -19,7 +19,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ayizor.afeme.activity.DetailsActivity
 import com.ayizor.afeme.activity.NotificationActivity
-import com.ayizor.afeme.activity.ViewAllActivity
 import com.ayizor.afeme.activity.ViewCategoryActivity
 import com.ayizor.afeme.adapter.CategoryAdapter
 import com.ayizor.afeme.adapter.SmallPostsAdapter
@@ -31,6 +30,7 @@ import com.ayizor.afeme.model.Category
 import com.ayizor.afeme.model.post.GetPost
 import com.ayizor.afeme.model.response.CategoryResponse
 import com.ayizor.afeme.model.response.GetPostResponse
+import com.ayizor.afeme.utils.Extensions.toast
 import com.ayizor.afeme.utils.Logger
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -90,12 +90,13 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
             LinearLayoutManager.HORIZONTAL,
             false
         )
-        getAllPosts()
+        getAllCategory()
+        getPopularPosts()
 
 
 //        refreshNearbyAdapter(getAllPosts())
 //        refreshCheapAdapter(getAllPosts())
-        getAllCategory()
+
         setupClickableViews()
 
 
@@ -179,32 +180,45 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
 //        refreshPopularAdapter(feeds)
 //    }
 
-    private fun getAllPosts() {
-        dataService!!.getAllPosts()
-            .enqueue(object : Callback<GetPostResponse> {
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onResponse(
-                    call: Call<GetPostResponse>,
-                    response: Response<GetPostResponse>
-                ) {
-                    Logger.d(TAG, response.body().toString())
+    private fun getPopularPosts() {
+        dataService?.getPopularPosts(3)?.enqueue(object : Callback<GetPostResponse> {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(
+                call: Call<GetPostResponse>,
+                response: Response<GetPostResponse>
+            ) {
+                if (response.isSuccessful && response.code() == 200) {
+                    Logger.d(TAG, "isSuccessful data: " + response.body()?.data.toString())
+                    Logger.d(TAG, "isSuccessful  code: " + response.code())
                     response.body()?.data?.let { refreshPopularAdapter(it) }
 //                binding.rvSellType.visibility = View.VISIBLE
 //                binding.progressBar.visibility = View.GONE
+                } else {
+                    Logger.e(TAG, "error data: " + response.body()?.data.toString())
+                    Logger.e(TAG, "error  code: " + response.code())
+                    Logger.e(TAG, "error  errorBody: " + response.errorBody().toString())
+                    Logger.e(TAG, "error  message: " + response.message().toString())
+                    toast(response.message())
+
                 }
 
-                override fun onFailure(call: Call<GetPostResponse>, t: Throwable) {
-                    t.message?.let { Logger.d(TAG, it) }
-                    //progressBar!!.visibility = View.GONE
-                }
-            })
+            }
+
+            override fun onFailure(call: Call<GetPostResponse>, t: Throwable) {
+                t.message?.let { Logger.d(TAG, it) }
+                toast(t.message.toString())
+                //progressBar!!.visibility = View.GONE
+            }
+        })
 
     }
 
-    override fun onItemClickListener(id: Int) {
+    override fun onItemClickListener(id: Int, latitude: String, longitude: String) {
 
         val intent = Intent(requireContext(), DetailsActivity::class.java)
-        intent.putExtra("POST_ID", 370)
+        intent.putExtra("POST_ID", id)
+        intent.putExtra("POST_LATITUDE", latitude)
+        intent.putExtra("POST_LONGITUDE", longitude)
         startActivity(intent)
     }
 

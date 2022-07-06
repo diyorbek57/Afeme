@@ -59,9 +59,9 @@ class OtherInformationActivity : BaseActivity() {
     }
 
     private fun inits() {
-        passportNumberValid()
-        firstNameValid()
-        lastNameValid()
+//        passportNumberValid()
+//        firstNameValid()
+//        lastNameValid()
 
         // Initializing fused location client
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -93,7 +93,7 @@ class OtherInformationActivity : BaseActivity() {
             user_first_name = binding.etNameInformations.editText?.text.toString()
             user_last_name = binding.etLastNameInformations.editText?.text.toString()
 
-            if (!user_latitude.isNullOrEmpty() && !user_longitude.isNullOrEmpty() && !user_region.isNullOrEmpty()) {
+//            if (!user_latitude.isNullOrEmpty() && !user_longitude.isNullOrEmpty() && !user_region.isNullOrEmpty()) {
                 val i = Intent(this, SignUpActivity::class.java)
                 i.putExtra("user_latitude", user_latitude)
                 i.putExtra("user_longitude", user_longitude)
@@ -101,7 +101,7 @@ class OtherInformationActivity : BaseActivity() {
                 i.putExtra("user_last_name", user_last_name)
                 i.putExtra("user_passport_number", user_passport_number)
                 startActivity(i)
-            }
+      //      }
         }
 
     }

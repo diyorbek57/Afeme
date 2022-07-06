@@ -33,9 +33,9 @@ import com.ayizor.afeme.helper.CustomSpannable
 import com.ayizor.afeme.model.User
 import com.ayizor.afeme.model.post.GetPost
 import com.ayizor.afeme.model.response.PostResponse
-import com.ayizor.afeme.model.response.UserResponse
 import com.ayizor.afeme.utils.Logger
 import com.ayizor.afeme.utils.Utils
+import com.bumptech.glide.Glide
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -60,7 +60,6 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     val TAG: String = DetailsActivity::class.java.simpleName
     lateinit var supportMapFragment: SupportMapFragment
     lateinit var adapter: DetailsViewPagerAdapter
-
     var phoneNumber: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +75,8 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         val extras = intent.extras
         if (extras != null) {
             val id = extras.getInt("POST_ID")
+            val latitude = extras.getInt("POST_LATITUDE")
+            val longitude = extras.getInt("POST_LONGITUDE")
             Logger.d(TAG, "Post id: $id")
             getPost(id)
         }
@@ -102,15 +103,25 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun displayPostDatas(post: GetPost) {
-        post.user_id?.toInt()?.let { getUser(it) }
+        post.user_id?.let { displayUserDatas(it) }
         setupViewPager(post)
 
         binding.tvDescriptionDetails.text = post.post_description.toString()
         binding.tvTypeDetails.text = post.post_building_type?.category_name_uz.toString()
+
+        binding.tvDescriptionDetails.text = post.post_description
+
+
     }
 
     private fun displayUserDatas(user: User) {
         phoneNumber = user.user_phone_number.toString()
+        if (!user.user_photo.isNullOrEmpty()) {
+            Glide.with(this).load(user.user_photo).into(binding.ivUsersProfileDetails)
+        } else {
+            binding.ivUsersProfileDetails.setImageDrawable(getDrawable(R.drawable.default_profile_image))
+        }
+        binding.tvUsernameDetails.text = user.user_name + user.user_last_name
     }
 
     private fun setupFeaturesViewPager() {
@@ -177,10 +188,13 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
                     call: Call<PostResponse>,
                     response: Response<PostResponse>
                 ) {
-                    Logger.d(TAG, response.body().toString())
-                    response.body()?.data?.let { displayPostDatas(it) }
+                    if (response.isSuccessful) {
+                        Logger.d(TAG, response.body().toString())
+                        response.body()?.data?.let { displayPostDatas(it) }
+
 //                binding.rvSellType.visibility = View.VISIBLE
 //                binding.progressBar.visibility = View.GONE
+                    }
                 }
 
                 override fun onFailure(call: Call<PostResponse>, t: Throwable) {
@@ -191,27 +205,6 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
-    private fun getUser(id: Int) {
-        dataService!!.getSingleUser(id)
-            .enqueue(object : Callback<UserResponse> {
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onResponse(
-                    call: Call<UserResponse>,
-                    response: Response<UserResponse>
-                ) {
-                    Logger.d(TAG, response.body().toString())
-                    response.body()?.data?.let { displayUserDatas(it) }
-//                binding.rvSellType.visibility = View.VISIBLE
-//                binding.progressBar.visibility = View.GONE
-                }
-
-                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                    t.message?.let { Logger.d(TAG, it) }
-                    //progressBar!!.visibility = View.GONE
-                }
-            })
-
-    }
 
     private fun makeTextViewResizable(
         tv: TextView,
@@ -282,20 +275,26 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        val latitude = 40.747457
-        val longitude = 72.359775
-        val postLocation = LatLng(latitude, longitude)
-        googleMap.uiSettings.isZoomGesturesEnabled = false;
-        googleMap.uiSettings.isScrollGesturesEnabled = false
-        googleMap.uiSettings.isMapToolbarEnabled = true;
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(postLocation, 16f))
-        // create marker
-        val marker: MarkerOptions =
-            MarkerOptions().position(LatLng(latitude, longitude))
-        // Changing marker icon
-        marker.icon(bitmapDescriptorFromVector(this, R.drawable.ic_home_marker))
-        // adding marker
-        googleMap.addMarker(marker);
+
+        val extras = intent.extras
+        if (extras != null) {
+            val latitude = extras.getInt("POST_LATITUDE").toDouble()
+            val longitude = extras.getInt("POST_LONGITUDE").toDouble()
+
+            val postLocation = LatLng(latitude, longitude)
+            googleMap.uiSettings.isZoomGesturesEnabled = false;
+            googleMap.uiSettings.isScrollGesturesEnabled = false
+            googleMap.uiSettings.isMapToolbarEnabled = true;
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(postLocation, 16f))
+            // create marker
+            val marker: MarkerOptions =
+                MarkerOptions().position(LatLng(latitude, longitude))
+            // Changing marker icon
+            marker.icon(bitmapDescriptorFromVector(this, R.drawable.ic_home_marker))
+            // adding marker
+            googleMap.addMarker(marker);
+
+        }
     }
 
     private fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {

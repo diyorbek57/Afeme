@@ -3,6 +3,7 @@ package com.ayizor.afeme.api.main
 import android.content.Context
 import com.ayizor.afeme.manager.PrefsManager
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -14,8 +15,10 @@ class Client {
 
         fun getClient(context: Context): Retrofit? {
             if (retrofit == null) {
+                var log = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
                 val client = OkHttpClient.Builder().addInterceptor(
-                    HeaderInterceptor(PrefsManager(context).loadUserRegisteredToken().toString())).build()
+                    HeaderInterceptor(PrefsManager(context).loadUserRegisteredToken().toString())
+                ).addInterceptor(log).build()
                 retrofit = Retrofit.Builder()
                     .baseUrl(Api.BASE_URL).client(client)
                     .addConverterFactory(ScalarsConverterFactory.create())

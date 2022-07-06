@@ -22,6 +22,10 @@ interface ApiInterface {
     fun getAllPosts(): Call<GetPostResponse>
 
 
+    @GET("popular/{id}")
+    fun getPopularPosts(@Path("id") page:Int): Call<GetPostResponse>
+
+
     @POST("post")
     fun createPost(@Body post: Post): Call<MainResponse>
 

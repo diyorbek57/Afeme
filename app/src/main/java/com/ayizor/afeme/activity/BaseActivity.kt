@@ -1,20 +1,22 @@
 package com.ayizor.afeme.activity
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.FrameLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDialog
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.ayizor.afeme.R
 import com.google.android.material.snackbar.Snackbar
 
 
 open class BaseActivity : AppCompatActivity() {
     lateinit var context: Context
-    var progressDialog: AppCompatDialog? = null
+    var dialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,28 +28,21 @@ open class BaseActivity : AppCompatActivity() {
         dismissLoading()
     }
 
-//    fun showLoading(activity: Activity?) {
-//        if (activity == null) return
-//
-//        if (progressDialog != null && progressDialog!!.isShowing()) {
-//
-//        } else {
-//            progressDialog = AppCompatDialog(activity, R.style.CustomDialog)
-//            progressDialog!!.setCancelable(false)
-//            progressDialog!!.setCanceledOnTouchOutside(false)
-//            progressDialog!!.getWindow()!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//            progressDialog!!.setContentView(R.layout.custom_progress_dialog)
-//            val iv_progress = progressDialog!!.findViewById<ImageView>(R.id.iv_progress)
-//            val animationDrawable = iv_progress!!.getDrawable() as AnimationDrawable
-//            animationDrawable.start()
-//            if (!activity.isFinishing) progressDialog!!.show()
-//        }
-//    }
+    fun showLoading(activity: Activity?) {
+        val builder: AlertDialog.Builder? = activity?.let { AlertDialog.Builder(it) }
 
-    protected fun dismissLoading() {
-        if (progressDialog != null && progressDialog!!.isShowing) {
-            progressDialog!!.dismiss()
+        val inflater: LayoutInflater? = activity?.layoutInflater
+
+        if (inflater != null) {
+            builder?.setView(inflater.inflate(R.layout.item_pregressbar_dialog, null))
+            builder?.setCancelable(true)
+            dialog = builder?.create()
+            dialog?.show()
         }
+    }
+
+    fun dismissLoading() {
+        dialog?.dismiss()
     }
 
     fun callMainActivity(context: Context) {
@@ -69,7 +64,8 @@ open class BaseActivity : AppCompatActivity() {
             Snackbar.LENGTH_LONG
         )
         val view: View = snack.view
-        val params: CoordinatorLayout.LayoutParams = view.layoutParams as CoordinatorLayout.LayoutParams
+        val params: CoordinatorLayout.LayoutParams =
+            view.layoutParams as CoordinatorLayout.LayoutParams
         params.gravity = Gravity.TOP
         view.setLayoutParams(params)
         snack.show()

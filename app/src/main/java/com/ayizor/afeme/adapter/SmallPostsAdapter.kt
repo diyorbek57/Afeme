@@ -13,7 +13,6 @@ import com.ayizor.afeme.databinding.ItemViewAllBinding
 import com.ayizor.afeme.model.post.GetPost
 import com.ayizor.afeme.utils.Logger
 import com.ayizor.afeme.utils.Utils
-import com.ayizor.afeme.utils.Utils.replaceWords
 import com.bumptech.glide.Glide
 import java.io.IOException
 import java.text.DecimalFormat
@@ -41,11 +40,15 @@ class SmallPostsAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         with(holder.itemView) {
             with(postsList[position]) {
-
+                val formattedNumber: String
                 binding.tvNamePostSmall.text = post_built_year
                 val formatter: NumberFormat = DecimalFormat("#.###")
-
-                val formattedNumber = formatter.format(post_price_usd?.toDouble())
+                val maybeDouble = post_price_usd?.toDoubleOrNull()
+                if (maybeDouble != null) {
+                    formattedNumber = formatter.format(post_price_usd?.toDouble())
+                } else {
+                    formattedNumber = "Type double number!!"
+                }
 
 
                 val locationName = post_latitude?.let {
@@ -73,7 +76,9 @@ class SmallPostsAdapter(
                 try {
 
                     Glide.with(context)
-                        .load(replaceWords(post_images?.get(0)?.image_url.toString(),"http://ali98.uz/files/","https://ali98.uz/files/"))
+                        .load(
+                            post_images?.get(0)?.image_url.toString()
+                        )
                         .into(binding.ivImagePostSmall)
                 } catch (e: IndexOutOfBoundsException) {
                     Logger.e(TAG, "Image: " + e.message.toString())
@@ -85,7 +90,15 @@ class SmallPostsAdapter(
 
                 binding.rlImagePostSmall.setOnClickListener {
                     if (post_id != null) {
-                        onItemClickListener.onItemClickListener(post_id)
+                        if (post_latitude != null) {
+                            if (post_longitude != null) {
+                                onItemClickListener.onItemClickListener(
+                                    post_id,
+                                    post_latitude,
+                                    post_longitude
+                                )
+                            }
+                        }
                     }
                 }
                 binding.ivLikePostSmall.setOnClickListener {
@@ -116,7 +129,7 @@ class SmallPostsAdapter(
     }
 
     interface OnItemClickListener {
-        fun onItemClickListener(id: Int)
+        fun onItemClickListener(id: Int, latitude: String, post_longitude: String)
     }
 
     interface OnItemViewAllClickListener {

@@ -92,6 +92,7 @@ class CodeConfirmActivity : BaseActivity() {
     }
 
     private fun createUser(user: User) {
+
         dataService?.register(user)
             ?.enqueue(object : Callback<MainResponse> {
                 override fun onResponse(
@@ -99,9 +100,9 @@ class CodeConfirmActivity : BaseActivity() {
                     response: Response<MainResponse>
                 ) {
                     if (response.isSuccessful) {
-                        Logger.d(TAG, response.body()?.message.toString())
-                        Logger.d(TAG, response.body()?.data.toString())
-                        Logger.d(TAG, response.body()?.status.toString())
+                        Logger.d(TAG, "successful: " + response.body()?.message.toString())
+                        Logger.d(TAG, "successful: " + response.body()?.data.toString())
+                        Logger.d(TAG, "successful: " + response.body()?.status.toString())
                         if (response.body()?.status == true) {
                             PrefsManager(this@CodeConfirmActivity).storeUserRegisteredToken(response.body()?.data.toString())
                             PrefsManager(this@CodeConfirmActivity).storeUserRegistered(response.body()?.status!!)
@@ -115,9 +116,9 @@ class CodeConfirmActivity : BaseActivity() {
                         }
                     } else {
                         Logger.d(TAG, response.code().toString())
-                        Logger.d(TAG, response.body()?.message.toString())
-                        Logger.d(TAG, response.body()?.data.toString())
-                        Logger.d(TAG, response.body()?.status.toString())
+                        Logger.d(TAG, "not successful: " + response.body()?.message.toString())
+                        Logger.d(TAG, "not successful: " + response.body()?.data.toString())
+                        Logger.d(TAG, "not successful: " + response.body()?.status.toString())
                     }
 
 
