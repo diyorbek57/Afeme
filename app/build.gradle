@@ -82,7 +82,7 @@ dependencies {
     //spinner
     implementation "com.github.skydoves:powerspinner:1.2.2"
     //fragment
-    implementation 'androidx.fragment:fragment-ktx:1.4.1'
+    implementation 'androidx.fragment:fragment-ktx:1.5.0'
     //smoothBottomBar
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.9'
     //ratingbar chart
