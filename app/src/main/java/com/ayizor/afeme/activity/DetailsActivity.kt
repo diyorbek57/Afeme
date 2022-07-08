@@ -75,8 +75,8 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         val extras = intent.extras
         if (extras != null) {
             val id = extras.getInt("POST_ID")
-            val latitude = extras.getInt("POST_LATITUDE")
-            val longitude = extras.getInt("POST_LONGITUDE")
+            val latitude = extras.getString("POST_LATITUDE")
+            val longitude = extras.getString("POST_LONGITUDE")
             Logger.d(TAG, "Post id: $id")
             getPost(id)
         }
@@ -278,8 +278,8 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val extras = intent.extras
         if (extras != null) {
-            val latitude = extras.getInt("POST_LATITUDE").toDouble()
-            val longitude = extras.getInt("POST_LONGITUDE").toDouble()
+            val latitude = extras.getString("POST_LATITUDE","").toDouble()
+            val longitude = extras.getString("POST_LONGITUDE","").toDouble()
 
             val postLocation = LatLng(latitude, longitude)
             googleMap.uiSettings.isZoomGesturesEnabled = false;
@@ -288,11 +288,11 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(postLocation, 16f))
             // create marker
             val marker: MarkerOptions =
-                MarkerOptions().position(LatLng(latitude, longitude))
+                MarkerOptions().position(postLocation)
             // Changing marker icon
             marker.icon(bitmapDescriptorFromVector(this, R.drawable.ic_home_marker))
             // adding marker
-            googleMap.addMarker(marker);
+            googleMap.addMarker(marker)
 
         }
     }

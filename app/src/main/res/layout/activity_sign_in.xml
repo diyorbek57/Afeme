@@ -18,7 +18,7 @@
             android:layout_height="180dp"
             android:padding="30dp"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_il_welcome_cats" />
+            android:src="@drawable/il_welcome_cats" />
 
         <TextView
             android:layout_width="wrap_content"

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.ayizor.afeme.R
 import com.ayizor.afeme.databinding.ItemPostSmallBinding
 import com.ayizor.afeme.databinding.ItemViewAllBinding
 import com.ayizor.afeme.model.post.GetPost

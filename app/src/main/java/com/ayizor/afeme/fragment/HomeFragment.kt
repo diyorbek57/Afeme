@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ayizor.afeme.activity.DetailsActivity
 import com.ayizor.afeme.activity.NotificationActivity
+import com.ayizor.afeme.activity.ViewAllActivity
 import com.ayizor.afeme.activity.ViewCategoryActivity
 import com.ayizor.afeme.adapter.CategoryAdapter
 import com.ayizor.afeme.adapter.SmallPostsAdapter
@@ -181,7 +182,7 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
 //    }
 
     private fun getPopularPosts() {
-        dataService?.getPopularPosts(3)?.enqueue(object : Callback<GetPostResponse> {
+        dataService?.getAllPosts()?.enqueue(object : Callback<GetPostResponse> {
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(
                 call: Call<GetPostResponse>,
@@ -198,7 +199,7 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
                     Logger.e(TAG, "error  code: " + response.code())
                     Logger.e(TAG, "error  errorBody: " + response.errorBody().toString())
                     Logger.e(TAG, "error  message: " + response.message().toString())
-                    toast(response.message())
+                    toast("onResponse else: "+response.message())
 
                 }
 
@@ -206,7 +207,7 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
 
             override fun onFailure(call: Call<GetPostResponse>, t: Throwable) {
                 t.message?.let { Logger.d(TAG, it) }
-                toast(t.message.toString())
+                toast("onFailure: "+t.message.toString())
                 //progressBar!!.visibility = View.GONE
             }
         })
@@ -250,8 +251,8 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
 //        val intent = Intent(requireContext(), ViewAllActivity::class.java)
 //        intent.putExtra("category_name", name)
 //        startActivity(intent)
-        val intent = Intent(requireContext(), DetailsActivity::class.java)
-        intent.putExtra("POST_ID", 370)
+        val intent = Intent(requireContext(), ViewAllActivity::class.java)
+        intent.putExtra("POST_ID", name)
         startActivity(intent)
     }
 

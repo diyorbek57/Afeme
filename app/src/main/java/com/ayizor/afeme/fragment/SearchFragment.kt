@@ -1,6 +1,7 @@
 package com.ayizor.afeme.fragment
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +13,13 @@ import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import com.ayizor.afeme.R
+import com.ayizor.afeme.api.main.ApiInterface
+import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.FragmentSearchBinding
 import com.ayizor.afeme.manager.PrefsManager
+import com.ayizor.afeme.model.post.GetPost
+import com.ayizor.afeme.model.response.GetPostResponse
+import com.ayizor.afeme.utils.Extensions.toast
 import com.ayizor.afeme.utils.Logger
 import com.ayizor.afeme.utils.Utils
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -24,6 +30,9 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -33,6 +42,8 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
     var isDown = false
     lateinit var bottomSheetBehavior: BottomSheetBehavior<RelativeLayout>
     private var myMarker: Marker? = null
+    private val postsMarkerMap: HashMap<Marker, GetPost>? = null
+    var dataService: ApiInterface? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,7 +56,7 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
     }
 
     private fun inits(savedInstanceState: Bundle?) {
-
+        dataService = Client.getClient(requireContext())?.create(ApiInterface::class.java)
 
         binding.mapViewSearch.onCreate(savedInstanceState)
         binding.mapViewSearch.getMapAsync(this)
@@ -54,17 +65,39 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
     }
 
 
-    private fun showBottomSheet(marker: Marker) {
+    private fun getPosts(): ArrayList<GetPost> {
+        var postsList: ArrayList<GetPost> = ArrayList()
+        dataService?.getAllPosts()?.enqueue(object : Callback<GetPostResponse> {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(
+                call: Call<GetPostResponse>,
+                response: Response<GetPostResponse>
+            ) {
+                if (response.isSuccessful && response.code() == 200) {
+                    Logger.d(TAG, "isSuccessful data: " + response.body()?.data.toString())
+                    Logger.d(TAG, "isSuccessful  code: " + response.code())
+                    postsList = response.body()?.data!!
+//                binding.rvSellType.visibility = View.VISIBLE
+//                binding.progressBar.visibility = View.GONE
+                } else {
+                    Logger.e(TAG, "error data: " + response.body()?.data.toString())
+                    Logger.e(TAG, "error  code: " + response.code())
+                    Logger.e(TAG, "error  errorBody: " + response.errorBody().toString())
+                    Logger.e(TAG, "error  message: " + response.message().toString())
+                    toast(response.message())
 
-        val location = Utils.getCoordinateName(
-            requireContext(),
-            marker.position.latitude,
-            marker.position.longitude
-        )
+                }
 
+            }
 
+            override fun onFailure(call: Call<GetPostResponse>, t: Throwable) {
+                t.message?.let { Logger.d(TAG, it) }
+                toast(t.message.toString())
+                //progressBar!!.visibility = View.GONE
+            }
+        })
+        return postsList
     }
-
 
     override fun onMapReady(googleMap: GoogleMap) {
 
@@ -72,11 +105,7 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
         bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetCallback() {
             override fun onStateChanged(@NonNull bottomSheet: View, newState: Int) {
                 if (newState == BottomSheetBehavior.STATE_EXPANDED) {
-
-
                     slideUp(binding.cvSearch);
-
-
                 } else if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
                     slideDown(binding.cvSearch);
                 }
@@ -86,15 +115,6 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
                 // React to dragging events
             }
         })
-        val latLngList: ArrayList<LatLng> = ArrayList()
-        val latLng = LatLng(40.776570, 72.344192)
-        val latLng2 = LatLng(40.778971, 72.360888)
-        val latLng3 = LatLng(40.770889, 72.362367)
-        val latLng4 = LatLng(40.763686, 72.359514)
-        latLngList.add(latLng)
-        latLngList.add(latLng2)
-        latLngList.add(latLng3)
-        latLngList.add(latLng4)
         // val postLocation = LatLng(latitude, longitude)
         googleMap.uiSettings.isZoomGesturesEnabled = true;
         googleMap.uiSettings.isScrollGesturesEnabled = true
@@ -107,11 +127,22 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
                 1F
             )
         )
-        Logger.d(TAG, "Map is redy")
-        for (i in 0 until latLngList.size) {
+        Logger.d(TAG, "Map is ready")
+        val posts = getPosts()
+        Logger.e(TAG, "posts = getPosts")
+        Logger.e(TAG, posts.toString())
+        for (i in 0 until posts.size) {
+            Logger.e(TAG, "marker loop started")
+            val latlang = LatLng(
+                posts[i].post_latitude!!.toDouble(),
+                posts[i].post_longitude!!.toDouble()
+            )
+            myMarker = googleMap.addMarker(MarkerOptions().position(latlang))
+            myMarker?.tag = posts[i]
+            Logger.e(TAG, "marker position: $latlang")
 
             // create marker
-            myMarker = googleMap.addMarker(MarkerOptions().position(latLngList[i]));
+            myMarker?.let { postsMarkerMap?.put(it, posts[i]) }
         }
         // Changing marker icon
         // adding marker
@@ -162,9 +193,23 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
 
     override fun onMarkerClick(marker: Marker): Boolean {
         Toast.makeText(requireContext(), marker.position.toString(), Toast.LENGTH_LONG).show()
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
         showBottomSheet(marker)
         return false
+
+    }
+
+    private fun showBottomSheet(marker: Marker) {
+
+        val location = Utils.getCoordinateName(
+            requireContext(),
+            marker.position.latitude,
+            marker.position.longitude
+        )
+
 
     }
 }
