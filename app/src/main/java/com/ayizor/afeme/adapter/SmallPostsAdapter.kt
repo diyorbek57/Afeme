@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.ayizor.afeme.R
 import com.ayizor.afeme.databinding.ItemPostSmallBinding
 import com.ayizor.afeme.databinding.ItemViewAllBinding
 import com.ayizor.afeme.model.post.GetPost
@@ -16,8 +15,6 @@ import com.ayizor.afeme.utils.Logger
 import com.ayizor.afeme.utils.Utils
 import com.bumptech.glide.Glide
 import java.io.IOException
-import java.text.DecimalFormat
-import java.text.NumberFormat
 
 class SmallPostsAdapter(
     var context: Context,
@@ -41,15 +38,8 @@ class SmallPostsAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         with(holder.itemView) {
             with(postsList[position]) {
-                val formattedNumber: String
+
                 binding.tvNamePostSmall.text = post_built_year
-                val formatter: NumberFormat = DecimalFormat("#.###")
-                val maybeDouble = post_price_usd?.toDoubleOrNull()
-                if (maybeDouble != null) {
-                    formattedNumber = formatter.format(post_price_usd?.toDouble())
-                } else {
-                    formattedNumber = "Type double number!!"
-                }
 
 
                 val locationName = post_latitude?.let {
@@ -66,7 +56,7 @@ class SmallPostsAdapter(
                     binding.tvLocationPostSmall.text = locationName.state + locationName.city
                 }
 
-                binding.tvPricePostSmall.text = formattedNumber
+                binding.tvPricePostSmall.text = post_price_usd?.let { Utils.formatUsd(it) }
                 binding.tvTypePostSmall.text = post_building_type?.category_name_uz
                 binding.tvPeriodPostSmall.visibility = View.GONE
                 if (post_rating != null) {

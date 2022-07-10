@@ -77,7 +77,7 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
 
         bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetCallback() {
             override fun onStateChanged(@NonNull bottomSheet: View, newState: Int) {
-                if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+                if (newState != BottomSheetBehavior.STATE_DRAGGING && newState == BottomSheetBehavior.STATE_EXPANDED) {
                     slideUp(binding.cvSearch);
                 } else if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
                     slideDown(binding.cvSearch);
@@ -209,12 +209,42 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
             marker.position.latitude,
             marker.position.longitude
         )
-        binding.tvLocationPostLargeSearch.text = locationName.state + locationName.city
-        Glide.with(
-            requireActivity()
-        ).load(post.post_images?.get(0)).into(binding.ivImagePostLargeSearch)
+        if (locationName.state.isNullOrEmpty() && locationName.city.isNullOrEmpty()) {
+            binding.tvLocationPostLargeSearch.visibility = View.GONE
 
-        binding.tvPricePostLargeSearch.text = post.post_price_usd
+        }
+        binding.tvLocationPostLargeSearch.text = locationName.state + locationName.city
+        try {
+            Glide.with(requireActivity()).load(
+                Utils.replaceWords(
+                    post.post_images?.get(0)?.image_url.toString(),
+                    "http",
+                    "https"
+                )
+            )
+                .into(binding.ivImagePostLargeSearch)
+        } catch (e: ArrayIndexOutOfBoundsException) {
+            Logger.e(TAG, e.message.toString())
+            Glide.with(requireActivity()).load(
+                Utils.replaceWords(
+                    post.post_images?.get(1)?.image_url.toString(),
+                    "http",
+                    "https"
+                )
+            )
+                .into(binding.ivImagePostLargeSearch)
+        } catch (e: Exception) {
+            Logger.e(TAG, e.message.toString())
+            Glide.with(requireActivity()).load(R.drawable.house_1)
+                .into(binding.ivImagePostLargeSearch)
+        }
+
+
+        binding.tvPricePostLargeSearch.text = post.post_price_usd?.let { Utils.formatUsd(it) }
+        binding.tvNamePostLargeSearch.text =
+            locationName.state + ", " + post.post_rooms + getString(R.string.rooms)
+
+
 
     }
 }

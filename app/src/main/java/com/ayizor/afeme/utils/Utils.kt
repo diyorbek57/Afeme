@@ -19,6 +19,8 @@ import androidx.annotation.RequiresApi
 import com.ayizor.afeme.R
 import com.ayizor.afeme.model.CustomLocation
 import com.ayizor.afeme.model.ScreenSize
+import java.text.DecimalFormat
+import java.text.NumberFormat
 import java.util.*
 
 
@@ -128,6 +130,38 @@ object Utils {
     fun replaceWords(word: String, replace: String?, newWord: String): String? {
         return word.replace(replace!!, newWord)
     }
+
+    fun formatUsd(number: String): String {
+        val formattedNumber = replaceWords(number, " ", "")
+
+        val formatter: NumberFormat = if (formattedNumber?.length == 4) {
+            DecimalFormat("#.###")
+        } else if (formattedNumber?.length == 5) {
+            DecimalFormat("##.###")
+        }else if (formattedNumber?.length == 6) {
+            DecimalFormat("###.###")
+        }else if (formattedNumber?.length == 7) {
+            DecimalFormat("#.###.###")
+        }else if (formattedNumber?.length == 8) {
+            DecimalFormat("##.###.###")
+        }else if (formattedNumber?.length == 9) {
+            DecimalFormat("###.###.###")
+        }else if (formattedNumber?.length == 10) {
+            DecimalFormat("#.###.###.###")
+        }else if (formattedNumber?.length == 11) {
+            DecimalFormat("##.###.###.###")
+        }else{
+            DecimalFormat("#.###")
+        }
+        val maybeDouble = formattedNumber?.toDoubleOrNull()
+        return if (maybeDouble != null) {
+            formatter.format(formattedNumber.toDouble())
+        } else {
+            ""
+        }
+
+    }
+
 }
 
 interface DialogListener {
