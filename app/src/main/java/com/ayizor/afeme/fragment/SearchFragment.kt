@@ -22,6 +22,7 @@ import com.ayizor.afeme.model.response.GetPostResponse
 import com.ayizor.afeme.utils.Extensions.toast
 import com.ayizor.afeme.utils.Logger
 import com.ayizor.afeme.utils.Utils
+import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -44,6 +45,7 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
     private var myMarker: Marker? = null
     private val postsMarkerMap: HashMap<Marker, GetPost>? = null
     var dataService: ApiInterface? = null
+    var postsList: ArrayList<GetPost> = ArrayList()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,7 +59,7 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
 
     private fun inits(savedInstanceState: Bundle?) {
         dataService = Client.getClient(requireContext())?.create(ApiInterface::class.java)
-
+        getPosts()
         binding.mapViewSearch.onCreate(savedInstanceState)
         binding.mapViewSearch.getMapAsync(this)
 
@@ -65,38 +67,9 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
     }
 
 
-    private fun getPosts(): ArrayList<GetPost> {
-        var postsList: ArrayList<GetPost> = ArrayList()
-        dataService?.getAllPosts()?.enqueue(object : Callback<GetPostResponse> {
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onResponse(
-                call: Call<GetPostResponse>,
-                response: Response<GetPostResponse>
-            ) {
-                if (response.isSuccessful && response.code() == 200) {
-                    Logger.d(TAG, "isSuccessful data: " + response.body()?.data.toString())
-                    Logger.d(TAG, "isSuccessful  code: " + response.code())
-                    postsList = response.body()?.data!!
-//                binding.rvSellType.visibility = View.VISIBLE
-//                binding.progressBar.visibility = View.GONE
-                } else {
-                    Logger.e(TAG, "error data: " + response.body()?.data.toString())
-                    Logger.e(TAG, "error  code: " + response.code())
-                    Logger.e(TAG, "error  errorBody: " + response.errorBody().toString())
-                    Logger.e(TAG, "error  message: " + response.message().toString())
-                    toast(response.message())
+    private fun getPosts() {
 
-                }
 
-            }
-
-            override fun onFailure(call: Call<GetPostResponse>, t: Throwable) {
-                t.message?.let { Logger.d(TAG, it) }
-                toast(t.message.toString())
-                //progressBar!!.visibility = View.GONE
-            }
-        })
-        return postsList
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -128,24 +101,51 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
             )
         )
         Logger.d(TAG, "Map is ready")
-        val posts = getPosts()
-        Logger.e(TAG, "posts = getPosts")
-        Logger.e(TAG, posts.toString())
-        for (i in 0 until posts.size) {
-            Logger.e(TAG, "marker loop started")
-            val latlang = LatLng(
-                posts[i].post_latitude!!.toDouble(),
-                posts[i].post_longitude!!.toDouble()
-            )
-            myMarker = googleMap.addMarker(MarkerOptions().position(latlang))
-            myMarker?.tag = posts[i]
-            Logger.e(TAG, "marker position: $latlang")
 
-            // create marker
-            myMarker?.let { postsMarkerMap?.put(it, posts[i]) }
-        }
-        // Changing marker icon
-        // adding marker
+        dataService?.getAllPosts()?.enqueue(object : Callback<GetPostResponse> {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(
+                call: Call<GetPostResponse>,
+                response: Response<GetPostResponse>
+            ) {
+                if (response.isSuccessful && response.code() == 200) {
+                    Logger.d(TAG, "isSuccessful data: " + response.body()?.data.toString())
+                    Logger.d(TAG, "isSuccessful  code: " + response.code())
+                    postsList = response.body()?.data!!
+//                binding.rvSellType.visibility = View.VISIBLE
+//                binding.progressBar.visibility = View.GONE
+                    for (i in 0 until postsList.size) {
+                        Logger.e(TAG, "marker loop started")
+                        val latlang = LatLng(
+                            postsList[i].post_latitude!!.toDouble(),
+                            postsList[i].post_longitude!!.toDouble()
+                        )
+                        myMarker = googleMap.addMarker(MarkerOptions().position(latlang))
+                        myMarker?.tag = postsList[i]
+                        Logger.e(TAG, "marker position: $latlang")
+
+                        // create marker
+                        myMarker?.let { postsMarkerMap?.put(it, postsList[i]) }
+                    }
+                    // Changing marker icon
+                    // adding marker
+                } else {
+                    Logger.e(TAG, "error data: " + response.body()?.data.toString())
+                    Logger.e(TAG, "error  code: " + response.code())
+                    Logger.e(TAG, "error  errorBody: " + response.errorBody().toString())
+                    Logger.e(TAG, "error  message: " + response.message().toString())
+                    toast(response.message())
+
+                }
+
+            }
+
+            override fun onFailure(call: Call<GetPostResponse>, t: Throwable) {
+                t.message?.let { Logger.d(TAG, it) }
+                toast(t.message.toString())
+                //progressBar!!.visibility = View.GONE
+            }
+        })
 
 
     }
@@ -203,13 +203,18 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
     }
 
     private fun showBottomSheet(marker: Marker) {
-
-        val location = Utils.getCoordinateName(
+        val post: GetPost = marker.tag as GetPost
+        val locationName = Utils.getCoordinateName(
             requireContext(),
             marker.position.latitude,
             marker.position.longitude
         )
+        binding.tvLocationPostLargeSearch.text = locationName.state + locationName.city
+        Glide.with(
+            requireActivity()
+        ).load(post.post_images?.get(0)).into(binding.ivImagePostLargeSearch)
 
+        binding.tvPricePostLargeSearch.text = post.post_price_usd
 
     }
 }
