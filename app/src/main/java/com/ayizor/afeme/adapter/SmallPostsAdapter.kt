@@ -123,7 +123,5 @@ class SmallPostsAdapter(
         fun onItemClickListener(id: Int, latitude: String, post_longitude: String)
     }
 
-    interface OnItemViewAllClickListener {
-        fun onItemViewAllClickListener(id: String)
-    }
+
 }

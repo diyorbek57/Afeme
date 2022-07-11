@@ -10,14 +10,12 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.ayizor.afeme.databinding.ItemPostLargeBinding
 import com.ayizor.afeme.model.post.GetPost
-import com.ayizor.afeme.model.post.Post
 import com.ayizor.afeme.utils.Utils
-import com.bumptech.glide.Glide
 
-class ViewAllAdapter(
+class LargePostsAdapter(
     var context: Context,
     var postsList: ArrayList<GetPost>,
-    private val onViewAllItemClickListener: OnViewAllItemClickListener
+    private val onLargePostItemClickListener: OnLargePostItemClickListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -58,13 +56,23 @@ class ViewAllAdapter(
                 } else {
                     binding.cvRatingPostLarge.visibility = View.GONE
                 }
-                }
                 binding.ivLikePostLarge.setOnClickListener {
 //                    heartAnimation(binding.ivHeartAnim)
+                }
+                binding.ivImagePostLarge.setOnClickListener {
+                    if (post_id != null) {
+                        if (post_latitude != null) {
+                            if (post_longitude != null) {
+                                onLargePostItemClickListener.onLargePostItemClickListener(post_id,post_latitude,post_longitude)
+                            }
+                        }
+                    }
                 }
             }
 
         }
+
+    }
 
 
     override fun getItemCount(): Int {
@@ -80,8 +88,8 @@ class ViewAllAdapter(
     inner class ViewAllViewHolder(val binding: ItemPostLargeBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    interface OnViewAllItemClickListener {
-        fun onViewAllItemClickListener(id: String)
+    interface OnLargePostItemClickListener {
+        fun onLargePostItemClickListener(id: Int, latitude: String, post_longitude: String)
     }
 }
 

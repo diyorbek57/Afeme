@@ -6,19 +6,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ayizor.afeme.adapter.ViewAllAdapter
+import com.ayizor.afeme.adapter.LargePostsAdapter
 import com.ayizor.afeme.api.main.ApiInterface
 import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.ActivityViewCategoryBinding
 import com.ayizor.afeme.model.post.GetPost
-import com.ayizor.afeme.model.post.Post
 import com.ayizor.afeme.model.response.GetPostResponse
 import com.ayizor.afeme.utils.Logger
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ViewCategoryActivity : AppCompatActivity(), ViewAllAdapter.OnViewAllItemClickListener {
+class ViewCategoryActivity : AppCompatActivity(), LargePostsAdapter.OnLargePostItemClickListener {
 
     lateinit var binding: ActivityViewCategoryBinding
     var category_id = 0
@@ -48,14 +47,8 @@ class ViewCategoryActivity : AppCompatActivity(), ViewAllAdapter.OnViewAllItemCl
     }
 
 
-    override fun onViewAllItemClickListener(id: String) {
-        val intent = Intent(this, DetailsActivity::class.java)
-        intent.putExtra("POST_ID", id)
-        startActivity(intent)
-    }
-
     private fun refreshPostsAdapter(filters: ArrayList<GetPost>) {
-        val adapter = ViewAllAdapter(this, filters, this)
+        val adapter = LargePostsAdapter(this, filters, this)
         binding.rvViewAll.adapter = adapter
 
     }
@@ -79,6 +72,15 @@ class ViewCategoryActivity : AppCompatActivity(), ViewAllAdapter.OnViewAllItemCl
                     //progressBar!!.visibility = View.GONE
                 }
             })
+
+    }
+
+    override fun onLargePostItemClickListener(id: Int, latitude: String, longitude: String) {
+        val intent = Intent(this, DetailsActivity::class.java)
+        intent.putExtra("POST_ID", id)
+        intent.putExtra("POST_LATITUDE", latitude)
+        intent.putExtra("POST_LONGITUDE", longitude)
+        startActivity(intent)
 
     }
 }

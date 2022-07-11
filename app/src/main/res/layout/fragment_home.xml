@@ -28,29 +28,29 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="10dp">
 
-                <LinearLayout
+                <!--                <LinearLayout-->
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_centerVertical="true"-->
+                <!--                    android:gravity="center_vertical"-->
+                <!--                    android:orientation="horizontal">-->
 
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:src="@drawable/ic_location_full" />
+                <!--                    <ImageView-->
+                <!--                        android:layout_width="16dp"-->
+                <!--                        android:layout_height="16dp"-->
+                <!--                        android:src="@drawable/ic_location_full" />-->
 
-                    <TextView
-                        android:id="@+id/tv_location_post_large"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:fontFamily="@font/source_sans_pro_semibold"
-                        android:text="Surabaya, Indonesia"
-                        android:textColor="@color/very_dark_blue_black"
-                        android:textSize="18sp" />
-                </LinearLayout>
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/tv_location_post_large"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginStart="8dp"-->
+                <!--                        android:fontFamily="@font/source_sans_pro_semibold"-->
+                <!--                        android:text="Surabaya, Indonesia"-->
+                <!--                        android:textColor="@color/very_dark_blue_black"-->
+                <!--                        android:textSize="18sp" />-->
+                <!--                </LinearLayout>-->
 
                 <ImageView
                     android:id="@+id/iv_notifications_home"
@@ -69,15 +69,15 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.nabilmh.lottieswiperefreshlayout.LottieSwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:max_offset_top="150dp"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
+        app:lottie_rawRes="@raw/four_circle_loading"
         app:lottie_speed="1.3"
-        android:id="@+id/swipe_refresh"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        app:lottie_rawRes="@raw/four_circle_loading">
+        app:max_offset_top="150dp">
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
@@ -111,7 +111,7 @@
                         android:id="@+id/rv_home_category"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"></androidx.recyclerview.widget.RecyclerView>
+                        android:orientation="horizontal" />
 
 
                     <LinearLayout
@@ -139,15 +139,6 @@
                                     android:textColor="@color/black"
                                     android:textSize="18sp" />
 
-                                <TextView
-                                    android:id="@+id/tv_popular_view_all"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentEnd="true"
-                                    android:fontFamily="@font/source_sans_pro_semibold"
-                                    android:text="@string/view_all"
-                                    android:textColor="@color/bright_blue"
-                                    android:textSize="16sp" />
                             </RelativeLayout>
 
 
@@ -157,67 +148,6 @@
                                 android:layout_height="wrap_content" />
                         </LinearLayout>
 
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="15dp"
-                            android:paddingHorizontal="15dp">
-
-                            <TextView
-
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/source_sans_pro_semibold"
-                                android:text="@string/nearby_your_location"
-                                android:textColor="@color/black"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:id="@+id/tv_nearby_view_all"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:fontFamily="@font/source_sans_pro_semibold"
-                                android:text="@string/view_all"
-                                android:textColor="@color/bright_blue"
-                                android:textSize="16sp" />
-                        </RelativeLayout>
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_home_nearby"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="15dp"
-                            android:paddingHorizontal="15dp">
-
-                            <TextView
-
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/source_sans_pro_semibold"
-                                android:text="The cheapest"
-                                android:textColor="@color/black"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:id="@+id/tv_cheap_view_all"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:fontFamily="@font/source_sans_pro_semibold"
-                                android:text="@string/view_all"
-                                android:textColor="@color/bright_blue"
-                                android:textSize="16sp" />
-                        </RelativeLayout>
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_home_cheap"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>

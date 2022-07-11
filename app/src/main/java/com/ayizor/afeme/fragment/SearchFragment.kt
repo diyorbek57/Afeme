@@ -6,7 +6,6 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.SharedMemory.create
 import android.util.Pair.create
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +31,7 @@ import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -40,7 +40,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCa
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import android.util.Pair as UtilPair
+
 
 class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
@@ -116,12 +116,10 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
         googleMap.uiSettings.isMapToolbarEnabled = false;
         googleMap.setOnMarkerClickListener(this);
 
-        googleMap.moveCamera(
-            CameraUpdateFactory.newLatLngZoom(
-                PrefsManager(requireContext()).loadUserCurrentLocation(),
-                1F
-            )
-        )
+        val cameraPosition = CameraPosition.Builder()
+            .target(LatLng(41.303322, 69.256782)).zoom(6f).build()
+
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         Logger.d(TAG, "Map is ready")
 
         dataService?.getAllPosts()?.enqueue(object : Callback<GetPostResponse> {

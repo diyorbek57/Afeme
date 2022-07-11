@@ -19,10 +19,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ayizor.afeme.activity.DetailsActivity
 import com.ayizor.afeme.activity.NotificationActivity
-import com.ayizor.afeme.activity.ViewAllActivity
 import com.ayizor.afeme.activity.ViewCategoryActivity
 import com.ayizor.afeme.adapter.CategoryAdapter
-import com.ayizor.afeme.adapter.SmallPostsAdapter
+import com.ayizor.afeme.adapter.LargePostsAdapter
 import com.ayizor.afeme.api.main.ApiInterface
 import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.FragmentHomeBinding
@@ -43,7 +42,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
+class HomeFragment : Fragment(), LargePostsAdapter.OnLargePostItemClickListener,
     CategoryAdapter.OnCategoryItemClickListener {
 
     lateinit var binding: FragmentHomeBinding
@@ -77,18 +76,7 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
         )
         binding.rvHomePopular.layoutManager = LinearLayoutManager(
             requireContext(),
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
-        binding.rvHomeNearby.layoutManager = LinearLayoutManager(
-            requireContext(),
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
-
-        binding.rvHomeCheap.layoutManager = LinearLayoutManager(
-            requireContext(),
-            LinearLayoutManager.HORIZONTAL,
+            LinearLayoutManager.VERTICAL,
             false
         )
 
@@ -103,8 +91,6 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
 //        refreshNearbyAdapter(getAllPosts())
 //        refreshCheapAdapter(getAllPosts())
 
-        setupClickableViews()
-
 
     }
 
@@ -113,18 +99,6 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
         startActivity(intent)
 
 
-    }
-
-    private fun setupClickableViews() {
-        binding.tvPopularViewAll.setOnClickListener {
-            callViewAllActivity("Popular")
-        };
-        binding.tvCheapViewAll.setOnClickListener {
-            callViewAllActivity("Cheap")
-        }
-        binding.tvNearbyViewAll.setOnClickListener {
-            callViewAllActivity("Nearby your location")
-        }
     }
 
 
@@ -136,11 +110,10 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
     }
 
     private fun refreshPopularAdapter(filters: ArrayList<GetPost>) {
-        val adapter = SmallPostsAdapter(requireContext(), filters, this)
+        val adapter = LargePostsAdapter(requireContext(), filters, this)
         binding.rvHomePopular.adapter = adapter
         binding.swipeRefresh.isRefreshing = false
     }
-
 
 
     private fun getAllCategory() {
@@ -210,14 +183,6 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
 
     }
 
-    override fun onItemClickListener(id: Int, latitude: String, longitude: String) {
-
-        val intent = Intent(requireContext(), DetailsActivity::class.java)
-        intent.putExtra("POST_ID", id)
-        intent.putExtra("POST_LATITUDE", latitude)
-        intent.putExtra("POST_LONGITUDE", longitude)
-        startActivity(intent)
-    }
 
     override fun onCategoryItemClickListener(id: Int, name: String) {
         val intent = Intent(requireContext(), ViewCategoryActivity::class.java)
@@ -242,15 +207,6 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
         Logger.d(TAG, "onStart")
     }
 
-
-    private fun callViewAllActivity(name: String) {
-//        val intent = Intent(requireContext(), ViewAllActivity::class.java)
-//        intent.putExtra("category_name", name)
-//        startActivity(intent)
-        val intent = Intent(requireContext(), ViewAllActivity::class.java)
-        intent.putExtra("POST_ID", name)
-        startActivity(intent)
-    }
 
     // Get current location
     @SuppressLint("MissingPermission", "SetTextI18n")
@@ -361,6 +317,14 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
                 getLastLocation()
             }
         }
+    }
+
+    override fun onLargePostItemClickListener(id: Int, latitude: String, longitude: String) {
+        val intent = Intent(requireContext(), DetailsActivity::class.java)
+        intent.putExtra("POST_ID", id)
+        intent.putExtra("POST_LATITUDE", latitude)
+        intent.putExtra("POST_LONGITUDE", longitude)
+        startActivity(intent)
     }
 
 }

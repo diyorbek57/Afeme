@@ -3,12 +3,11 @@ package com.ayizor.afeme.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ayizor.afeme.adapter.ViewAllAdapter
+import com.ayizor.afeme.adapter.LargePostsAdapter
 import com.ayizor.afeme.databinding.ActivityViewAllBinding
 import com.ayizor.afeme.model.post.GetPost
-import com.ayizor.afeme.model.post.Post
 
-class ViewAllActivity : BaseActivity(), ViewAllAdapter.OnViewAllItemClickListener {
+class ViewAllActivity : BaseActivity(){
 
     lateinit var binding: ActivityViewAllBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,17 +30,17 @@ class ViewAllActivity : BaseActivity(), ViewAllAdapter.OnViewAllItemClickListene
       //  refreshViewAllAdapter(getAllPosts())
     }
 
-    override fun onViewAllItemClickListener(id: String) {
-        val intent = Intent(this, DetailsActivity::class.java)
-        intent.putExtra("POST_ID", id)
-        startActivity(intent)
-    }
+//    override fun onViewAllItemClickListener(id: String) {
+//        val intent = Intent(this, DetailsActivity::class.java)
+//        intent.putExtra("POST_ID", id)
+//        startActivity(intent)
+//    }
 
-    private fun refreshViewAllAdapter(filters: ArrayList<GetPost>) {
-        val adapter = ViewAllAdapter(this, filters, this)
-        binding.rvViewAll.adapter = adapter
-
-    }
+//    private fun refreshViewAllAdapter(filters: ArrayList<GetPost>) {
+//        val adapter = LargePostsAdapter(this, filters, this)
+//        binding.rvViewAll.adapter = adapter
+//
+//    }
 
 
 
