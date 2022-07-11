@@ -91,6 +91,11 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
             LinearLayoutManager.HORIZONTAL,
             false
         )
+
+        binding.swipeRefresh.setOnRefreshListener {
+            getPopularPosts()
+
+        }
         getAllCategory()
         getPopularPosts()
 
@@ -133,19 +138,9 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
     private fun refreshPopularAdapter(filters: ArrayList<GetPost>) {
         val adapter = SmallPostsAdapter(requireContext(), filters, this)
         binding.rvHomePopular.adapter = adapter
-
+        binding.swipeRefresh.isRefreshing = false
     }
 
-    private fun refreshNearbyAdapter(filters: ArrayList<GetPost>) {
-        val adapter = SmallPostsAdapter(requireContext(), filters, this)
-        binding.rvHomeNearby.adapter = adapter
-
-    }
-
-    private fun refreshCheapAdapter(filters: ArrayList<GetPost>) {
-        val adapter = SmallPostsAdapter(requireContext(), filters, this)
-        binding.rvHomeCheap.adapter = adapter
-    }
 
 
     private fun getAllCategory() {
@@ -159,6 +154,7 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
                 response.body()?.data?.let { refreshCategoryAdapter(it) }
                 binding.llMainHome.visibility = View.VISIBLE
                 binding.progressBar.visibility = View.GONE
+
             }
 
             override fun onFailure(call: Call<CategoryResponse>, t: Throwable) {
@@ -199,7 +195,7 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
                     Logger.e(TAG, "error  code: " + response.code())
                     Logger.e(TAG, "error  errorBody: " + response.errorBody().toString())
                     Logger.e(TAG, "error  message: " + response.message().toString())
-                    toast("onResponse else: "+response.message())
+                    toast("onResponse else: " + response.message())
 
                 }
 
@@ -207,7 +203,7 @@ class HomeFragment : Fragment(), SmallPostsAdapter.OnItemClickListener,
 
             override fun onFailure(call: Call<GetPostResponse>, t: Throwable) {
                 t.message?.let { Logger.d(TAG, it) }
-                toast("onFailure: "+t.message.toString())
+                toast("onFailure: " + t.message.toString())
                 //progressBar!!.visibility = View.GONE
             }
         })

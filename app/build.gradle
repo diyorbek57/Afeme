@@ -83,6 +83,8 @@ dependencies {
     implementation "com.github.skydoves:powerspinner:1.2.2"
     //fragment
     implementation 'androidx.fragment:fragment-ktx:1.5.0'
+    //lottie swipe refresh
+    implementation 'com.github.nabil6391:LottieSwipeRefreshLayout:1.0.0'
     //smoothBottomBar
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.9'
     //ratingbar chart

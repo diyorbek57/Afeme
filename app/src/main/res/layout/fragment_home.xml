@@ -68,10 +68,16 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    <com.nabilmh.lottieswiperefreshlayout.LottieSwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        app:max_offset_top="150dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_speed="1.3"
+        android:id="@+id/swipe_refresh"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        app:lottie_rawRes="@raw/four_circle_loading">
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
@@ -101,16 +107,11 @@
                     android:visibility="gone">
 
 
-
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_home_category"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                        </androidx.recyclerview.widget.RecyclerView>
-
-
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_home_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"></androidx.recyclerview.widget.RecyclerView>
 
 
                     <LinearLayout
@@ -221,5 +222,5 @@
                 </LinearLayout>
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </com.nabilmh.lottieswiperefreshlayout.LottieSwipeRefreshLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

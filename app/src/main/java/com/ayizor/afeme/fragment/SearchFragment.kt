@@ -2,7 +2,12 @@ package com.ayizor.afeme.fragment
 
 
 import android.annotation.SuppressLint
+import android.app.ActivityOptions
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.os.SharedMemory.create
+import android.util.Pair.create
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +18,7 @@ import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import com.ayizor.afeme.R
+import com.ayizor.afeme.activity.SearchActivity
 import com.ayizor.afeme.api.main.ApiInterface
 import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.FragmentSearchBinding
@@ -34,7 +40,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCa
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
+import android.util.Pair as UtilPair
 
 class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
@@ -63,6 +69,22 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
         binding.mapViewSearch.onCreate(savedInstanceState)
         binding.mapViewSearch.getMapAsync(this)
 
+        binding.rlSearch.setOnClickListener {
+            val intent = Intent(requireContext(), SearchActivity::class.java)
+
+            val searchFieldPair = create<View, String>(binding.rlSearch, "search_field")
+            val filterPair = create<View, String>(binding.ivSearchFilter, "filter_field")
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                val options =
+                    ActivityOptions.makeSceneTransitionAnimation(
+                        requireActivity(),
+                        searchFieldPair,
+                        filterPair
+                    )
+                startActivity(intent, options.toBundle())
+            }
+        }
 
     }
 
@@ -243,7 +265,6 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
         binding.tvPricePostLargeSearch.text = post.post_price_usd?.let { Utils.formatUsd(it) }
         binding.tvNamePostLargeSearch.text =
             locationName.state + ", " + post.post_rooms + getString(R.string.rooms)
-
 
 
     }

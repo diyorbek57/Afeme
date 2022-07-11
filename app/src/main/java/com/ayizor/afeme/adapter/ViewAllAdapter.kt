@@ -51,7 +51,7 @@ class ViewAllAdapter(
                     binding.tvLocationPostLarge.text = locationName.state + locationName.city
                 }
                 binding.tvPricePostLarge.text = "$$post_price_usd"
-                binding.tvTypePostLarge.text = post_building_type.toString()
+                binding.tvTypePostLarge.text = post_building_type?.category_name_en.toString()
                 binding.tvPeriodPostLarge.visibility = View.GONE
                 if (post_rating != null) {
                     binding.tvRatingPostLarge.text = post_rating.toString()
