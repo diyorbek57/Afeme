@@ -30,8 +30,8 @@ import com.ayizor.afeme.model.Category
 import com.ayizor.afeme.model.post.GetPost
 import com.ayizor.afeme.model.response.CategoryResponse
 import com.ayizor.afeme.model.response.GetPostResponse
-import com.ayizor.afeme.utils.Extensions.toast
 import com.ayizor.afeme.utils.Logger
+import com.ayizor.afeme.utils.Utils
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
@@ -57,11 +57,17 @@ class HomeFragment : Fragment(), LargePostsAdapter.OnLargePostItemClickListener,
     ): View? {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        inits()
+        if (Utils.isOnline(requireContext())) {
+            inits()
+        } else {
+            binding.rlEmpty.visibility = View.VISIBLE
+        }
+
         return binding.root
     }
 
     private fun inits() {
+
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         PrefsManager(requireContext()).storeUserCurrentLocation(getLastLocation())
         binding.progressBar.visibility = View.VISIBLE
@@ -113,6 +119,7 @@ class HomeFragment : Fragment(), LargePostsAdapter.OnLargePostItemClickListener,
         val adapter = LargePostsAdapter(requireContext(), filters, this)
         binding.rvHomePopular.adapter = adapter
         binding.swipeRefresh.isRefreshing = false
+        binding.llNearby.visibility = View.VISIBLE
     }
 
 
@@ -168,7 +175,7 @@ class HomeFragment : Fragment(), LargePostsAdapter.OnLargePostItemClickListener,
                     Logger.e(TAG, "error  code: " + response.code())
                     Logger.e(TAG, "error  errorBody: " + response.errorBody().toString())
                     Logger.e(TAG, "error  message: " + response.message().toString())
-                    toast("onResponse else: " + response.message())
+                    //    toast("onResponse else: " + response.message())
 
                 }
 
@@ -176,7 +183,8 @@ class HomeFragment : Fragment(), LargePostsAdapter.OnLargePostItemClickListener,
 
             override fun onFailure(call: Call<GetPostResponse>, t: Throwable) {
                 t.message?.let { Logger.d(TAG, it) }
-                toast("onFailure: " + t.message.toString())
+
+                //  toast("onFailure: " + t.message.toString())
                 //progressBar!!.visibility = View.GONE
             }
         })

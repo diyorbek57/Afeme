@@ -78,6 +78,7 @@
     <!-- bottomsheet-->
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/bottom_sheet_search"
         android:layout_width="match_parent"
         android:layout_height="375dp"

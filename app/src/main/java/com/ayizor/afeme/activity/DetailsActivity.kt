@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.drawable.Animatable
 import android.net.Uri
 import android.os.Bundle
 import android.text.SpannableString
@@ -17,11 +18,13 @@ import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import android.view.ViewTreeObserver
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.TextView.BufferType
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.ayizor.afeme.R
+import com.ayizor.afeme.activity.authentication.WelcomeActivity
 import com.ayizor.afeme.adapter.DetailsViewPagerAdapter
 import com.ayizor.afeme.api.main.ApiInterface
 import com.ayizor.afeme.api.main.Client
@@ -30,6 +33,7 @@ import com.ayizor.afeme.databinding.ItemCallBottomSheetDetailsBinding
 import com.ayizor.afeme.fragment.AreaAndLotFragment
 import com.ayizor.afeme.fragment.InteriorFragment
 import com.ayizor.afeme.helper.CustomSpannable
+import com.ayizor.afeme.manager.PostPrefsManager
 import com.ayizor.afeme.model.User
 import com.ayizor.afeme.model.post.GetPost
 import com.ayizor.afeme.model.response.PostResponse
@@ -60,7 +64,7 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     val TAG: String = DetailsActivity::class.java.simpleName
     lateinit var supportMapFragment: SupportMapFragment
     lateinit var adapter: DetailsViewPagerAdapter
-    var phoneNumber: String = ""
+    lateinit var phoneNumber: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailsBinding.inflate(layoutInflater)
@@ -81,7 +85,14 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
             getPost(id)
         }
 
-
+        binding.ivDetailsLike.setOnClickListener {
+            if (PostPrefsManager(this).loadImages().isNullOrEmpty()) {
+                val i = Intent(this, WelcomeActivity::class.java)
+                startActivity(i)
+            } else {
+                heartAnimation(binding.ivHeartAnimDetails)
+            }
+        }
 
 
         setupFeaturesViewPager()
@@ -105,7 +116,25 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun displayPostDatas(post: GetPost) {
         post.user_id?.let { displayUserDatas(it) }
         setupViewPager(post)
+        val locationName = post.post_latitude?.let {
+            post.post_longitude?.let { it1 ->
+                Utils.getCoordinateName(
+                    this,
+                    it.toDouble(),
+                    it1.toDouble()
+                )
+            }
+        }
+        if (locationName != null) {
+            val state = locationName.state
+            val city = locationName.city
+            if (!city.isNullOrEmpty()) {
+                binding.tvLocationDetails.text = state + city
+            } else {
+                binding.tvLocationDetails.text = state
+            }
 
+        }
         binding.tvDescriptionDetails.text = post.post_description.toString()
         binding.tvTypeDetails.text = post.post_building_type?.category_name_uz.toString()
 
@@ -115,7 +144,8 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun displayUserDatas(user: User) {
-        phoneNumber = user.user_phone_number.toString()
+
+        binding.tvUserTypeDetails.text = user.user_type.toString()
         if (!user.user_photo.isNullOrEmpty()) {
             Glide.with(this).load(user.user_photo).into(binding.ivUsersProfileDetails)
         } else {
@@ -191,7 +221,7 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
                     if (response.isSuccessful) {
                         Logger.d(TAG, response.body().toString())
                         response.body()?.data?.let { displayPostDatas(it) }
-
+                        phoneNumber = response.body()?.data?.user_id?.user_phone_number.toString()
 //                binding.rvSellType.visibility = View.VISIBLE
 //                binding.progressBar.visibility = View.GONE
                     }
@@ -215,7 +245,7 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         if (tv.tag == null) {
             tv.tag = tv.text
         }
-        val vto: ViewTreeObserver = tv.getViewTreeObserver()
+        val vto: ViewTreeObserver = tv.viewTreeObserver
         vto.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 val text: String
@@ -278,8 +308,8 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val extras = intent.extras
         if (extras != null) {
-            val latitude = extras.getString("POST_LATITUDE","").toDouble()
-            val longitude = extras.getString("POST_LONGITUDE","").toDouble()
+            val latitude = extras.getString("POST_LATITUDE", "").toDouble()
+            val longitude = extras.getString("POST_LONGITUDE", "").toDouble()
 
             val postLocation = LatLng(latitude, longitude)
             googleMap.uiSettings.isZoomGesturesEnabled = false;
@@ -338,5 +368,10 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         sheetDialog.window?.attributes?.windowAnimations = R.style.DialogAnimaton;
     }
 
+    private fun heartAnimation(animationHeart: ImageView) {
+        animationHeart.alpha = 0.70f
+        (animationHeart.drawable as? Animatable)?.start()
+
+    }
 
 }

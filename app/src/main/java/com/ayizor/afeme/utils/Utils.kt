@@ -132,26 +132,25 @@ object Utils {
     }
 
     fun formatUsd(number: String): String {
-        val formattedNumber = replaceWords(number, " ", "")
-
+        val formattedNumber = replaceWords(number, ",", "")
         val formatter: NumberFormat = if (formattedNumber?.length == 4) {
             DecimalFormat("#.###")
         } else if (formattedNumber?.length == 5) {
             DecimalFormat("##.###")
-        }else if (formattedNumber?.length == 6) {
+        } else if (formattedNumber?.length == 6) {
             DecimalFormat("###.###")
-        }else if (formattedNumber?.length == 7) {
+        } else if (formattedNumber?.length == 7) {
             DecimalFormat("#.###.###")
-        }else if (formattedNumber?.length == 8) {
+        } else if (formattedNumber?.length == 8) {
             DecimalFormat("##.###.###")
-        }else if (formattedNumber?.length == 9) {
+        } else if (formattedNumber?.length == 9) {
             DecimalFormat("###.###.###")
-        }else if (formattedNumber?.length == 10) {
+        } else if (formattedNumber?.length == 10) {
             DecimalFormat("#.###.###.###")
-        }else if (formattedNumber?.length == 11) {
+        } else if (formattedNumber?.length == 11) {
             DecimalFormat("##.###.###.###")
-        }else{
-            DecimalFormat("#.###")
+        } else {
+            DecimalFormat("#")
         }
         val maybeDouble = formattedNumber?.toDoubleOrNull()
         return if (maybeDouble != null) {

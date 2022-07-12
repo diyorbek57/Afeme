@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.RelativeLayout
-import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import com.ayizor.afeme.R
@@ -21,7 +20,6 @@ import com.ayizor.afeme.activity.SearchActivity
 import com.ayizor.afeme.api.main.ApiInterface
 import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.FragmentSearchBinding
-import com.ayizor.afeme.manager.PrefsManager
 import com.ayizor.afeme.model.post.GetPost
 import com.ayizor.afeme.model.response.GetPostResponse
 import com.ayizor.afeme.utils.Extensions.toast
@@ -212,7 +210,8 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
 
 
     override fun onMarkerClick(marker: Marker): Boolean {
-        Toast.makeText(requireContext(), marker.position.toString(), Toast.LENGTH_LONG).show()
+        // Toast.makeText(requireContext(), marker.position.toString(), Toast.LENGTH_LONG).show()
+        binding.bottomSheetSearch.visibility = View.VISIBLE
         if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }

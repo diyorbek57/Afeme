@@ -280,7 +280,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
                 android:fontFamily="@font/source_sans_pro_semibold"
-                android:text="@string/popular"
+                android:text="@string/description"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 

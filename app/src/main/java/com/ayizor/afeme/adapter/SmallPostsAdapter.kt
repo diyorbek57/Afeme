@@ -40,8 +40,6 @@ class SmallPostsAdapter(
             with(postsList[position]) {
 
                 binding.tvNamePostSmall.text = post_built_year
-
-
                 val locationName = post_latitude?.let {
                     post_longitude?.let { it1 ->
                         Utils.getCoordinateName(
