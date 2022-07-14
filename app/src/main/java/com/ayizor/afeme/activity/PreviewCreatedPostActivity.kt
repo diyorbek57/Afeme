@@ -119,7 +119,7 @@ class PreviewCreatedPostActivity : BaseActivity() {
             post_type.toString(),//r//1
             post_latitude,//r//1
             post_longitude,//r//1
-            null,//r
+            post_price,//r
             null,//r
             null,
             post_total_area,
@@ -129,14 +129,14 @@ class PreviewCreatedPostActivity : BaseActivity() {
             post_rooms,//r//1
             "5",//r//1
             imagesUrls,//1
-            null,//r
+            post_description,//r
             "12",//r//1
             "23",//r//1
             "1",//r//1
             "1",//r//1
             "1",//1
-            null,
-            null,
+            post_floor,
+            post_flat,
             null,
             null
         )
@@ -163,6 +163,7 @@ class PreviewCreatedPostActivity : BaseActivity() {
                             .toString()
                     )
                     dismissLoading()
+                    finish()
 
                 } else {
                     Logger.d(TAG, "error message: " + response.body()?.message)

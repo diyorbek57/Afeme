@@ -38,15 +38,7 @@ class PrefsManager(context: Context) {
     }
 
 
-    fun storeUserId(id: String?) {
-        val prefsEditor = sharedPreferences!!.edit()
-        prefsEditor.putString("user_id", id)
-        prefsEditor.apply()
-    }
 
-    fun loadUserId(): String? {
-        return sharedPreferences!!.getString("user_id", "")
-    }
 
 
     fun storeUserRegistered(id: Boolean) {

@@ -25,7 +25,6 @@
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_user_full.xml" value="0.125" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_user_full_white.xml" value="0.125" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/ic_villa.xml" value="0.1475" />
-        <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/il_no_internet.xml" value="0.191" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/inav_ic_chat_default.xml" value="0.1475" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/item_bottom_sheet_background.xml" value="0.1575" />
         <entry key="..\:/Programming/AndroidProjects/Afeme/app/src/main/res/drawable/item_bottom_sheet_top_closer.xml" value="0.1575" />
@@ -87,6 +86,8 @@
         <entry key="app/src/main/res/drawable/ic_il_welcome_cats.xml" value="0.1155" />
         <entry key="app/src/main/res/drawable/ic_notification_warning.xml" value="0.1195" />
         <entry key="app/src/main/res/drawable/ic_square_metr.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/il_no_chat_history.xml" value="0.2455" />
+        <entry key="app/src/main/res/drawable/il_no_message.xml" value="0.2455" />
         <entry key="app/src/main/res/drawable/item_bright_blue_stroke_white_solid_box.xml" value="0.108" />
         <entry key="app/src/main/res/drawable/item_button_selector.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/item_cardview_selector.xml" value="0.1775" />
@@ -96,12 +97,15 @@
         <entry key="app/src/main/res/drawable/item_profile_gradient.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/item_search_view_background.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/item_tab_indicator_details.xml" value="0.1255" />
+        <entry key="app/src/main/res/drawable/light_gray_stroke_box_350.xml" value="0.1485" />
         <entry key="app/src/main/res/drawable/solid_rounded.xml" value="0.158" />
         <entry key="app/src/main/res/layout/activity_code_confirm.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_create_post.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_details.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/activity_edit_public_profile.xml" value="0.3880208333333333" />
         <entry key="app/src/main/res/layout/activity_filter.xml" value="0.29583333333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2537037037037037" />
+        <entry key="app/src/main/res/layout/activity_notification.xml" value="0.3880208333333333" />
         <entry key="app/src/main/res/layout/activity_other_information.xml" value="0.253125" />
         <entry key="app/src/main/res/layout/activity_preview_created_post.xml" value="0.25916900634765627" />
         <entry key="app/src/main/res/layout/activity_rating.xml" value="0.29583333333333334" />
@@ -118,6 +122,7 @@
         <entry key="app/src/main/res/layout/fragment_description.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_floor.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_interior.xml" value="0.3880208333333333" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_photos.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_post_type.xml" value="0.3098958333333333" />

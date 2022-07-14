@@ -106,7 +106,7 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         supportMapFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_map_details) as SupportMapFragment
         supportMapFragment.getMapAsync(this)
-        makeTextViewResizable(binding.tvDescriptionDetails, 3, "View More", true);
+
         binding.flCallDetails.setOnClickListener {
             showCallBottomSheet()
 
@@ -114,7 +114,7 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun displayPostDatas(post: GetPost) {
-        post.user_id?.let { displayUserDatas(it) }
+        post.user?.let { displayUserDatas(it) }
         setupViewPager(post)
         val locationName = post.post_latitude?.let {
             post.post_longitude?.let { it1 ->
@@ -129,16 +129,18 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
             val state = locationName.state
             val city = locationName.city
             if (!city.isNullOrEmpty()) {
-                binding.tvLocationDetails.text = state + city
+                binding.tvLocationDetails.text = state +", "+ city
             } else {
                 binding.tvLocationDetails.text = state
             }
-
+            binding.tvNamePostDetails.text = state+", "+ post.post_rooms+" rooms"
         }
-        binding.tvDescriptionDetails.text = post.post_description.toString()
-        binding.tvTypeDetails.text = post.post_building_type?.category_name_uz.toString()
+        makeTextViewResizable(binding.tvDescriptionDetails, 3, "View More", true)
+        binding.tvPricePostDetails.text = "$ "+post.post_price_usd?.let { Utils.formatUsd(it) }
+        //binding.tvDescriptionDetails.text = post.post_description.toString()
+        binding.tvTypeDetails.text = post.post_building_type?.category_name_en.toString()
 
-        binding.tvDescriptionDetails.text = post.post_description
+        //binding.tvDescriptionDetails.text = post.post_description
 
 
     }
@@ -151,7 +153,7 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         } else {
             binding.ivUsersProfileDetails.setImageDrawable(getDrawable(R.drawable.default_profile_image))
         }
-        binding.tvUsernameDetails.text = user.user_name + user.user_last_name
+        binding.tvUsernameDetails.text = user.user_name + " " + user.user_last_name + "..."
     }
 
     private fun setupFeaturesViewPager() {
@@ -221,7 +223,7 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
                     if (response.isSuccessful) {
                         Logger.d(TAG, response.body().toString())
                         response.body()?.data?.let { displayPostDatas(it) }
-                        phoneNumber = response.body()?.data?.user_id?.user_phone_number.toString()
+                        phoneNumber = response.body()?.data?.user?.user_phone_number.toString()
 //                binding.rvSellType.visibility = View.VISIBLE
 //                binding.progressBar.visibility = View.GONE
                     }
@@ -250,7 +252,7 @@ class DetailsActivity : AppCompatActivity(), OnMapReadyCallback {
             override fun onGlobalLayout() {
                 val text: String
                 val lineEndIndex: Int
-                val obs: ViewTreeObserver = tv.getViewTreeObserver()
+                val obs: ViewTreeObserver = tv.viewTreeObserver
                 obs.removeOnGlobalLayoutListener(this)
                 if (maxLine == 0) {
                     lineEndIndex = tv.layout.getLineEnd(0)

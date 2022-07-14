@@ -203,15 +203,15 @@
                                 android:textColor="@color/bright_blue"
                                 android:textSize="26sp" />
 
-                            <TextView
-                                android:id="@+id/tv_period_post_large_search"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/source_sans_pro_semibold"
-                                android:text="/month"
-                                android:textAlignment="center"
-                                android:textColor="@color/dark_grayish_blue"
-                                android:textSize="18sp" />
+<!--                            <TextView-->
+<!--                                android:id="@+id/tv_period_post_large_search"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:fontFamily="@font/source_sans_pro_semibold"-->
+<!--                                android:text="/month"-->
+<!--                                android:textAlignment="center"-->
+<!--                                android:textColor="@color/dark_grayish_blue"-->
+<!--                                android:textSize="18sp" />-->
                         </LinearLayout>
 
                     </RelativeLayout>

@@ -87,7 +87,9 @@ class HomeFragment : Fragment(), LargePostsAdapter.OnLargePostItemClickListener,
         )
 
         binding.swipeRefresh.setOnRefreshListener {
+            getAllCategory()
             getPopularPosts()
+            binding.rlEmpty.visibility = View.GONE
 
         }
         getAllCategory()
@@ -132,8 +134,7 @@ class HomeFragment : Fragment(), LargePostsAdapter.OnLargePostItemClickListener,
             ) {
                 Logger.d("Category", response.body().toString())
                 response.body()?.data?.let { refreshCategoryAdapter(it) }
-                binding.llMainHome.visibility = View.VISIBLE
-                binding.progressBar.visibility = View.GONE
+
 
             }
 
@@ -145,17 +146,6 @@ class HomeFragment : Fragment(), LargePostsAdapter.OnLargePostItemClickListener,
 
     }
 
-//    fun sortPosts(filters: ArrayList<GetPost>?) {
-//        val feeds: ArrayList<GetPost> = ArrayList()
-//        if (filters != null) {
-//            for (i in 0 until filters.size) {
-//                if (i <= 5) {
-//                    feeds.add(filters[i])
-//                }
-//            }
-//        }
-//        refreshPopularAdapter(feeds)
-//    }
 
     private fun getPopularPosts() {
         dataService?.getAllPosts()?.enqueue(object : Callback<GetPostResponse> {
@@ -168,8 +158,9 @@ class HomeFragment : Fragment(), LargePostsAdapter.OnLargePostItemClickListener,
                     Logger.d(TAG, "isSuccessful data: " + response.body()?.data.toString())
                     Logger.d(TAG, "isSuccessful  code: " + response.code())
                     response.body()?.data?.let { refreshPopularAdapter(it) }
-//                binding.rvSellType.visibility = View.VISIBLE
-//                binding.progressBar.visibility = View.GONE
+
+                    binding.llMainHome.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.GONE
                 } else {
                     Logger.e(TAG, "error data: " + response.body()?.data.toString())
                     Logger.e(TAG, "error  code: " + response.code())
@@ -183,10 +174,12 @@ class HomeFragment : Fragment(), LargePostsAdapter.OnLargePostItemClickListener,
 
             override fun onFailure(call: Call<GetPostResponse>, t: Throwable) {
                 t.message?.let { Logger.d(TAG, it) }
-
+                binding.rlEmpty.visibility = View.VISIBLE
+                binding.llNearby.visibility = View.GONE
                 //  toast("onFailure: " + t.message.toString())
                 //progressBar!!.visibility = View.GONE
             }
+
         })
 
     }

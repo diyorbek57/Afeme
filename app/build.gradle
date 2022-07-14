@@ -98,6 +98,7 @@ dependencies {
     //Google map
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
     implementation "com.google.android.gms:play-services-location:20.0.0"
+    implementation 'com.google.maps.android:maps-utils-ktx:3.4.0'
     //place picker
     implementation 'com.google.android.libraries.places:places:2.6.0'
     implementation 'com.github.suchoX:PlacePicker:1.1.2'

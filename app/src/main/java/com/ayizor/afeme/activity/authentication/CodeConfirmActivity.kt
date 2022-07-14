@@ -9,8 +9,10 @@ import com.ayizor.afeme.api.main.ApiInterface
 import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.ActivityCodeConfirmBinding
 import com.ayizor.afeme.manager.PrefsManager
+import com.ayizor.afeme.manager.UserPrefsManager
 import com.ayizor.afeme.model.User
 import com.ayizor.afeme.model.response.MainResponse
+import com.ayizor.afeme.model.response.UserResponse
 import com.ayizor.afeme.utils.Logger
 import com.ayizor.afeme.utils.Utils
 import retrofit2.Call
@@ -92,43 +94,84 @@ class CodeConfirmActivity : BaseActivity() {
     }
 
     private fun createUser(user: User) {
+        showLoading(this@CodeConfirmActivity)
+        dataService?.register(user)?.enqueue(object : Callback<MainResponse> {
 
-        dataService?.register(user)
-            ?.enqueue(object : Callback<MainResponse> {
-                override fun onResponse(
-                    call: Call<MainResponse>,
-                    response: Response<MainResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        Logger.d(TAG, "successful: " + response.body()?.message.toString())
-                        Logger.d(TAG, "successful: " + response.body()?.data.toString())
-                        Logger.d(TAG, "successful: " + response.body()?.status.toString())
-                        if (response.body()?.status == true) {
-                            PrefsManager(this@CodeConfirmActivity).storeUserRegisteredToken(response.body()?.data.toString())
-                            PrefsManager(this@CodeConfirmActivity).storeUserRegistered(response.body()?.status!!)
-//                            PrefsManager(this@CodeConfirmActivity).storeUser(user)
-                            callMainActivity(this@CodeConfirmActivity)
-                        } else {
-                            showTopSnackBar(
-                                binding.mainLayoutConfirmCode,
-                                getString(R.string.incorrect_code_entered)
-                            )
-                        }
+            override fun onResponse(call: Call<MainResponse>, response: Response<MainResponse>) {
+                if (response.isSuccessful) {
+                    Logger.d(TAG, "successful: " + response.body()?.message.toString())
+                    Logger.d(TAG, "successful: " + response.body()?.data.toString())
+                    Logger.d(TAG, "successful: " + response.body()?.status.toString())
+                    if (response.body()?.status == true) {
+                        PrefsManager(this@CodeConfirmActivity).storeUserRegisteredToken(response.body()?.data.toString())
+                        PrefsManager(this@CodeConfirmActivity).storeUserRegistered(response.body()?.status!!)
+                        getCurrentUser()
+                        UserPrefsManager(this@CodeConfirmActivity)
+                        dismissLoading()
                     } else {
-                        Logger.d(TAG, response.code().toString())
-                        Logger.d(TAG, "not successful: " + response.body()?.message.toString())
-                        Logger.d(TAG, "not successful: " + response.body()?.data.toString())
-                        Logger.d(TAG, "not successful: " + response.body()?.status.toString())
+                        showTopSnackBar(
+                            binding.mainLayoutConfirmCode,
+                            getString(R.string.incorrect_code_entered)
+                        )
                     }
-
-
+                } else {
+                    Logger.d(TAG, response.code().toString())
+                    Logger.d(TAG, "not successful: " + response.body()?.message.toString())
+                    Logger.d(TAG, "not successful: " + response.body()?.data.toString())
+                    Logger.d(TAG, "not successful: " + response.body()?.status.toString())
                 }
 
-                override fun onFailure(call: Call<MainResponse>, t: Throwable) {
 
+            }
+
+            override fun onFailure(call: Call<MainResponse>, t: Throwable) {
+
+            }
+
+        })
+    }
+
+    private fun getCurrentUser() {
+        dataService?.getCurrentUser()?.enqueue(object : Callback<UserResponse> {
+
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                if (response.isSuccessful) {
+                    Logger.d(TAG, "successful: " + response.body()?.message.toString())
+                    Logger.d(TAG, "successful: " + response.body()?.data.toString())
+                    Logger.d(TAG, "successful: " + response.body()?.status.toString())
+                    if (response.body()?.status == true) {
+                        val user = response.body()!!.data
+                        getCurrentUser()
+                        if (user != null) {
+                            UserPrefsManager(this@CodeConfirmActivity).storeUserId(user.user_id)
+                            UserPrefsManager(this@CodeConfirmActivity).storeUserFirstname(user.user_name)
+                            UserPrefsManager(this@CodeConfirmActivity).storeUserLastname(user.user_last_name)
+                            UserPrefsManager(this@CodeConfirmActivity).storeUserLastname(user.user_type)
+                        }
+
+
+                        callMainActivity(this@CodeConfirmActivity)
+                    } else {
+                        showTopSnackBar(
+                            binding.mainLayoutConfirmCode,
+                            getString(R.string.incorrect_code_entered)
+                        )
+                    }
+                } else {
+                    Logger.d(TAG, response.code().toString())
+                    Logger.d(TAG, "not successful: " + response.body()?.message.toString())
+                    Logger.d(TAG, "not successful: " + response.body()?.data.toString())
+                    Logger.d(TAG, "not successful: " + response.body()?.status.toString())
                 }
 
-            })
+
+            }
+
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+
+            }
+
+        })
     }
 
 

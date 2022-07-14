@@ -2,17 +2,21 @@ package com.ayizor.afeme.fragment
 
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ayizor.afeme.R
+import com.ayizor.afeme.activity.EditPublicProfileActivity
+import com.ayizor.afeme.activity.authentication.WelcomeActivity
 import com.ayizor.afeme.adapter.ProfileViewPagerAdapter
 import com.ayizor.afeme.api.main.ApiInterface
 import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.FragmentProfileBinding
 import com.ayizor.afeme.databinding.ItemBottomSheetSettingsBinding
+import com.ayizor.afeme.manager.PostPrefsManager
 import com.ayizor.afeme.model.User
 import com.ayizor.afeme.model.response.UserResponse
 import com.ayizor.afeme.utils.Logger
@@ -44,21 +48,26 @@ class ProfileFragment : Fragment() {
     private fun inits() {
         dataService = Client.getClient(requireContext())?.create(ApiInterface::class.java)
         binding.ivSettingProfile.setOnClickListener {
-            showSettingsBottomsheet()
+            if (PostPrefsManager(requireContext()).loadImages().isNullOrEmpty()) {
+                val i = Intent(requireContext(), WelcomeActivity::class.java)
+                startActivity(i)
+            } else {
+                showSettingsBottomsheet()
+            }
+
         }
         setupFeaturesViewPager()
         getUserDatas()
 
-        /*val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottomBar)
-
-        if (navBar != null) {
-            navBar.visibility=View.GONE
-        }*/
     }
 
     private fun displayUserDatas(user: User) {
-//        val user: ArrayList<User>? =userdatas.data
-        Glide.with(this).load(user.user_photo).into(binding.ivProfile);
+
+        Glide.with(this).load(user.user_photo).into(binding.ivProfile)
+        if (!user.user_description.isNullOrEmpty())
+            binding.tvDescription.text = user.user_description
+
+        binding.tvFullName.text = user.user_name + " " + user.user_last_name
     }
 
     private fun setupFeaturesViewPager() {
@@ -101,7 +110,7 @@ class ProfileFragment : Fragment() {
 
 
     private fun getUserDatas() {
-        dataService!!.getSingleUser(67).enqueue(object : Callback<UserResponse> {
+        dataService!!.getCurrentUser().enqueue(object : Callback<UserResponse> {
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 Logger.d("Profile", response.body()?.data.toString())
@@ -131,9 +140,10 @@ class ProfileFragment : Fragment() {
 
         }
         bottomSheetBinding.tvEditPublicProfile.setOnClickListener {
-
+            val i = Intent(requireContext(), EditPublicProfileActivity::class.java)
+            startActivity(i)
         }
-        bottomSheetBinding.tvEditPublicProfile.setOnClickListener {
+        bottomSheetBinding.tvCopyProfileLink.setOnClickListener {
 
         }
 

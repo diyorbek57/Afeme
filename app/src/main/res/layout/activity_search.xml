@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,38 +17,39 @@
         android:weightSum="3">
 
         <RelativeLayout
-            android:transitionName="search_field"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_weight="3"
             android:background="@drawable/item_search_view_background"
             android:paddingHorizontal="25dp"
-            android:paddingVertical="10dp">
+            android:paddingVertical="10dp"
+            android:transitionName="search_field">
 
 
             <EditText
-                android:inputType="text"
                 android:id="@+id/et_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:background="@android:color/transparent"
                 android:hint="@string/search"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
                 android:padding="3dp" />
 
 
         </RelativeLayout>
 
         <ImageView
-            android:transitionName="filter_field"
             android:id="@+id/iv_filter_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:background="@drawable/ic_item_light_icon_15_background"
             android:padding="10dp"
-            android:src="@drawable/ic_filter" />
+            android:src="@drawable/ic_filter"
+            android:transitionName="filter_field" />
 
     </LinearLayout>
 
@@ -71,6 +73,18 @@
             android:fontFamily="@font/source_sans_pro_semibold"
             android:textColor="@color/bright_blue"
             android:textSize="18sp" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/progress_bar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/ic_item_light_icon_15_background"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="four_circle_loading.json"
+            app:lottie_loop="true"
+            app:lottie_speed="1.3" />
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView

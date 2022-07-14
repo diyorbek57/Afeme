@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.ayizor.afeme.R
 import com.ayizor.afeme.activity.authentication.WelcomeActivity
 import com.ayizor.afeme.databinding.ItemPostLargeBinding
 import com.ayizor.afeme.manager.PostPrefsManager
@@ -50,18 +51,24 @@ class LargePostsAdapter(
                         )
                     }
                 }
+                val state = locationName?.state
+                val city = locationName?.city
                 if (locationName != null) {
-                    val state = locationName.state
-                    val city = locationName.city
+
                     if (!city.isNullOrEmpty()) {
-                        binding.tvLocationPostLarge.text = state + city
+                        binding.tvLocationPostLarge.text = "$state, $city"
                     } else {
                         binding.tvLocationPostLarge.text = state
                     }
 
                 }
-                binding.tvNamePostLarge.text = locationName?.state + ", " + post_rooms
-                binding.tvPricePostLarge.text = "$"+post_price_usd?.let { Utils.formatUsd(it) }
+                if (!state.isNullOrEmpty()){
+                    binding.tvNamePostLarge.text = state + ", " + post_rooms + " " + context.getString(R.string.rooms)
+                }else if(!city.isNullOrEmpty()){
+                    binding.tvNamePostLarge.text = city + ", " + post_rooms + " " + context.getString(R.string.rooms)
+                }
+
+                binding.tvPricePostLarge.text = "$" + post_price_usd?.let { Utils.formatUsd(it) }
                 binding.tvTypePostLarge.text = post_building_type?.category_name_en.toString()
                 binding.tvPeriodPostLarge.visibility = View.GONE
                 if (post_rating != null) {

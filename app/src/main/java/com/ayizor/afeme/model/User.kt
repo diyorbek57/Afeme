@@ -28,12 +28,12 @@ data class User(
     val user_device_type: String? = "",
     @SerializedName("password")
     val user_password: String? = "",
-//    @SerializedName("region_id")
-//    val user_region: String? = "",
-    @SerializedName("longitude")
-    val user_longitude: String? = "",
-    @SerializedName("latitude")
-    val user_latitude: String? = "",
+    @SerializedName("region_id")
+    val user_region: String? = "",
+    @SerializedName("city_id")
+    val user_city: String? = "",
+    @SerializedName("description")
+    val user_description: String? = "",
     @SerializedName("posts")
     val user_posts: ArrayList<Post>? = null,
     @SerializedName("favorites")

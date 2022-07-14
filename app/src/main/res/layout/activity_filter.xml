@@ -125,7 +125,7 @@
                         app:spinner_popup_elevation="14dp" />
 
                     <com.skydoves.powerspinner.PowerSpinnerView
-                        android:id="@+id/spinner_currency"
+                        android:id="@+id/spinner_category"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
@@ -170,12 +170,12 @@
                     app:tabSelectedTextColor="@color/white"
                     app:tabTextColor="@color/black" />
 
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/chip_group_communication_way"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    app:chipSpacingHorizontal="-15dp" />
+<!--                <com.google.android.material.chip.ChipGroup-->
+<!--                    android:id="@+id/chip_group_communication_way"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="5dp"-->
+<!--                    app:chipSpacingHorizontal="-15dp" />-->
 
                 <RelativeLayout
                     android:layout_width="match_parent"

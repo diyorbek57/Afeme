@@ -10,8 +10,8 @@ data class GetPost(
     val post_id: Int? = null,
     @SerializedName("image")
     val post_images: ArrayList<Image>? = null,
-    @SerializedName("user_id")
-    val user_id: User? = null,
+    @SerializedName("user")
+    val user: User? = null,
     @SerializedName("videos")
     val post_videos: ArrayList<Video>? = null,
     @SerializedName("htype_id")
@@ -35,7 +35,7 @@ data class GetPost(
     @SerializedName("repair_id")
     val post_repair: Repair? = null,
     @SerializedName("documents")
-    val post_documents: String? = null,
+    val post_documents: ArrayList<Image>? = null,
     @SerializedName("description")
     val post_description: String? = "",
     @SerializedName("material_id")
@@ -54,8 +54,8 @@ data class GetPost(
     val post_flat: String? = "",
     @SerializedName("like")
     val post_isLiked: Boolean? = null,
-    @SerializedName("reyting")
-    val post_rating: Double? = null,
+    @SerializedName("reting")
+    val post_rating: String? = null,
     @SerializedName("fullreyting")
     val post_rates: ArrayList<Rating>? = null,
     @SerializedName("ipoteka")

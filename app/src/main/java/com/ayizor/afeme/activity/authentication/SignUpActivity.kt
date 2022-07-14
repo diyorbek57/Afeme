@@ -19,7 +19,7 @@ import retrofit2.Response
 class SignUpActivity : BaseActivity() {
     lateinit var binding: ActivitySignUpBinding
     val TAG: String = SignUpActivity::class.java.simpleName
-    lateinit var user_account_type: String
+    var user_account_type: String ="Personal"
     lateinit var user_latitude: String
     lateinit var user_longitude: String
     lateinit var user_passport_number: String
@@ -72,14 +72,14 @@ class SignUpActivity : BaseActivity() {
                     Logger.d(TAG, response.body()?.data.toString())
                     Logger.d(TAG, response.code().toString())
                     Logger.d(TAG, response.body()?.data.toString())
-                    if (response.body()?.status == true) {
+//                    if (response.body()?.status == true) {
                         callConfirmCodeActivity()
-                    } else {
-                        showTopSnackBar(
-                            binding.mainLayoutSignup,
-                            response.body()?.message.toString()
-                        )
-                    }
+                   // } else {
+//                        showTopSnackBar(
+//                            binding.mainLayoutSignup,
+//                            response.body()?.message.toString()
+//                        )
+                  //  }
 
                 }
 

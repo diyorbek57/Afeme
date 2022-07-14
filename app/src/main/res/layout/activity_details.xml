@@ -200,8 +200,10 @@
                     android:layout_height="55dp"
                     android:adjustViewBounds="true"
                     android:scaleType="centerInside"
-                    android:src="@drawable/house_1"
-                    app:shapeAppearanceOverlay="@style/circler_imageView" />
+                    android:src="@drawable/default_profile_image"
+                    app:shapeAppearanceOverlay="@style/circler_imageView"
+                    app:strokeColor="@color/bright_blue"
+                    app:strokeWidth="1dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -216,8 +218,10 @@
                         android:id="@+id/tv_username_details"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:maxLength="14"
+                        android:maxLines="1"
                         android:fontFamily="@font/source_sans_pro_semibold"
-                        android:text="@string/username"
+                        android:text="@string/dummy_text"
                         android:textAllCaps="false"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
@@ -301,17 +305,17 @@
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
-<!--            <com.taufiqrahman.reviewratings.RatingReviews xmlns:bar="http://schemas.android.com/apk/res-auto"-->
-<!--                android:id="@+id/rating_reviews"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                bar:animation="true"-->
-<!--                bar:max_value="100"-->
-<!--                bar:show_label="true"-->
-<!--                bar:spaces="0dp"-->
-<!--                bar:text_color="@color/black"-->
-<!--                bar:text_size="10sp"-->
-<!--                bar:width="15dp" />-->
+            <!--            <com.taufiqrahman.reviewratings.RatingReviews xmlns:bar="http://schemas.android.com/apk/res-auto"-->
+            <!--                android:id="@+id/rating_reviews"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                bar:animation="true"-->
+            <!--                bar:max_value="100"-->
+            <!--                bar:show_label="true"-->
+            <!--                bar:spaces="0dp"-->
+            <!--                bar:text_color="@color/black"-->
+            <!--                bar:text_size="10sp"-->
+            <!--                bar:width="15dp" />-->
 
             <TextView
                 android:layout_width="wrap_content"
@@ -425,15 +429,15 @@
                         android:textColor="@color/bright_blue"
                         android:textSize="26sp" />
 
-                    <TextView
-                        android:id="@+id/tv_period_post_details"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/source_sans_pro_semibold"
-                        android:text="/month"
-                        android:textAlignment="center"
-                        android:textColor="@color/dark_grayish_blue"
-                        android:textSize="14sp" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_period_post_details"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:fontFamily="@font/source_sans_pro_semibold"-->
+<!--                        android:text="/month"-->
+<!--                        android:textAlignment="center"-->
+<!--                        android:textColor="@color/dark_grayish_blue"-->
+<!--                        android:textSize="14sp" />-->
                 </LinearLayout>
             </LinearLayout>
 

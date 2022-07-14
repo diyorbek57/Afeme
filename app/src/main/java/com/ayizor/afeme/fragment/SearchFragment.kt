@@ -16,10 +16,12 @@ import android.widget.RelativeLayout
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import com.ayizor.afeme.R
+import com.ayizor.afeme.activity.FilterActivity
 import com.ayizor.afeme.activity.SearchActivity
 import com.ayizor.afeme.api.main.ApiInterface
 import com.ayizor.afeme.api.main.Client
 import com.ayizor.afeme.databinding.FragmentSearchBinding
+import com.ayizor.afeme.model.CustomClusterItem
 import com.ayizor.afeme.model.post.GetPost
 import com.ayizor.afeme.model.response.GetPostResponse
 import com.ayizor.afeme.utils.Extensions.toast
@@ -32,9 +34,10 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
+import com.google.maps.android.clustering.ClusterManager
+import com.google.maps.android.clustering.ClusterManager.OnClusterItemClickListener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -50,6 +53,7 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
     private val postsMarkerMap: HashMap<Marker, GetPost>? = null
     var dataService: ApiInterface? = null
     var postsList: ArrayList<GetPost> = ArrayList()
+    private lateinit var clusterManager: ClusterManager<CustomClusterItem>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -83,6 +87,10 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
                 startActivity(intent, options.toBundle())
             }
         }
+        binding.ivSearchFilter.setOnClickListener {
+            val i = Intent(requireContext(), FilterActivity::class.java)
+            startActivity(i)
+        }
 
     }
 
@@ -112,13 +120,15 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
         googleMap.uiSettings.isZoomGesturesEnabled = true;
         googleMap.uiSettings.isScrollGesturesEnabled = true
         googleMap.uiSettings.isMapToolbarEnabled = false;
-        googleMap.setOnMarkerClickListener(this);
 
-        val cameraPosition = CameraPosition.Builder()
-            .target(LatLng(41.303322, 69.256782)).zoom(6f).build()
+
+        val cameraPosition =
+            CameraPosition.Builder().target(LatLng(41.303322, 69.256782)).zoom(6f).build()
 
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         Logger.d(TAG, "Map is ready")
+        clusterManager = ClusterManager(context, googleMap)
+
 
         dataService?.getAllPosts()?.enqueue(object : Callback<GetPostResponse> {
             @SuppressLint("NotifyDataSetChanged")
@@ -127,26 +137,35 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
                 response: Response<GetPostResponse>
             ) {
                 if (response.isSuccessful && response.code() == 200) {
-                    Logger.d(TAG, "isSuccessful data: " + response.body()?.data.toString())
-                    Logger.d(TAG, "isSuccessful  code: " + response.code())
+
                     postsList = response.body()?.data!!
 //                binding.rvSellType.visibility = View.VISIBLE
 //                binding.progressBar.visibility = View.GONE
                     for (i in 0 until postsList.size) {
-                        Logger.e(TAG, "marker loop started")
                         val latlang = LatLng(
                             postsList[i].post_latitude!!.toDouble(),
                             postsList[i].post_longitude!!.toDouble()
                         )
-                        myMarker = googleMap.addMarker(MarkerOptions().position(latlang))
-                        myMarker?.tag = postsList[i]
-                        Logger.e(TAG, "marker position: $latlang")
+                        //  myMarker = googleMap.addMarker(MarkerOptions().position(latlang))
+                        val offsetItem = CustomClusterItem(
+                            latlang.latitude,
+                            latlang.longitude,
+                            "Title $i",
+                            "Snippet $i",
+                            postsList[i]
+                        )
+                        clusterManager.addItem(offsetItem)
 
-                        // create marker
-                        myMarker?.let { postsMarkerMap?.put(it, postsList[i]) }
+                        clusterManager.setOnClusterItemClickListener(mClusterItemClickListener);
+                        googleMap.setOnCameraIdleListener(clusterManager);
+                        googleMap.setOnMarkerClickListener(clusterManager);
+                        //  myMarker?.tag = postsList[i]
+
+
+                        /// myMarker?.let { postsMarkerMap?.put(it, postsList[i]) }
                     }
-                    // Changing marker icon
-                    // adding marker
+
+
                 } else {
                     Logger.e(TAG, "error data: " + response.body()?.data.toString())
                     Logger.e(TAG, "error  code: " + response.code())
@@ -216,23 +235,38 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
-        showBottomSheet(marker)
+
         return false
 
     }
 
-    private fun showBottomSheet(marker: Marker) {
-        val post: GetPost = marker.tag as GetPost
-        val locationName = Utils.getCoordinateName(
-            requireContext(),
-            marker.position.latitude,
-            marker.position.longitude
-        )
-        if (locationName.state.isNullOrEmpty() && locationName.city.isNullOrEmpty()) {
+    var mClusterItemClickListener: OnClusterItemClickListener<CustomClusterItem> =
+        OnClusterItemClickListener<CustomClusterItem> { item ->
+            binding.bottomSheetSearch.visibility = View.VISIBLE
+            if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            }
+
+            showBottomSheet(item.getTag()!!)
+            true
+        }
+
+    private fun showBottomSheet(post: GetPost) {
+        //  val post: GetPost = marker.tag as GetPost
+        val locationName = post.post_latitude?.toDouble()?.let {
+            post.post_longitude?.toDouble()?.let { it1 ->
+                Utils.getCoordinateName(
+                    requireContext(),
+                    it,
+                    it1
+                )
+            }
+        }
+        if (locationName?.state.isNullOrEmpty() && locationName?.city.isNullOrEmpty()) {
             binding.tvLocationPostLargeSearch.visibility = View.GONE
 
         }
-        binding.tvLocationPostLargeSearch.text = locationName.state + locationName.city
+        binding.tvLocationPostLargeSearch.text = locationName?.state + locationName?.city
         try {
             Glide.with(requireActivity()).load(
                 Utils.replaceWords(
@@ -259,9 +293,10 @@ class SearchFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
         }
 
 
-        binding.tvPricePostLargeSearch.text = post.post_price_usd?.let { Utils.formatUsd(it) }
+        binding.tvPricePostLargeSearch.text =
+            "$ " + post.post_price_usd?.let { Utils.formatUsd(it) }
         binding.tvNamePostLargeSearch.text =
-            locationName.state + ", " + post.post_rooms + getString(R.string.rooms)
+            locationName?.state + ", " + post.post_rooms + getString(R.string.rooms)
 
 
     }

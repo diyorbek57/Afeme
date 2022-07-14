@@ -32,8 +32,8 @@ class SellTypesAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         with(holder.itemViewType) {
             with(categoryList[position]) {
-                binding.tvSellTypeName.text = category_name
-                if (category_name != null) {
+                binding.tvSellTypeName.text = post_type_name_en
+                if (post_type_name_en != null) {
                     Glide.with(context)
                         .load(Api.CATEGORY_IMAGE_URL + category_icon)
                         .into(binding.ivSellType)

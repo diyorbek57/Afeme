@@ -47,7 +47,7 @@
     <string name="username">Username</string>
     <string name="gallery">Gallery</string>
     <string name="search">Search</string>
-    <string name="api_key">AIzaSyDy1jNxGNLB-EI5SmGHJXRISt07m6b9jcg</string>
+    <string name="api_key">AIzaSyAUpTMk6vOvObIHvXKG9WBfwpPnYOqpQuA</string>
     <string name="location">Location</string>
     <string name="features_amp_facilities"><![CDATA[Features & Facilities]]></string>
     <string name="status">Status</string>
@@ -135,6 +135,11 @@
     <string name="edit_public_profile">Edit public profile</string>
     <string name="copy_profile_link">Copy profile link</string>
     <string name="whooops">Whooops!</string>
+    <string name="you_ve_got_no_message">You\'ve got no message</string>
+    <string name="no_data">No data</string>
+    <string name="public_profile">Public profile</string>
+    <string name="edit">Edit</string>
+    <string name="done">Done</string>
     <array name="account_types">
         <item name="personal">Personal</item>
         <item name="business">Business</item>
